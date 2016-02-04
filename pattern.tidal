@@ -1,0 +1,36 @@
+import Sound.Tidal.Vis
+import qualified Graphics.Rendering.Cairo as C 
+import Data.Colour
+import Data.Colour.Names
+import Data.Colour.SRGB
+
+
+cps 0.5
+
+d1 $ every 2 (# coarse "16") $ every 3 rev $ sound "[bd sn:1 cp, arpy:1 arpy:3 arpy:3 arpy]"
+  # gain "2"
+  # speed (slow 4 sine1)
+
+
+# a
+
+let pat = ((flip darken) <$> (every 7 (iter 4) $ every 2 (0.5 <~) $ every 5 rev $ slowspread ($) [rev, density 2, slow 3, (0.25 <~)] "[black ~ grey ~, white darkgrey grey]") <*> ((+) <$> slow 19 sine1 <*> slow 47 ((+0.1) . (*0.9) <$> sine1))) in
+  vLines (C.withPDFSurface) "/home/alex/Dropbox/projects/tidal/vis/test.pdf" (400,400) pat 50 50
+
+# b
+
+let pat = ((flip darken) <$> (every 7 (iter 4) $ every 5 rev $ slowspread ($) [rev, density 2, slow 3, (0.25 <~)] "[black ~ grey ~, white darkgrey grey]") <*> ((*) <$> slow 45 sine1 <*> slow 46 sine1)) in
+  vLines (C.withPDFSurface) "/home/alex/Dropbox/projects/tidal/vis/test.pdf" (400,400) pat 50 50
+
+# c
+
+let pat = ((flip darken) <$> (every 5 rev $ slowspread ($) [rev, density 2, slow 3] "{grey darkgrey grey, grey, black white [black ~ white] grey}") <*> ((*) <$> slow 37 rand <*> slow 45 sine1)) in
+  vLines (C.withPDFSurface) "/home/alex/Dropbox/projects/tidal/vis/test.pdf" (400,400) pat 50 50
+
+# d
+
+let pat = ((flip darken) <$> (superimpose (iter 8) $ every 4 (slow 3) $ every 3 (density 5) $ "[grey white black, lightgrey darkgrey]") <*> (slow 4 sine1)) in
+  vLines (C.withPDFSurface) "/home/alex/Dropbox/projects/tidal/vis/test.pdf" (400,400) pat 50 50
+
+
+d1 $ slow 2 $ (superimpose (iter 8) $ every 4 (slow 3) $ every 3 (density 5) $ sound "[feel feel:2 feel:5, cp:4 feel:3]" |+| speed ((+1) . (*0.2) <$> slow 4 sine1))

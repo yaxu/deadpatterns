@@ -1,0 +1,24 @@
+d1 $ 
+  stack [(every 2 ((1/4) <~) $ (spread' (striate) "16 4 2 1" $ sound "bass3 jvbass*4")
+          |+| shape "0.5"
+          |+| speed (every 2 (slow 3) "2 5 1.5 2 3")
+         ),
+         brak (sound "[bd*4 bd*3]/2"
+               |+| end "0.4"
+              ),
+         every 3 (density 2) $ slow 4 $ striate 32 (sound "rave/6")
+         |+| speed "[0.5, 2 3]",
+    sound ("sid/2 gretsch*2 drum bd"),
+    sound (pick <$> "[drum*8,future]" <*> (every 2 rev "1 0 1 0 2"))
+    |+| vowel "e"
+    |+| end "0.25",
+    (brak $ sound "[drum,gretsch,bd,odx] drum/1"),
+    sound (samples "kurt*4" "1 2 3 2")
+    --(slow 2 $ sound "[odx odx odx odx odx odx odx*4 odx*4, [~ bass3*2]*8]")
+        ]
+  |+| speed "1"
+
+
+hush
+
+bps (65/60)

@@ -1,0 +1,36 @@
+hush
+
+d7 $ slow 2 $ sound "bd [jvbass bd jvbass/2]"
+  |+| end "0.2"
+
+d6 $ slow 4 $ every 2 (0.5 <~) $ every 4 (density 3) $ (slow 12 $ density 8 $ sound (pick <$> "[jvbass jvbass] [bd bd jvbass]" <*> (slow 8 "0 8 1 2")))
+  |+| pan (((+ 0) . (* 0.5)) <$> sinewave1)
+  |+| shape "0.9"
+  |+| speed "[2.82, 2.78]"
+
+d1 $ slow 3 $ every 2 (rev) $ every 4 (density 2) $ (slow 8 $ density 8 $ sound (pick <$> "[jvbass jvbass/3] [bd bd jvbass/8]" <*> (slow 8 "0 4 1 2")))
+  |+| pan (((+0.5) . (* 0.5)) <$> sinewave1)
+  |+| shape "0.8"
+  |+| speed "[2.8, 4.82]"
+
+d2 $ every 8 (0.5 <~) $ every 4 (rev) $ slow 2 $ sound (pick <$> "lt [lt ht] lt [lt mt ht]" <*> (slow 7 $ run 4))
+  |+| speed "1.1 2.3"
+  |+| (slow 4 $ vowel "p p a p a p p p")
+  |+| pan "0"
+
+d3 $ every 8 (0.25 <~) $ every 8 (rev) $ slow 4 $ sound (pick <$> "lt [lt ht] lt [lt mt ht]" <*> (slow 3 $ run 6))
+  |+| speed "1.4 2.3"
+  |+| (slow 5 $ vowel "p a i p a p p p")
+  |+| pan "1"
+  |+| end "0.8"
+
+d4 silence
+
+d4 $ every 3 (0.25 <~) $every 4 rev $ slow 2 $ sound "[bd ~ [sn/2 [sn/2 bd ~] ~]]"
+  |+| speed "1"
+  |+| shape "0.3"
+
+d5 $ density 2 $ sound "[gabba off]"
+
+  
+d5 silence

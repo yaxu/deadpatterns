@@ -1,0 +1,77 @@
+d1 $ density 2 $ jux (iter 8) $ slow 2 $ sound (pick <$> "bd arpy [bd, arpy*2] ~" <*> (slow 13 $ scan 8))
+  |+| speed "[1,2,-4]"
+  |+| delay "1"
+  |+| delayfeedback "0.5"
+  |+| delaytime (slow 8 $ (*0.03) <$> sine1)
+  |+| cutoff (slow 8 $ scale 0 0.07 $ sine1)
+  |+| resonance (slow 12 $ scale 0 0.6 sine1)
+
+
+d1 silence
+
+d6 $ stack [every 2 (slow 2) $ superimpose (iter 4) $ slow 2 $ every 8 ((1/4) <~) $ sound "future*3 bd*2 wobble [cp bd bd]"
+            |+| shape "0.9"
+            |+| gain "2"
+            |+| speed "[2,3,4]"
+            |+| cutoff ((+0.01) <$> (slow 16 $ scale 0 0.01 sine1))
+            |+| resonance ((+0.2) <$> (slow 12 $ scale 0 0.5 sine1)),
+            slowspread ($) [rev, iter 8, (|+| speed "0.75"), density 2] $ jux (0.25 <~) $ sound (pick <$> "amencutup*4 amencutup*2" <*> (slow 8 $ run 128))
+            |+| shape "0.7"
+            |+| gain "2"
+           ]
+
+
+
+d7 $ jux rev $ slow 16 $ (slow 2 $ every 2 rev $ striate 128 $ sound "[bev*16]")
+  |+| speed "[1,0.5,2]"
+  |+| gain "1"
+
+d5 $ slow 4 $ whenmod 8 2 (superimpose (0.25 <~)) $ jux rev $ sound (pick <$> "[bd bd ~]*4" <*> run 6)
+  |+| shape "0.5"
+  |+| speed "[2 1]"
+  |+| delay "0.8"
+  |+| delayfeedback "0.8"
+  |+| delaytime "[0.1 0.2 0.07]/5"
+  |+| delayfeedback "0.8"
+
+d1 $ slowcat [every 3 (jux (0.25 <~)) $ every 2 (rev) $ brak $ sound "[drum [off]/4 [sid:1 sid:1 drum:1*3 drum:1*2]/4 cp]"
+              |+| shape "0.9"
+              |+| speed "[1 2 1 2 [4,2] 1]/4"
+              |+| accelerate "[1 2 3 4]/12"
+              |+| delay "[0.8 0 0 0]/3",
+              jux (iter 8) $ every 3 (0.25 <~) $ striate 4 $ sound (pick <$> "rave2" <*> (slow 8 $ (floor . (*128) <$>) rand))
+              |+| shape "0.7"
+              |+| speed "[-0.5,-2 -1]/2"
+              |+| delay "[0.8]/3"
+              |+| delaytime "0.04"
+              |+| delayfeedback "0.7"
+             ]
+
+let sineTo x = (* x) <$> sine1 
+
+
+d1 $ slow 2 $ sound "chin chin chin chin"
+
+d1 $ superimpose (spin 8) $ slow 4 $ sound "bubble:7*3 [bubble:2 bubble:1]"
+  |+| gain "2"
+  |+| speed "0.9"
+
+d2 $ slowspread ($) [rev, iter 4, (0.5 <~)] $ slowspread (stut 8 0.95) [0.25,0.5,1,0.75] $ slow 2 $ superimpose rev $ sound "[bd bleep:5 bd*2 bd bd cp drum:1 ~, gabbalouder ~ rave2:4 ~]"
+  |+| gain "0.5"
+  |+| speed "[1,[2 3 0.75]/3]"
+--  |+| delay "1"
+
+d3 $ striate 4 $ sound "wobble [jvbass jvbass:4]/4"
+  |+| gain "4"
+  |+| speed "[4,2]"
+  |+| accelerate "[2 2 2 -2]/3"
+
+d4 $ every 4 (slow 2) $ striate 4 $ superimpose ((1%8) <~) $ slow 2 $ jux (iter 8) $ sound "{arpy ~ arpy*2 arpy, arpy:2 [arpy:3*2] arpy:2 arpy:5}"
+  |+| shape "0"
+  |+| speed "[0.5,0.25]"
+  |+| delay "1"
+  |+| delaytime "[0.01 0.02 0.8]/4"
+  |+| delayfeedback "0.1"
+
+d1 $ every 2 (striate 4) $ jux (iter 4) $ every 4 (0.25 <~) $ sound "[~ newnotes:4] [newnotes:5 newnotes]"
+  |+| speed "[0.5,0.25]"

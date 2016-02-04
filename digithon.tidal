@@ -1,0 +1,51 @@
+# OK hello digithon
+# I'll be doing this for about half an hour
+# don't forget to donate - http://digithon.lurk.org/
+
+d1 $ slow 2 $ slowspread ($) [rev, density 2] $ sound (pick <$> "bd*3 ~ rave2"<*>  (every 2 rev $ slow 5 $ run 12))
+
+d2 $ superimpose (iter 4) $ jux (slow 2) $ rev $ striate 8 $ sound "rave:6"
+  |+| accelerate "[-1 1]/2"
+  |+| speed "2"
+
+d3 $ every 4 (rev) $ slow 2 $ striate 16 $ sound "breaks125"
+  |+| speed "0.7"
+  |+| gain "1.8"
+
+d4 $ every 3 (slow 1.5) $ brak $ sound "feel*2 feel:2*3"
+  |+| gain "1.7"
+
+d5 $ (sound "feel*4? jungbass:2"
+  |+| gain "1.7")
+  |+| speed (whenmod 6 3 ((*2) <$>) $ slow 4 $ (+1) <$> sine1)
+
+d6 $ every 3 (rev) $ slow 4 $ striate 32 $ sound "[atlast ! atlast [atlast:2 atlast:1]/2]/4"
+  |+| gain "1.6"
+  |+| speed "[1,1.01]"
+
+d2 $ jux (iter 4) $ sound "bd*4 ~ sn ~"
+
+d7 $ sound "newnotes newnotes:3"
+  |+| accelerate "1"
+
+d8 $ (density 2) $ jux (0.25 <~) $ slow 16 $ striate 32 $ sound "[mef:1]"
+  |+| speed "[0.5,2,1]"
+  |+| gain "2.3"
+
+d9 $ sound "bd bd*3?"
+  |+| speed "0.7"
+
+d1 $ jux (rev) $ every 3 (density 1.5) $ sound (samples "{bd sn, can cp can:2}" "[1 2 3 4 5]/3")
+
+d2 $ jux (iter 8) $ sound "bd*3 bd*8 bd*16 ~"
+  |+| speed "8"
+  |+| gain "0.9"
+
+d5 $ jux (rev) $ smash 4 [2,3,4] $ sound "drum newnotes*3"
+  |+| gain "1.8"
+
+d6 $ every 4 (striate 4) $ sound "h:1"
+  |+| gain "1.2"
+
+# Ok thanks for listening
+# we should get ready for the next transmission now which is from mexico...

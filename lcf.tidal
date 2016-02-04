@@ -1,0 +1,9 @@
+
+
+d4 $ brak $ every 2 (0.25 <~) $ every 8 (rev) $ sound "[bd sn [mt ht] lt]"
+  |+| speed ((+) <$> "1.4" <*> (slow 4 sinewave1))
+
+d1 $ slow 2 $ brak $ slow 2 $ sound "bd [lt sn/3 bd] [bd bd bd] sn/2"
+  |+| speed "0.5"
+  |+| vowel (slow 2 "o e")
+

@@ -1,0 +1,94 @@
+cps 0.8
+
+
+d1 $ slow 4 $ jux rev $
+sound (samples' "xx" (offadd (-0.125) 12 $ rev $ tom "c(3,8) e(3,8/2) f(3,8) g(3,8)"))
+  # gain "1.3"
+  # vowel "[a o e i]/3"
+  # cutoff "0.1"
+
+
+d2 $ foldEvery [5,7] (|*| up "7") $  jux (iter 4) $ stut' 7 (- (1/32)) ((|+| crush "3") . (|*| gain "0.9")) $ sound (samples' "arpy" (slow 2 $ "0 [5 3]"))
+  # speed "[1,2]"
+  # gain "1.2"
+
+d3 $ sometimes (|*| up "12") $ jux rev $ slow 4 $ sound (samples' "[aid]" (offadd (-0.125) 12 $ rev $ tom "c3(3,8) e3(3,8) f3(3,8) g3(3,8)")) # speed "[1,2]" |*| up "3" 
+  # delay "0" # delayfeedback "0.1"
+
+
+d4 $ jux rev $ iter 4 $ (slow 4 $ striate 16 $ sound "paper*2"
+      # unit "c"
+      # speed "[0.5]"
+      # gain "0.95")
+
+d $ brak $ drum "[bd(3,8), cl*4 sn*2, cp(5,8)]"
+  # std (slow 4 sine1)
+  # stt (slow 5 sine1)
+  # nudge "[0 0.04]*4"
+  
+d2 $ (chop 32 $ sound "[[drum,feel,future] cp*2, arpy:4 arpy*4]")
+  -- # (slow 8 $ nudge (scale 0 0.5 sine1))
+  # nudge "[0 0.04]*4"
+  # gain "1.1"
+  # speed "1.5"
+
+d3 $ sound "g(3,8)"
+  # nudge "[0 0.04]*4"
+  # crush "3" # shape "0.5"
+
+d5 $ sometimes ((|*| speed "2") . (density 2)) $ jux (iter 8) $ slowspread (stut 4 0.9) [0.125, (1/16), 3, (1/32)] $ slow 2 $ sound (samples "amencutup(3,8) amencutup(5,8)" (slow 8 $ scan 8))
+  # gain "1.4"
+  # speed "[1 1 1 2]/4"
+
+d4 silence
+
+-- got to go..
+
+check kindohm instead http://www.watchpeoplecode.com/streamer/kindohm
+
+let permstep steps things p = unwrap $ (\n -> listToPat $ concatMap (\x -> replicate (fst x) (snd x)) $ zip (ps !! (floor (n * (fromIntegral $ (length ps - 1))))) things) <$> (discretise 1 p)
+      where ps = permsort (length things) steps
+            deviance avg xs = sum $ map (abs . (avg-) . fromIntegral) xs
+            permsort n total = map fst $ sortBy (comparing snd) $ map (\x -> (x,deviance (fromIntegral total/ fromIntegral n) x)) $ perms n total
+            perms 0 _ = []
+            perms 1 n = [[n]]
+            perms n total = concatMap (\x -> map (x:) $ perms (n-1) (total-x)) [1 .. (total-(n-1))]
+
+:t sine1
+
+
+
+d1 $ off 0.125 (# speed "[2 4]/2") $ jux rev $ chop 8 $ slow 4 $ (sound $ samples' "feel" $ permstep 16 ([0,5,2,6]) (slow 16 sine1))
+
+d2 $ slow 4 $ (sound $ samples' "kurt" $ permstep 16 ([0,1,2,3,4]) (slow 16 sine1))
+
+
+d3 $ slow 4 $ (sound $ samples' "drum" $ permstep 16 ([7,6,0]) (slow 16 sine1))
+
+d4 $ brak $ sound "drum sd8:4*3" # gain "1.2"
+
+
+
+0526 01234 760
+
+:t samples'
+
+d2 $ slow 4 $ sound $ unwrap $ (perculate 16 (words "latibro:0 latibro:1 latibro:2 latibro:3 latibro:4")) <$> (discretise 1 $ slow 16 sine1)
+
+d3 $ slow 4 $ sound $ unwrap $ (perculate 16 (words "latibro:7 latibro:6 latibro:0")) <$> (discretise 1 $ slow 16 sine1)
+
+
+
+
+my @seq = @{([qw/ 0 5 2 6 /],
+             [qw/ 0 1 2 3 4 /],
+             [qw/ 7 6 0 /],
+
+import Data.Ord
+
+permsort 4 8
+
+deviance 4 [9,2,4,1]
+deviance 4 [4,4,4,4]
+
+perms 4 16

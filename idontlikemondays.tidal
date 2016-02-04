@@ -1,0 +1,49 @@
+
+d1 $ (iter 4 $ jux' [(#speed "1.1"), (# (speed "1.2"
+  # nudge sine1))] $
+  sound "drum([3 5 3 7]/2,8) [cp]/2")
+ |+| pan (slow 4 saw1)
+
+d2 $ slow 2 $ jux (iter 4) $
+   slowspread (\x -> stut' 3 x (|+| speed "1.5")) [2,3,0.02,0.04]
+   $ sound (samples' "voodoo" "{1 2 [2 3] 4, 0 2*2 3}")
+
+d3 $ (slow 2 $ rarely (slow 4 . rev . chop 6) $ slow 2 $ jux (inside 4 rev)
+            $ sound (samples' "[xx]" (sometimes ((subtract 24) <$>) $ offadd (-0.125) 7
+            $ palindrome (tom "d(3,8) e(5,8) f(3,8) g(5,8)")))
+  # speed "[1]")
+
+d4 $ (slow 4 $ rarely (slow 4 . rev . chop 8) $ slow 2 $ jux (inside 4 rev)
+              $ sound (samples' "aid" (sometimes ((subtract 12) <$>) $ offadd (-0.125) (-5)
+              $ palindrome (tom "d(3,8) e(5,8) f(3,8) g(5,8)")))
+    # speed "[2]")
+
+d5 $ foldEvery [5,7] (0.25 <~)
+  $ (chop 16 $ sound (samples "os" (irand 3)))
+
+d6 $ slow 4 $ jux rev $ (stut' 3 0.06 (|*| speed (slow 4 $ scale 0.75 1.5 sine1))) $ chop 8 (sound "rave:6")
+hush
+
+
+
+s <- stream "127.0.0.1" 57120 dirt {timestamp = BundleStamp}
+
+
+cps (145/60/2)
+
+
+
+s $ stack [iter 4  $ sound "[bd*2 drum future] sd8:3"
+           # crush "{4 5 6}%1",
+           slowspread (stut 8 0.9) [0.25,1,0.5,0.75] $ jux rev $ slow 16 $ chop 16 $ sound "fm:12 ~"
+           # speed "0.75" # gain "0.6",
+           sound (samples' "aid" (slowspread (offadd (- 0.125)) [7,12,-5,7] $ tom "e ~ d6"))
+           # speed "2",
+           (superimpose (# up "[5 7 12]/3") $ palindrome $ chop 8 $ sound "~ xx:33*2"),
+           slow 2 $ jux (0.5 <~) $ stut 4 0.9 (0.5) $ spread' (density) "[1 2 3 4]/2" $ sound "ch*4"
+           # speed "0.75" # gain "0.75"
+          ] |*| gain "1"
+
+s silence
+           sound "drum*4?",
+           -- juxBy 0.2 (iter 4 . rev . chop 8) $ slow 2 $ sound "ind:39 ind:29 [~ ind:29] [~ ind:30]",

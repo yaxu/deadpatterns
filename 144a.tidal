@@ -1,0 +1,24 @@
+bps $ 126/60
+
+d1 $ superimpose (iter 3) $ slowspread ($) [id, slow 2] $ sound "bd ~ [bd:5*4]"
+   |+| speed "[2 1.5 3]/2"
+
+d1 $ (every 3 (density 1.5) $ sound (pick <$> "bd [sn rave2]" <*> ((floor . (*12)) <$> rand)))
+   |+| speed (slow 4 $ (+1) <$> sine1)
+   |+| delay "1"
+   |+| delayfeedback "0.7"
+   |+| delaytime "[0.02 0.01 0.03 0.02]/4"
+
+hush
+d3 $ every 3 (rev) $ striate 64 $ sound "breaks125"
+hush
+
+d1 $ (every 4 (stut 4 (0.9) (0.25)) $ every 4 (0.25 <~) $ every 3 (rev) $ striate 16 $ sound "rave:6")
+   |+| speed (every 3 (superimpose (\x -> (+) <$> x <*> sine1)) "[2 1.5]/3")
+   |+| accelerate "4"
+
+
+
+d1 $ superimpose (iter 8) $ every 3 (jux (rev)) $ sound "bd*4 jungbass bd*16 rave2"
+   |+| pan "0 1"
+   

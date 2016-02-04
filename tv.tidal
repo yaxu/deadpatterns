@@ -1,0 +1,86 @@
+d1 $ sound "bd(3,8)"
+
+d1 $ every 2 (jux (rev))$ superimpose (|+| speed "-0.75") $
+  sound (samples "[drum, drum*3 bd*8 sd8*3 bd*4]" (slow 4 $ run 4)) |+| speed "1"
+
+d2 $ iter 4 $ slow 32 $ striate 128 $ sound "bev*4"
+  |+| gain "1.4"
+
+d1 $ jux (iter 4) $ sound "bd*4 cp*3" |+| speed "2"
+
+d2 $ jux (|+| speed "[0.5,2]") $  (slow 4 $ striate 64 $ sound "liq") |+| speed "1"
+
+
+d3 $ jux (iter 4) $ sound (samples "amencutup*16" (unwrap $ run <$> (irand 16)))
+  |+| gain "0.9"
+  |+| delay "0.9" |+| delaytime (slow 2 $ scale 0 0.01 sine1)
+
+d4 $ jux ((|+| speed "-2") . density 2) $ chop 8 $ sound (slowspread (e 3) [8,16] (samples "g" (irand 16)))
+  |+| gain "1.2"
+
+d5 $ iter 4 $ jux (|+| accelerate "0.1") $ sound ((flip pick) <$> (tom "[d5 [~ e4] d5 [g e6]]") <*> "xx") |+| gain "1.2"
+
+
+d5 $ jux (iter 4) $ weave 16 (sound (samples "arpy*8" (rev $ run 8)))
+  [vowel "a e*2 o",
+   (vowel "a i" |+| speed "0.5"),
+   speed "2 3*2"
+  ] |+| shape "0.7"
+
+d6 $ every 2 (density 1.5) $ superimpose (slow 2) $ (chop 8 $ sound "[vocobass:10(3,8),drum(5,8)]")
+  |+| pan (slow 8 sine1)
+  |+| gain "1.2"
+
+d6 $ rev $ slow 4 $ striate 8 $ sound "atlast:1"
+  |+| gain "1.2"
+
+d7 $ sometimes (within (0,0.25) (density 2)) $ density 2 $ foldEvery [5,7] (0.25 <~) $ every 2 (density 2) $ slow 4 $ chop 16 $ sound "breaks165"
+  |+| gain "1.4"
+
+d8 $ jux (iter 4) $ smash 4 [3,4,5,6] $ sound "[g*4, printshort*2 off*2]"
+  |+| gain "1.3"
+
+d1 $ every 2 (|+| crush "4")$ jux (iter 4) $ sound "[bd8:3(3,8), bd8:5(5,8) sd8]"
+  |+| gain "1.2"
+  |+| delay "0.9"
+
+hush
+
+d9 $ slowspread (stut 2 0.9) [(-0.25),2,0.25,-2] $ jux (rev) $ slowspread (striate) [8,6] $ sound "rave:6"
+  |+| gain "1.2"
+
+d8 $ jux (iter 8) $ sound "gabba*4 gabba*8 bd*4 gabbalouder"
+  |+| shape "0.99"
+
+d1 $ stut (4) 0.99 (-1.5) $ (slow 32 $ rev $ striate 16 $ sound "redflag*4")
+  |+| speed "[1,1.5]"
+  |+| accelerate "0.1"
+
+d2 $ foldEvery [5,7,3] (0.25 <~) $ slow 2 $ sound (samples "amencutup*8" (run 8))
+  |+| gain "1.2"
+
+-- thanks for listening!
+-- I hope you could hear it ok
+
+
+let pat = "bd sn" :: Pattern String
+
+let chain :: Eq a => a -> a -> Time -> Double -> Pattern a -> Pattern a
+    chain from to offset prob pat = overlay pat $ (const to) <$> (degradeBy (1-prob) (offset ~> (filterValues (== from) pat))) 
+
+chain "sn" "cp" 0.25 0.75 "bd sn"
+
+x
+d1 $ sound (chain "sn" "cp" 0.1 1 $ "bd arpy")
+
+let snares' =  snares
+
+let snares'' = degradeBy 0.75 snares'
+
+let hats = (const "ch") <$> snares'
+
+d1 $ sound (overlay pat snares'')
+  |+| gain "1.5"
+
+
+hush

@@ -1,0 +1,34 @@
+d1 $ sound "bd(3,[8,4])"
+
+
+d1 $ (fmap e "3") 8 $ sound "bd"
+import Control.Monad
+
+d1 $ sound $ join (e <$> "3*12 4*8" <*> "4*12 16*16" <*> atom "drum")
+
+d2 $ sound "t"
+
+
+d1 $ jux (iter 4) $ slow 2 $ sound "drum ~ mt8 [cb8 bd]"
+  # nudge (stack ["[0 0.04]*4", slow 2 sine1])
+
+d2 $ every 2 ((# speed "[2,4,3]") . (# crush "8") . density 0.75) $ superimpose (rev . iter 8) $ sound "[drum [~ sd8:2 bd drum], bd(3,8)]"
+
+solo $ d3 $ stack [-- slow 8 $ sound (samples' "xx" (offadd 0.125 7 $ tom "d4(3,8) e4*2 f4(3,8) g4*3/2")) # speed "[0.5,1]",
+            jux rev $ sound "[xx:10(5,8) xx:12(6,8) xx:14(5,8) xx:16(7,8)]/8" # speed "[8]"
+            ]
+
+
+d1 $ stack [sound "bd ~ hc [~ bd8:4]",
+  (slowspread (chop) [8,64,32,128] $ sound "drum*2 sd8:4")
+  # nudge (stack [slow 4 sine1, "0"]),
+  stut' 2 6 (|*| speed "2") $ within (0,0.25) (density 2) $ slow 2 $ (jux rev $ chop 8 $ slow 8 $ sound (samples' "xx" (offadd (-0.125) 7 $ offadd (-0.125) 7 (tom "[d2(3,8) e2(5,8) f2(3,8) g2(5,8)]"))))
+  # gain "1.2"
+  ,
+  -- # crush "5"
+  spin 2 $ slow 2 $ chop 8 $ sound "bd drum"
+  ]
+  
+d2 $ jux (rev) $ slowspread ($) [density 2, rev, density 2, (|+| speed "1.5")] $ slowspread (chop) [16,3,5,8] $ slow 4 $ sound (samples "diphone2*2 alphabet" (irand 26))
+  # gain "1.5"
+

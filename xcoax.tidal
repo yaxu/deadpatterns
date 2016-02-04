@@ -1,0 +1,4 @@
+d1 $ jux (iter 4) $ every 3 (rev) $ slowspread (chop) [1,16,3,4,8] $ sound "bd sn"
+
+
+hush

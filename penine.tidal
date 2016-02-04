@@ -1,0 +1,5 @@
+
+d1 $ slowspread ($) [rev, density 8, density 2, iter 8] $ sound "bd [bd bd bd] bd"
+
+
+hush

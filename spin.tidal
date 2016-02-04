@@ -1,0 +1,12 @@
+d1 $ jux (iter 8) $ sound "bd arpy bd8 cp"
+   |+| shape "0.99"
+
+d3 $ sound "newnotes*8"
+   |+| end "0.3"
+   |+| speed "4"
+   |+| pan "0"
+
+d2 $ sound "newnotes*12"
+   |+| end "0.3"
+   |+| speed "6"
+   || pan "1"

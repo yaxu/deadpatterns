@@ -1,0 +1,51 @@
+(note, [clapSpeed, clavesSpeed, agogoSpeed, crashSpeed, stutterTime, stutterDepth, tomDecay, clhatDecay, ophatDecay, hatGrain], stop) <- Beat.start
+let sine128 = (floor . (* 128)) <$> sine1 :: Pattern Int
+
+
+
+d2 $ slow 2 $ every 4 (density 2) $ jux (iter 8) $ sound (pick <$> "bass3*2 bass3" <*> (slow 3 $ "1 2 3 4 5"))
+  |+| speed "2"
+  |+| vowel (every 3 rev "a e")
+
+d1 $ brak $ every 3 (slow 2) $ jux (iter 4) $ sound (pick <$> "jvbass*2 jvbass*3" <*> (slow 3 $ "1 2 3 4 5"))
+  |+| speed "2"
+  |+| shape "0.7"
+  |+| vowel (every 3 rev "a e")
+
+d3 $ jux rev $ sound (samples "amencutup*8" $ slow 5 $ run 12)
+  |+| shape "0.5"
+  |+| speed "1 2"
+
+d4 $ (jux (iter 4) $ every 2 rev $ (striate 4 $ sound "[diphone2,kurt] diphone2:2")
+  |+| shape "0.4")
+  |+| speed "0.75 1"
+
+d5 $ jux (iter 8) $ (slow 26 $ sound (samples "future*26" (run 26)))
+  |+| speed "0.85"
+
+d5 $ every 4 (striate 4) $ sound "gabbalouder*2 industrial:2"
+  |+| shape "0.9"
+
+d6 $ every 2 (slow 2) $ jux rev $ rev $ slow 16 $ striate 128 $ sound "[bev]"
+  |+| shape "0.5"
+  |+| speed "1"
+
+d1 $ silence
+
+note $ slow 2 $ superimpose (iter 4) $ "kick*2 lotom*3 claves lotom"
+
+stutterDepth "0"
+stutterTime $ slow 32 $ sine128
+stutterDepth $ slow 5 $ sine128
+
+d1 $ jux (iter 4) $ sound "bd*2 bd*3"
+  |+| shape "0.9"
+
+d6 $ (slow 2 $ striate 16 $ sound "pad:2")
+  |+| pan "[0 1]*8"
+
+d7 $ every 2 (slow 2) $ jux rev $ smash 2 [1,2,3,4,0.5] $ sound "gabbalouder*2 off*8"
+  |+| shape "0.7"
+
+bps $ 180/60
+

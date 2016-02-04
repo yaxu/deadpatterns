@@ -1,0 +1,32 @@
+d1 $ smash 3 [1,2,3,4] $ jux (0.25 <~) $ every 3 (iter 4) $ sound "bd [sd8 ~ cp]"
+   |+| speed "0.9"
+
+d2 $ brak $ slowspread ($) [id, density 2, rev, iter 4] $ jux (within (0,0.25) (density 2) . rev) $ every 3 rev $ slow 2 $ chop 16 $ sound "arc"
+   |+| shape "0.1"
+
+d3 $ slow 4 $ jux (0.25 <~) $ every 3 (|+| speed "2") $ sound "bd*8 bd*16 bd*8 bd*2"
+   |+| speed "4"
+   
+d4 $ jux (density 2 .iter 4) $ chop 32 $ sound "[rave2*4 rave2:4, rave3:4]"
+   |+| speed (slow 4 $ scale 1 1.2 sine1)
+
+d5 $ every 2 (density 4) $ sound "gabbaloud bd*8?"
+   |+| speed "4"
+   |+| end "0.1"
+
+d7 $ (rev $ chop 128 $ sound "bd:3 [sn [cp ~ sn] sn]")
+   |+| pan sine1
+
+
+d1 $ jux (iter 4) $ sound "feel feel:2"
+
+d2 $ sound "arpy*3 jungbass:4"
+
+
+d6 $ jux (iter 4) $ within (0.5, 1) (density 2) $ slow 4 $ chop 32 $ sound "bev"
+   |+| speed "0.9"
+
+
+
+
+d1 $ sound "bd"

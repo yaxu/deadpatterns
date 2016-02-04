@@ -1,0 +1,70 @@
+
+-- beats scrape
+d $ D.drum "bd cp([3 5 3 7]/4,8) cp cp*2"
+  # scp sine1
+  # stt ((*) <$> "0.01 0.02" <*> sine1)
+  # std "1"
+
+-- bass_acid
+b $ slow 2 $ note (sometimes ((-12) <$>) $ offadd 0.125 7 "50*2 [52 59] 30 [~ 52]")
+  # pit3 saw1
+  # ctf rand
+  # lfo "0.2"
+  # lfoi "0.1"
+  # dur "0.05"
+  # slide "1"
+  # pit1 "0"
+  # pit2 "1"
+
+-- repetition
+d1 $ slow 4 $ chop 16 $ sound "repetition"
+  # unit "c" # speed "0.25"
+  # gain "1.1"
+
+
+-- itertech
+d1 $ iter 4 $ slow 2 $ (ghost $ sound "odx odx:2 sn:2*2 odx:1 odx:3 cp8:2 bd sn:2")
+  # vowel "[a e]/2"
+  # cutoff sine1
+
+-- bells
+d1 $ jux rev $ sound (samples' "xx" (tom $ fit 3 (words "d3 e4 c f3 g4") "0 1 [~ 2] 3"))
+  # shape "0.5"
+  # vowel "a i e"
+  # cutoff (slow 8 $ sine1)
+  # resonance "0.3"
+
+-- swing
+# nudge "[0 0.04]*4"
+
+-- arpeg0
+d1 $ sometimes (# up "12 7") $ juxBy 0.25 rev $ slow 4 $ sound (samples' "xx" (slowspread (offadd 0.125) [-7,5,-7,7] $ tom "c4(3,8) e4(3,8) d4(3,8) a3(5 3,8)"))
+
+-- bigloop
+d1 $ stack [-- jux rev $ 
+            stut' 3 0.25 (|*| gain "0.9") $ slow 2 $ sound (samples' "xx" (tom $ fit 1 (words "c4 d4 g5 a4 b4 d4 b4 f5") "[~ 0 1 2] [0 1 2 0 1 2/2]"))
+            # crush "3" # speed "[1,1.01,0.5]" # vowel "i" # resonance "0.9" # cutoff "0.2"
+           -- ,
+            -- iter 4 $ slow 2 $ chop 8 $ sound "[os:1 os:2]/2" # unit "c" # speed "0.5" # shape "0.5"
+           ]
+
+-- sticks_top
+d1 $ jux rev $ slow 4 $ sound (samples' "[xx]" (offadd (-0.125) 12 $ tom "c(3,8) e(3,8) f(3,8) g(3,8)"))
+  # gain "1.4" 
+
+-- sticks_mid
+d2 $ foldEvery [5,7] (|*| up "7") $  jux (iter 4) $ stut' 7 (- (1/32)) ((|+| crush "3") . (|*| gain "0.9")) $ sound (samples' "arpy" (slow 2 $ "0 [5 3]"))
+  # speed "[1,2]"
+
+-- sticks_bot
+d3 $ sometimes (|*| up "12") $ jux rev $ slow 4 $ sound (samples' "[aid]" (offadd (-0.125) 12 $ tom "c3(3,8) e3(3,8) f3(3,8) g3(3,8)")) # up "3"
+
+-- sticks_paper
+cps 0.8 >>
+(d4 $ (slow 4 $ chop 16 $ sound "paper"
+  # unit "c"
+  # speed "[0.25]"
+  # gain "0.8"))
+
+
+-- eof

@@ -1,0 +1,23 @@
+
+d8 $ slow 8 $ sound (sampleNotes "xx" (superimpose ((0.125 <~) . ((+7) <$>)) $ tom "d3(3,8) e2(5,8) f3(3,8) g3(5,8)"))
+  |+| speed "[1,2,0.5]"
+
+
+fa
+  d2 $ whenmod 8 4 (|+| speed "0.9") $ sound "bd8:4(2,8)" |+| gain "0.9" 
+
+d3 $ (every 4 (rev) $ slowspread (\x -> e x 8) [3,5,2,5] $ sound "ravebass:10")
+  |+| speed "0.5"
+
+d4 $ jux (iter 8) $ slowspread (striate) [8,16,128,64] $ sound (samples "os" (run 3))
+  |+| speed "[1,0.5]" 
+
+d7 $ jux (0.5 <~) $ weave 16 (sound $sampleNotes "xx" (tom "d3 e3 f3 g3"))
+  [vowel "a i",
+   vowel "o i*2 e",
+   speed "1 2*2 [3 0.5]"
+   ]
+
+d6 $ jux (rev) $ chop 8 $ sound "diphone2"
+  |+| gain "1.5"
+

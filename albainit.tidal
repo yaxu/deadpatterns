@@ -1,0 +1,4 @@
+import Sound.Tidal.MIDI.Control as C
+[k,b] <- (keyproxy 1 "Midi Through Port-0" [(keys {C.latency = 0.14}, 1), (beats {C.latency = 0.14}, 10)] >>= sequence)
+let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,k,b]
+let solo = (>>) hush

@@ -1,0 +1,18 @@
+
+import Sound.Tidal.Vis
+import qualified Graphics.Rendering.Cairo as C 
+import Data.Colour
+import Data.Colour.Names
+import Data.Colour.SRGB
+import System.Cmd
+
+let draw pat = do vLines (C.withSVGSurface) "test.svg" (400,400) pat 10 10
+                  rawSystem "/home/alex/Dropbox/bin/fixsvg.pl" ["test.svg"]
+                  rawSystem "convert" ["test.svg", "test.pdf"]
+                  return ()
+
+
+
+
+draw $ every 2 (slow 3) "blue tomato grey green"
+

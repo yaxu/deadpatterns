@@ -1,0 +1,49 @@
+
+
+
+p1 $ stack [square "[1 1] [1 1 1]"
+            |+| Pulse.pspeed "10"
+            square "[2]"
+            |+| Pulse.r "0.75",
+            square "[3]*8"
+            |+| Pulse.g "1",
+            square "[0]*2"
+            |+| Pulse.b "0.75"
+           ]
+
+draw1 $ slow 8 $ what "3 6 4 3"
+
+d3 $ density 2 $ echo 0.25 $ every 4 (rev) $ sound "bd newnotes jvbass"
+  |+| end (slow 4 $ sinewave1)
+  |+| speed "0.5"
+  |+| pan "1"
+
+d2 $ density 4 $ every 3 (0.5 <~) $ sound "newnotes jvbass"
+  |+| end (slow 4 $ sinewave1)
+  |+| end "1"
+  |+| speed "0.5"
+  |+| pan "0"
+hush
+
+d3 $ echo 0.5 $ density 2 $ sound (every 2 (0.5 <~) $ every 3 rev $ pick <$> "amencutup bd amencutup bd" <*> (slow 11 $ run 12))
+  |+| vowel "o"
+  |+| speed "0.5"
+
+d4 $ slow 2 $ every 6 (0.5 <~) $ every 4 (density 1 . rev) $ sound "[[gabbaloud jvbass/2 gabba] industrial/2]"
+
+d2 $ slow 2 $ rev $ every 2 ((0.5 <~)) $ sound "[[bd bd] cp] [sn sn sn]"
+  |+| (density 4 (pan "0 1"))
+  |+| shape "0.5"
+  |+| end "0.2"
+  |+| speed "0.9"
+
+d3 $ rev $ slow 2 $ every 3 ((0.5 <~)) $ sound "[[bd bd]*2 ~] [sn [bd bd]*3 mt]"
+  |+| (density 4 (pan "1 0"))
+  |+| shape "0.4"
+  |+| speed "0.94"
+
+d4 $ echo (1/4) $ smash 2 [1,2,0.5] $ every 3 (density 2 . rev) $ slow 2 $ sound "[jvbass jvbass/2 jvbass/4] jvbass/7"
+--  |+| (slow 5 $ vowel "a e i o u")
+  |+| (slow 4 $ speed "1 4 2")
+
+d5 $ slow 2 $ sound "bd ~ sn/2 ~ ~ bd sn/2 ~"

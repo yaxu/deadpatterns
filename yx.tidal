@@ -1,0 +1,30 @@
+
+d3 $ slow 2 $ every 3 (\x -> cat [x, sound (samples "future*4 sn/8" (slow 3 $run 8))]) $ sound "[gabba*2 sn/2, can*3]"
+  |+| pan "[0,1,2,3]"
+
+d4 $ slow 2 $ every 2 (rev) $ sound (samples "bd*8 drum/1" $ run 8)
+  |+| pan ((*4) <$> rand)
+
+d2 $ slow 4 $ every 2 (density 2) $ sound "bd*8 bass2/2"
+  |+| shape "0.9"
+  |+| speed "[0.5 1 2 1]/3"
+  |+| pan (slow 8 $ (*4) <$> sinewave1)
+
+d3 $ brak $ every 3 (striate 4) $ sound "rave/2 rave/3 ~ jvbass*4"
+  |+| shape "0.5"
+
+d8 $ brak $ every 4 (density 2) $ every 4 (density 3) $ every 3 (striate 3) $ sound "~ [wobble bass2]"
+  |+| pan "[0.5, 2.5]"
+  |+| speed (stack [(slow 4 $ (+2) <$> sinewave1), "[1]/3"])
+
+d1 $ every 3 (0.25 <~) $ sound "casio/0 casio/1"
+  |+| end "0.05"
+
+d2 $ striate 4 $ sound "jvbass jvbass/2"
+
+d4 $ sound "chin*16"
+
+bps $ 100 /60
+
+
+hush

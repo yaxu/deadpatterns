@@ -1,0 +1,85 @@
+-- polyrhythm
+d1 $ sound "[bd sd:2 bd cp, ht mt lt]"
+d1 $ sound "{bd sd:2 bd cp, ht mt lt}"
+-- repeat step
+d1 $ sound "bd sd ! !"
+-- break steps down into subpatterns
+d1 $ sound "[bd bd] [sn sn sn]"
+-- 'speed up' subpatterns
+d1 $ sound "[bd sn]*2 cp"
+-- 'slow down' subpatterns
+d1 $ sound "[bd sn]/2 cp"
+-- randomly drop steps
+d1 $ sound "bd cp?"
+
+d1 $ sound "[bd sn:2 arpy]/3 cp"
+
+d2 $ every 3 (density 3) $ sound "bd sn bd sn:2"
+
+d4 $ (chop 8 $ sound "sn:2")
+   |+| speed sine1
+
+hush
+d3 $ jux rev $ slow 8 $ rev $ chop 64 $ sound "bev"
+
+hush
+cps 0.8
+
+hush
+
+
+
+  flick sid can metal future gabba sn mouth co gretsch mt arp h cp
+  cr newnotes bass crow hc tabla bass0 hh bass1 bass2 oc bass3 ho
+  odx diphone2 house off ht tink perc bd industrial pluck trump
+  printshort jazz voodoo birds3 procshort blip drum jvbass psr
+  wobble drumtraks koy rave bottle kurt latibro rm sax lighter lt
+  arpy feel less stab ul
+
+cps 1.1
+
+d1 $ silence
+
+hush
+
+d1 $ weave 8 (shape (scale 0 0.9 sine1))
+   [sound "bd sn",
+    sound "arpy arpy:3 arpy:5",
+    sound "kurt*3 sn:2"
+   ]
+
+d2 $ weave' 8 (sound (samples "bd sn cp sn:2" (run 8)))
+    [(vowel "a e i" |+|),
+     (vowel "a [e o] i o" |+|),
+     (vowel "a i o" |+|),
+     (speed "1 [2 1] 3" |+|),
+     density 1.5 . (speed "1 2 3 4" |+|)
+    ]
+
+d1 $ jux (iter 4) $ slow 2 $ chop 8 $ sound "arc"
+
+d2 $ whenmod 8 2 (density 2) $ sound "bd sn"
+
+d2 $ every 2 (|+| speed "2") $ sound "bd sn"
+
+d2 $ whenmod 8 4 (|+| speed "1.5") $ slow 2 $
+  sound "~ [wobble wobble*3]/2"
+  |+| shape "0.8" |+| speed "2"
+
+d3 $ superimpose (iter 16) $
+  jux (|+| speed "-1") $ every 4 (rev . chop 8) $ sound (samples "alphabet" (irand 26))
+   |+| speed "1.1"
+
+d4 $ jux (iter 4) $  slow 4 $ chop 16 $ sound "[atlast, atlast:2]"
+  |+| gain "1.4"
+
+d1 $ sound "bd sn"
+
+d2 $ sound "arpy"
+
+d2 $ silence
+d1 silence
+
+d3 $ sound "bd*8"
+
+hush

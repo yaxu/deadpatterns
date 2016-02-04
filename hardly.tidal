@@ -1,0 +1,35 @@
+
+d1 $ (slow 8 $ striate 64 $ sound "[atlast:0*4, atlast:1]")
+  |+| speed "[0.75 1.5]*16"
+
+d7 $ whenmod 3 2 (rev . density 2) $ slow 2 $ striate 32 $ sound "atlast:2*2"
+  |+| speed "1.5"
+
+d2 $ sound "feel*2 cp [~ feel] cp"
+  |+| speed "1.5"
+  |+| shape "0.9"
+
+d3 $ sound "bd*3 [bd cp:2]"
+  |+| shape "0.9"
+  |+| pan "0.5"
+
+bps $ 1.1
+
+d1 $ jux (iter 4) $ striate 32 $ sound "atlast:0"
+  |+| speed "1.5"
+
+d2 $ slow 2 $ jux (iter 4) $ striate 32 $ sound "atlast:2"
+  |+| speed "1.5"
+  |+| shape "0.6"
+
+d4 $ whenmod 4 3 rev $ striate 16 $ sound "atlast:0"
+  |+| speed "[1.99,-2]"
+
+d5 $ jux rev $ every 4 rev $ striate 32 $ sound "breaks165*2"
+  |+| shape "0.4"
+
+d6 $ jux (iter 8) $ sound "rave2:2*2 ~ rave2:4*4 ~"
+  |+| gain "1.2"
+  |+| shape "0.9"
+
+hush

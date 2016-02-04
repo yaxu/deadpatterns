@@ -1,0 +1,5 @@
+d1 $ jux (iter 8) $ sound "bd sn:2"
+   |+| speed "2"
+
+bps 1.2
+

@@ -1,0 +1,41 @@
+d1 $ sound "bd8 ~ ~ bd [sid:3*2 cp] ~ bd8:3 ~"
+
+d2 $ jux (iter 4) $ sound "bd*8 chin*16 bd*3 chin*4"
+
+d3 $ jux rev $ (every 3 (rev) $ every 2 (within (0, 0.25) (density 2))  $ slow 4 $ chop 16 $ sound "arc")
+   |+| gain "1.5"
+   |+| speed "1 1 1 2"
+
+d4 $ brak $ sound "feel feel:2"
+   |+| shape "0.3"
+
+d5 $ every 4 (density 2) $ jux (|+| speed "2") $ chop 8 $ slow 2 $ sound "jungbass:2*3"
+   |+| gain "0.9"
+   |+| speed "2"
+
+d6 silence
+
+d6 $ every 3 (|+| speed "-2") $ slow 8 $ chop 64 $ sound "[atlast atlast:1]/2"
+   |+| speed "1"
+   |+| gain "1.6"
+
+d7 $ sound "gabbaloud"
+
+d8 $ jux (0.25 <~) $ slow 2 $ slowspread ($) [id, (|+| speed "2"), rev, density 2] $ chop 16 $ sound "breaks165"
+   |+| gain "1.1"
+
+d1 $ chop 8 $ sound "~ wobble"
+
+d2 $ sound "bd*8"
+
+d4 $ sound (pick <$>  "amencutup*8" <*> (slow 5 $ run 12))
+   |+| gain "0.6"
+
+d3 $ slow 8 $ jux (0.5 <~)$ every 2 (within (0.75, 1) ((|+| speed "1.5") . density 0.5)) $ slow 16 $ chop 128 $ sound "bev"
+   |+| gain "1.2"
+   |+| accelerate "-3"
+
+d3 $ degrade $ slow 2 $ sound "bd*3 bd*4"
+   |+| end "0.01"
+
+

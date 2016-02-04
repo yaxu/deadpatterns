@@ -1,0 +1,154 @@
+
+import Sound.Tidal.MIDI.Output
+import Sound.Tidal.MIDI.Control as C
+import Sound.Tidal.VolcaBass as B
+import Sound.Tidal.VolcaKeys as K
+
+[k,b] <- (midiproxy 1 "Midi Through Port-0" [(keys {C.latency = 0.08}, 1), (bass {C.latency = 0.08}, 2)] >>= sequence)
+let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,b,k]
+    solo = (>>) hush
+
+
+d1 $ jux (iter 8) $ smash 4 [1,2,3,4] $ sound (samples "numbers numbers" (run 16))
+
+d2 $ every 4 (rev . chop 8) $ sound "g sb*2 g:2*4"
+
+b $ slowcat [foldEvery [2,3,4] (0.25 <~) $ K.note (fit 4 [40,50,60] "0*3 1*4 2*4 ~"), K.note "40 [80 ~ 82*2]"]
+
+
+b $ slow 2 $ K.note (every 4 ((+12) <$>) $ fit 3 [40,50,60,72] "0*3 1*4 2*4 ~")
+
+t1 (anticipateIn 8) $ jux (iter 4) $ slow 2 $ chop 16 $ sound "arc"
+  |+| speed "2"
+
+
+
+t1 (anticipateIn 16) $ density 2 $ jux (|+| speed "1.5") $ foldEvery [2,3,5] (0.25 <~) $ sound (fit 4 (words "ravebass ravebass:4 ravebass:6 ravebass:8 ravebass:10") "0 0 [1*2 4? 2?] 0") |+| speed "2"
+
+
+d2 $ rarely (|+| speed "2") $ rarely (jux (rev . chop 8)) $ jux (iter 8) $ foldEvery [3,4] (0.25 <~) $ sound (samples "amencutup*16" (irand 16))
+
+d3 $ jux (iter 4) $ sound (samples "[j:0*2 j*3, ind:4*8]" (irand 32))
+  |+| gain "1.4"
+
+d1 $ weave' 16 (sound (samples "ravebass*8" (run 16)))
+  [((vowel "a [e i] i*3" |+| speed "4") |+|),
+   --vowel "i o*3 e" |+| speed "4" ,
+   rev . chop 4 . (speed "8 2*2 4" |+|)
+  ] 
+
+
+
+k $ foldEvery [4,3] (slow 2) $ (B.note $ tom "d3 e3 f4 g4")
+  |+| B.pit1 (sine1)
+  |+| B.pit2 (slow 2 sine1)
+  |+| B.pit3 (slow 3 sine1)
+
+d1 $ foldEvery [3,4,5] (within (0,0.5) (density 2)) $ jux (rev) $ weave' 16 (sound (samples "ravebass*8" (rev $ run 8)))
+  [(vowel "a i e o" |+| speed "4" |+|),
+   --(vowel "a e*2 i o" |+| speed "8" |+|),
+   (speed "4 8 4*2 4" |+|)
+  ]
+
+d2 $ jux (iter 8) $ jux (iter 4 . chop 8) $ slow 2 $ sound "[g*2 g:4*4, g:6*8]"
+  |+| gain "1.2"
+
+
+d3 $ sound "~ off"
+
+d3 $ slow 4 $ chop 16 $ sound "breaks165"
+
+d2 $ foldEvery [2,3,4] (0.25 <~) $ slow 2 $ chop 32 $ sound "atlast"
+
+d8 $ jux (iter 4) $ rev $ slow 4 $ chop 128 $ sound "atlast:2" |+| unit "c" |+| speed "0.25"
+
+d9 $ sound "[g*2/3 [g*3]/4, g:8*4]"
+
+d4 $ smash 4 [1,2,3,4] $ sound (samples "onoff*4" (irand 16))
+
+d3 $ every 4 (rev . chop 8) $ sound "drum [drum:1 ~ drum:1]"
+  |+| gain "1.5"
+
+cps 0.8
+
+
+
+k $ slow 2 $ B.note $ tom (fit 4 (words "e f g a b") "0 [2 ~ 2] 1 3")
+
+b $ (B.note $ tom (fit 3 (words "e3 f g3 a b") "0 [2 1 2] 1 2"))
+  |+| (slow 4 $ B.pit1 "0 1 0.5"
+  |+| B.pit2 "0.25 1 0.5"
+  |+| B.pit3 "0 0.5 0.5")
+
+t1 (histpan 4) $ jux (iter 4) $ chop 16 $ sound "future*8 cp bd8:3*4 cp"
+
+d2 $ jux (iter 8) $ (weave 16 (sound (samples "arpy*8" (run 8)))
+     [vowel "a e i o"|+| speed "0.5",
+      vowel "a e*3 i o" |+| speed "0.5",
+      vowel "a i*3 i*3 o" |+| speed "0.5",
+      speed "1 [~ 2] 2*2 2"
+      ])
+  |+| gain "1.4"
+
+d3 $ sound "[bd [~ cp8:3], [bd*3]/2 [bd*4]/3]"
+  |+| gain "1.6"
+
+d4 $ jux (rev) $ foldEvery [3,5] (density 2) $ slow 2 $ chop 128 $ sound "arc"
+  |+| gain "1.6"
+  |+| speed "0.8"
+
+hush
+
+d1 (weave 16 (speed $ scale 1 1.4 sine1) $
+  [jux (iter 4) $ foldEvery [2,3,5] (0.25 <~) $ sound (samples "amencutup*8" (slow 1.5 $ run 16)),
+   slow 2 $ jux (iter 4) $ foldEvery [2,3,5] (0.125 <~) $ sound (samples "amencutup*8" (slow 1.5 $ run 16))
+  ])
+
+k $ K.note "50"
+
+t1 (anticipateIn 16) $ sound "bd(3,8)"
+
+t1 (histpan 4) $ sound "[bd(3,8) bd8:4(5,16), [cp8:4 j*2] [arpy:4 arpy:5]]"
+
+d1 $ slowspread (e 3) [4,8,4,16] $ sound "bd8:9 cp"
+  |+| speed "[2,3]"
+
+d2 $ jux (|+| speed "-1 2 1") $ sound "bd*8? cp"
+  |+| speed "2"
+
+d3 $ foldEvery [4,3] (0.25 <~) $ jux (rev) $ chop 8 $ sound "diphone kurt:2*2"
+  |+| speed "2"
+
+d4 $ jux (iter 4) $ sound (samples "[j g] amencutup*4" (slow 4 $ run 9))
+  |+| gain "1.3"
+
+d5 $ jux (iter 4) $ sometimes (0.25 <~) $ (striate 8 $ sound "vocobass:16 vocabass:12"
+  |+| gain "1.4")
+  |+| vowel "[a e i o u]/2"
+  |+| speed "1"
+
+d6 $ jux (1 <~) $ sound "{drum*3 drum drum, drum*4 drum}"
+
+d7 $ sound "future*2"
+
+d1 $ sound (fit 4 (words "ravebass:12 ravebass:14 ravebass:16") "0 2 [~ 2] 1")
+  |+| speed "2"
+
+d2 $ slow 2 $ striate 64 $ sound "breaks165"
+
+
+
+d6 $ slow 2 $ jux (slow 2) $ striate 8 $ sound "arc*2"
+  |+| gain "1.4"
+  |+| accelerate (scale 1 1.1 rand)
+
+d1 $ jux (iter 4) $ superimpose (|+| speed (scale 1 1.2 sine1)) $ chop 16 $ sound "dark:2"
+  |+| gain "1.2"
+
+b $ slow 2 $ (B.note $ (subtract 12) <$> (toMIDI (fit 2 ["c", "e", "f", "d"] "[0(3,8) 1(5,8), 2(5,8)]")))
+  |+| B.ctf (slow 8 sine1)
+
+
+d1 $ sound "gab"
+
+

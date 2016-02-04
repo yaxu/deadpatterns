@@ -1,0 +1,46 @@
+d1 $ jux rev $ slow 4 $ striate 8 $ sound "[gretsch*3 gretsch:2*5]/2"
+  |+| end "0.5"
+
+hush
+
+d1 $ sound "[sn/2 hc hc hc, bd sn]"
+
+d2 $ slow 2 $ jux (0.25 <~) $ every 3 (density 2) $ (every 3 rev $ striate 4 $ sound "rave/6")
+  |+| speed "[5 8 3 2]/4"
+
+d2 silence
+
+d1 $ jux (iter 8) $ sound "bd hc/4 sn hc/2"
+
+d2 $ slow 4 $ jux (iter 4) $ sound "drum/2 hc/4 sn hc/2"
+
+d3 $ jux (iter 4) $ sound "[gabba*2 ~ bd*3 ~]"
+  |+| speed "0.5"
+
+d3 silence
+
+d3 $ jux rev $ slow 16 $ striate 64 $ sound "bev*2"
+  |+| shape "0.2"
+  |+| speed "0.5"
+
+d3 $ slow 4 $ jux (iter 8) $ sound "[[bd [cp bd bd] bd] bd*2 bd*3 bd*4, bd*8 ~]"
+  |+| shape "0.2"
+
+
+hush
+
+d1 $ every 4 (density 2) $ cat [slow 2 $ jux (iter 4) $ brak $ sound "[bd sn/2, hc*3]"
+                                |+| speed "[1 2 3]/2"
+                                |+| end "0.05",
+                                slow 2 $ jux (iter 4) $ brak $ sound (pick "[bd lighter bottle sn/2, can hc*3]" (slow 4 $ run 12))
+                                |+| speed "[1 2 3]/2"
+                                |+| end "0.05"
+                               ]
+
+
+d3 silence
+
+bps $ 130 / 60
+
+d1 $ slow 2 $ sound "bd sn sn sn"
+  |+| pan "1"

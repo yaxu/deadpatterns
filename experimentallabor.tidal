@@ -1,0 +1,10 @@
+
+d1 $ jux (iter 4) $ weave 16 (n (run 8) # s "arpy")
+  [vowel "a e i",
+   vowel "e i",
+   speed "1 [2 3] 3"
+  ]
+
+d1 $
+
+hush

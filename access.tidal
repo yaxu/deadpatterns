@@ -1,0 +1,22 @@
+d1 $ jux (slow (1 + (1/2))) $ chop 8 $ sound "[gretsch ~ gretsch:1] [gretsch gretsch:2]"
+   |+| speed "-4"
+
+d2 $ jux (iter 8) $ stut 4 0.9 0.25 $ gap 8 $ sound "ht8 lt8:1 ht8 lt8:2"
+  |+| speed "[4, 2 2.01]"
+
+d3 $ jux (iter 4) $ sound "[bd8*2 bd8 bd8 bd8,drum]"
+
+d1 $ slow 8 $ chop 128 $ sound "bev"
+
+d4 $ sound "[drum(3,8) drum(5,8)?]/2"
+  |+| shape "0.9"
+
+d1 $ jux (iter 4) $ every 4 (rev) $ (chop 8 $ sound "wobble jvbass*2 cp8 ~")
+  |+| speed (slow 4 $ scale 1 2 sine1)
+
+d2 $ slow 4 $ chop 8  $ sound "rave:6"
+
+
+cps 0.6
+
+

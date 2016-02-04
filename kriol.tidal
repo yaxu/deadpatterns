@@ -1,0 +1,6 @@
+k <- kstream "foo"
+
+k $ brak $ slow 2 $ ksymbol "[1 2 [~ 1, 8] 2, 4 6]"
+  |+| kpitch (slow 4 $ (+0.5) <$> sinewave1)
+
+k silence

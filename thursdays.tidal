@@ -1,0 +1,116 @@
+s $ stack [speed (offadd (1/8) 1 "[1 2]([6 10]/2,16)") |+| sound "bd:8 sd8:4",
+            slow 2 $ sometimes (|+| speed "2") $ iter 4 $ sound "{sn:2 ~ sn mt lt}%8" |+| crush "3",
+            sometimes (slow 2) $ jux rev $ sound (slow 4 $ samples' "xx" (sometimes ((+12) <$>) $ offadd 0.125 (24) $ offadd 0.125 7 $ rev $ tom "d3(3,8) e4(5,8,4) f4(3,8) [g c3]"))
+            |+| speed "[0.5, 1]" |+| gain "1.2",
+            -- jux (iter 4) $ sometimes (|+| crush "8") $ slow 2 $ chop 16 $ sound (samples "os" (slow 3 $ run 3)) |+| speed "0.7",
+            sometimes (|+| speed "2") $ sound "ravebass:10([3 5]/4,8)" |+| shape "0.8",
+            -- jux rev $ slow 4 $ slowspread (chop) [64,16,32] $ sound "liq" |+| unit "c" |+| speed "0.25",
+            jux (iter 8) $ slow 8 $ gap 64 $ sound "fm:10*2" |+| speed "[0.5,1]," |+| accelerate "[3 -1]" |+| crush "3",
+            -- sound "drum*3",
+            -- jux (iter 4) $ slow 1 $ chop 128 $ sound "breaks125",
+            sound "g(5,8)"
+           ]
+  |+| nudge "[0 0.04]*4"
+
+d1 $ rev $ slowspread (gap) [8,16,4,3] $ sound (samples' "alphabet" "0 1 2 3")
+  |+| pan "0 1 0 1"
+
+
+cps 0.7
+
+
+
+
+
+d1 $ stack [-- jux (iter 4) $ sound (fit 3 (words "bd sn cp mt lt lt future") "{1 [~ 0] 2 ~ 4 3 1 2}%4"),
+            -- degrade $ brak $ slowspread (chop) [4,3,8,3] $ sound "{g*2 off ~}%4" |+| speed "4",
+            -- slow 2 $  sound "aid*2 [ravebass:20 ~ ravebass:20]" |+| gain "1.2",
+            -- jux (rev) $ stut' 2 0.125 (|*| speed "1.2") $ slow 2 $ every 4 (|*| speed "1.5") $ sound (samples "amencutup*8" (run 8)) |*| speed "[1,2]" |+| gain "1.2",
+            -- jux (1 <~) $ slow 2 $ sound "{drum*2 casio:1 cb cb casio ~}%8",
+            slow 2 $ jux (|+| (speed "[0.5]/2" |+| vowel "p")) $ smash 8 [1,2,3,4] $ sound (samples "onoff kurt [onoff diphone2] ~" (slow 4 $ run 6)) |+| gain "1.3" |+| vowel "p"
+           ] 
+
+
+
+
+
+
+s $ slow 4 $ chop 64 $ sound "jvbass" |+| speed "0.25"
+
+s silence
+s $ slow 2 $ chop 8 $ sound (samples' "xx" (tom "d(3,8) e f g"))
+  |+| delay "0.9"
+  |+| gain "0.4"
+  
+s silence
+
+
+
+
+
+
+
+
+
+
+
+
+
+s $ stack [-- every 4 (slow 2) $ jux (iter 4) $ chop 8 $ sound (samples "teeny2*8" (run 8))
+            -- # gain "0.8",
+            -- sound "ravebass:10*4" # gain "1.2",
+            whenmod 16 4 (const silence) $ slow 2 $ jux rev $ every 2 (speed "2 1 [2 3] 1" #) $ sound (samples' "xx" (offadd (-0.125) 7 $ tom "e4*2 f3 g4")) # speed "[1,4]",
+            -- slow 2 $ chop 8 $ sound "breaks125",
+            every 4 (rev . chop 8) $ sound "nau",
+            jux rev $ chop 8 $ sound "g g [~ ind:6]",
+            sound "drum(3,8)" # coarse "10"
+           ]
+  # nudge "[0 0.05]*4"
+
+cps 1.6
+
+import Sound.Tidal.MIDI.Control as C
+import Sound.Tidal.VolcaBass as B
+import Sound.Tidal.MIDI.Output
+
+[b] <- (midiproxy 1 "Scarlett 2i4 USB MIDI 1" [(bass {C.latency = 0.19}, 2)] >>= sequence)
+
+b $ off 0.125 (# pit1 "0") $ slow 2 $ note (offadd 0.125 7 (tom "d3 [e4 f3] g d"))
+  # pit1 sine1
+  # pit2 sine1
+  # pit3 saw1
+  # ctf (slow 8 sine1)
+
+b $ note (offadd (-0.125) 7 $ sometimes ((+12) <$>) $ tom "[d4 e4 f g3]([3 5 8]/3,8)")
+  # ctf (slow 4 saw1)
+  # pit1 "[0 0.5 1]/2"
+  # pit2 "[0 1 0.5]/3"
+  # pit3 "[1 0 0.5]/4"
+
+
+d1 $ slow 2 $ ghost $ sound (samples "feel:2*2 rings(3,8)" (irand 16))
+
+let ghost'' a f p = superimpose (((a*2.5) ~>) . f) $ superimpose (((a*1.5) ~>) . f) $ p
+    ghost' a p = ghost'' 0.125 ((|*| gain "0.7") . (|=| end "0.2") . (|*| speed "1.25")) p
+    ghost p = ghost' 0.125 p 
+
+d2 $ sound "ravebass:11(3,8)"
+  # gain "1.1"
+
+d3 $ within (0,0.25) (density 2) $ sound (samples "peri*8" (irand 16))
+
+d5 $ slowspread (chop) [8,16,32,64] $ sound "~ [g,gab,gabba]"
+
+d1 $ smash 2 [1,4,3,2] $ jux (iter 4) $ sound "bd peri:3*2 drum*2 alps(3,8)"
+
+d1 $ (inside 4 (iter 2) $ jux rev $ off (-0.125) (|*| up "-7") $ sound (samples "newnotes([3 5]/2,8,[0 4]/4)" ("{0 1 2 5 3 3 2 6}%1")))
+
+
+s $ slow 8 $ sound (samples "think*16" (slow 8 $ scan 16)) # unit "c" # speed "2"
+
+s1 $ slow 2 $ inside 4 (iter 4) $ chop 16 $ sound "narc" # unit "c" # speed "0.5"
+  # hcutoff "2000"
+
+s $ sound "alpkeys"
+s silence
+d2 silence

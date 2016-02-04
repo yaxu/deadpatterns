@@ -1,0 +1,57 @@
+cps $ 0.2
+
+
+hush
+
+
+d1 $ every 4 (within (0,0.5) (density 2)) $ jux rev $ every 2 (iter 4) $ chop 4 $ sound "bd"
+
+d2 $ slow 1.5 $ jux rev $ every 2 (iter 4) $ chop 4 $ sound "bd*4?"
+
+d3 $ jux (iter 4) $ every 3 (0.25 <~) $ sound "newnotes off"
+   |+| speed "2"
+
+cps $ 0.79
+
+d4 $ every 2 (smash 4 [1,2,3,4]) $ sound "bd8:4 ~ sd8 bd8:2*2 bd8:4 ~ [~ bd] sn"
+   |+| speed "2"
+
+d5 $ density 2 $ (chop 16 $ slow 2 $ sound (pick <$> "~ jungbass*4?" <*> "[1 2 3 4]/7"))
+   |+| speed (slow 4 $ scale 1 2.1 sine1)
+
+
+d6 $ density 2 $ within (0, 0.5) (density 2) $ jux (0.25 <~) $ slow 4 $ chop 8 $  sound "arc*2"
+
+d7 $ density 2 $ brak $ sound "feel feel:2"
+   |+| shape "0.6"
+
+d8 $ slow 2 $ every 4 rev $ chop 16 $ sound "mef:1"
+   |+| cutoff (slow 8 $ scale 0.1 0.4 $ slow 4 $ sine1) 
+   |+| resonance (slow 4 $ scale 0 0.8 $ slow 4 $ sine1) 
+   |+| shape "0.7"
+   |+| speed "2"
+
+d7 $ every 4 (density 2) $ jux (iter 4)$ slow 2 $ chop 16 $ sound "breaks125"
+   |+| speed "1.2"
+   |+| shape "0.4"
+   |+| gain "1.4"
+
+d8 $ slow 4 $ chop 16 $ sound "atlast"
+   |+| gain "1.6"
+
+
+d9 $ sound "gabbaloud"
+ 
+d1 $ every 2 (chop 8) $ every 2 (density 2) $ sound (pick <$> "amencutup*8" <*> (slow 12 $ run 7))
+   |+| shape "0.3"
+
+d2 $ every 4 (density 4) $ sound "~ off"
+   |+| accelerate "-2"
+
+d3 $ slow 16 $ every 2 (within (0, 0.25) (rev)) $ chop 128 $ sound "bev*2"
+   |+| gain "1.3"
+
+d4 $ jux (iter 4 . (0.25 <~)) $ sound (samples "rave2*2?" "1 2 3 4")
+   |+| gain "1"
+
+

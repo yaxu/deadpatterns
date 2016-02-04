@@ -1,0 +1,25 @@
+d1 $ slow 2 $ weave 4 (shape sinewave1) [every 2 (density 1.1) $ slow 64 $ striate 16 $ sound "[bd/0]*6 bd ravemono/1 [bd]*16"
+                              |+| pan "0.7"
+                              |+| shape "0.2"
+                              |+| vowel "a e"
+                             ,
+                              every 2 (slow 1.1) $ slow 13 $ striate 18 $ sound "[bd]*6 [bd]*4 [sn]*6 ~"
+                              |+| pan "0.3"
+                              |+| shape "0.2"
+                              |+| speed "2"]
+
+d2 $ slow 2 $ every 2 (|+| speed "0.8 0.7") $ density 2 $ sound "bd [newnotes [bd, chin]]"
+  |+| pan "0"
+
+d4 $ slow 3 $ every 3 (0.25 <~) $ every 2 (|+| speed "0.2 0.7") $ density 2 $ sound "[bd]*3 [[newnotes]*2 [[bd]*5, chin]]"
+  |+| pan "1"
+  |+| shape "0.3"
+  |+| speed "0.1"
+  
+
+d3 $ every 2 (striate 2) $ slow 8 $ sound (pick <$> "bottle can" <*> (slow 5 $ run 12))
+  |+| speed "0.9"
+
+d3 silence
+
+

@@ -1,0 +1,5 @@
+d1 $ stack [superimpose (iter 4) $ every 4 rev $ sound "[[feel feel:0] feel*3, haw:4*3 haw]",            sound "~ sid:2 peri:1 ~"            |+| gain "1.5"            |+| speed "1 2 3",            slow 2 $ stut 4 0.98 (-0.25) $ slow 2 $ sound "[feel*2 feel:2 [~ feel*2] feel:2, ~ feel mod:2]"            |+| speed "4"            |+| gain "1.4",            slow 16 $ striate 128 $ sound "bev*2"            |+| gain "1.4"            |+| speed "1.5"           ]
+
+hush
+
+bps $ 125/60

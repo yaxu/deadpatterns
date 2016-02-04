@@ -1,0 +1,14 @@
+import Control.Monad
+import Sound.Tidal.Utils
+
+
+d2 $ jux (iter 4) $ smash 8 [1,2,3,4] $ sound (samples "onoff onoff" (irand 4))
+
+d1 $ jux (rev) $ sound $ unwrap $ (e "printshort:3 printshort:4") <$> "[3 5]/2" <*> "[8 8 8 16]/4"
+
+cps 1.2
+
+d3 $ jux rev $ palindrome $ chop 8 $ sound "let:3"
+  |+| gain "1.4"
+
+hush

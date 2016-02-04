@@ -1,0 +1,119 @@
+keyproxy 100000 "16:0"
+
+
+
+
+hush
+
+d3 $ jux (rev . iter 4) $ rev $ slow 2 $ sound "bd8(3,8)"
+   |+| shape "0.6"
+   |+| speed "2"
+   |+| accelerate "-2"
+
+d2 $ jux (rev) $ every 2 (chop 16) $ sound "~ [can ~ can]"
+   |+| speed "1.5"
+
+d3 $ slow 2 $ jux (density 1.5) $ chop 8 $ slow 2 $ sound "~ bass3 bass3:3"
+
+d1 $ jux rev $ chop 8 $ sound "~ bin"
+   |+| speed (scale 0.5 0.7 $ slow 8 sine1)
+
+d2 $ slow 2 $ sound "bd*4"
+   |+| shape "0.5"
+
+d3 $ jux (iter 4) $ whenmod 8 4 (density 2) $ slow 4 $ sound (samples "onoff alphabet onoff ~" (slow 5 $ scan 16))
+   |+| speed "0.9"
+
+d2 $ slowspread (chop) [4,3,8] $ slowspread ($) [id, iter 4, (|+| speed "1.5")] $ sound "casio sid:3"
+   |+| speed "0.5"
+
+d3 $ sound "~ jvbass*2"
+
+d3 $ sound "feel"
+
+d1 $ every 3 (0.25 <~) $ jux (iter 4) $ chop 8 $ sound "~ wobble"
+   |+| speed "8"
+
+d2 $ jux (iter 4) $ slow 4 $ chop 8 $ sound "rave:6*2 "   
+   |+| gain "1.1"
+   |+| speed "0.5"
+
+d2 $ slowspread ($) [id, (|+| speed "2")] slow 2 $  (jux (iter 4) $ stut 3 0.9 (-0.2) $ sound "bd*8")
+
+d1 $ slow 4 $ sound (samples "drum*8" (irand 16))
+   |+| speed "2"
+
+k1 $ slow 2 $ every 4 (density 1.5) $ slow 2 $ echo 0.25 $ note (every 3 ((+12) <$>) "[50 40 ~ 62] 33")
+   |+| cutoff (scale 0.5 0.75 sine1)
+
+d1 $ slow 2 $ jux (rev . (|+| speed "2")) $ every 3 (0.25 <~) $ chop 16 $ sound "tabla ~ tabla:2 ~"
+   |+| gain "1.2"
+   |+| speed "3"
+
+d2 $ jux (iter 4) $ sound (samples "lighter*4" (scan 12))
+   |+| speed "1"
+
+d1 $ sound "[bd8:3(3,8) mt(3,8) bd*8]/3"
+   |+| speed "2"
+   |+| pan "0"
+
+d2 $ slowspread ($) [id, trunc 0.5] $ sound "bd8:5(5,8)"
+   |+| speed "2"
+   |+| pan "1"
+
+d3 $ jux (iter 4) $slowspread (chop) [16,8,12] $ sound "gabba*2 ~ off ~"
+
+
+d1 $ jux (iter 4) $ slow 8 $ chop 32 $ sound "[atlast:2]"
+   |+| speed "[0.5,0.75]"
+
+d2 $ jux (1 <~) $ whenmod 8 6 (slow 2 . chop 16) $ sound (samples "printshort*2" (irand 16))
+   |+| speed "2"
+
+d1 $ jux (iter 4) $ sound "[~ bass3:5] bass3:4"
+   |+| speed "[1 1.5 2 1.5]/8"
+
+d3 $ jux (iter 4) $ slow 2 $ spin 0.75 $ iter 8 $ sound "drum future feel bd8:4"
+   |+| speed "2"
+
+
+
+d5 $ every 4 (|+| speed "-1") $ slow 2 $ jux (iter 4) $ sound (samples "amencutup*8" (irand 20))         |+| shape "0.4"
+
+d4 $ jux (iter 4) $ every 4 (rev . chop 16) $ brak $ sound "feel feel:2"
+
+d2 $ slow 2 $ sound "drum:4 bd8:5 sd8 ~"
+
+d1 $ every 2 (slow 2) $ stut 5 0.9 (1/16) $ every 4 (0.25 <~) $ jux (iter 4) $ slow 2 $ sound "{bd bd bd ~ , cp [~ sn:2] [kurt:4 kurt:8]}"
+   |+| gain "0.9"
+   |+| end "0.2"
+
+d2 $ slow 8 $ chop 32 $ sound "ade:2"
+   |+| speed "0.5"
+
+k1 $ density 2 $ superimpose (slow 2) $ note "52 ~ 30 42"
+   |+| dur "0.2"
+
+d1 $ sound "bd can*2"
+
+d2 $ slow 2 $ jux (iter 4) $ superimpose rev $ chop 8 $ sound "[gabba]"
+   |+| end "0.1"
+
+d4 $ sound "rave2*4"
+
+
+d1 $ superimpose (|+| speed "0.4") $ jux (iter 8) $ slow 32 $ chop 32 $ sound "bev*2"
+   |+| speed "0.6"
+   
+d1 $ superimpose (slow 1.5) $ slow 8 $ chop 32 $ sound "koy"
+   |+| speed "4"
+
+d2 $ slowspread (density) [1, 1.5, 2, 1] $ sound "bd*8 bd*16 bd*4 ~"
+   |+| gain "0.7"
+   |+| speed "2"
+
+d3 $ jux (iter 8) $ brak $ sound "[feel*3 feel:2, feel(3,16)]"
+
+d4 $ slow 2 $ every 2 (slow 2) $ jux (rev . iter 4) $ chop 16 $ sound "[latibro, ~ latibro:2]"
+ |+| speed "0.5"
+hush

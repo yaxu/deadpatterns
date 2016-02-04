@@ -1,0 +1,38 @@
+
+let poetry = OscShape {path = "/note",
+                       params = [ S "word" Nothing,
+                                  F "hue" (Just 0),
+                                  F "saturation" (Just 1),
+                                  F "brightness" (Just 0.5),
+                                  F "rotation" (Just 0),
+                                  F "distance" (Just 10),
+                                  I "life" (Just 20),
+                                  F "x" (Just 0.5),
+                                  F "y" (Just 0.5)
+                                ],
+                       timestamp = NoStamp,
+                       latency = 0,
+                       namedParams = False,
+                       preamble = []
+                      }
+    poetryStream = stream "127.0.0.1" 8010 poetry
+    word         = makeS poetry "word"
+    hue          = makeF poetry "hue"
+    saturation   = makeF poetry "saturation"
+    brightness   = makeF poetry "brightness"
+    rotation     = makeF poetry "rotation"
+    distance     = makeF poetry "distance"
+    life         = makeI poetry "life"
+    x            = makeF poetry "x"
+    y            = makeF poetry "y"
+
+p <- poetryStream
+
+p $ word "bleianbrleianbrline*4"
+  |+| x "0.5"
+  |+| y "0.5"
+  |+| rotation (slow 8 sine1)
+  |+| hue rand
+  |+| life "5"
+
+p silence

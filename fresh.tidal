@@ -1,0 +1,31 @@
+p1 $ note ((subtract 0) <$> "50 [60 52]/2")
+  |+| cutoffegint "0"
+  |+| dur "0.03"
+
+d2 $ juxBy 0.5 (iter 4) $ foldEvery [1,2,3,5] (0.25 <~) $ chop 4 $ slow 2 $ sound (samples "os" (irand 3)) |+| unit "c" |+| speed "0.5"
+  |+| shape "0.8"
+
+
+d1 $ stack [every 2 (0.25 <~) $ slow 2 $ foldEvery [4,3,5] (within (0,0.5) (density 2)) $ chop 16 $ sound "breaks125"
+  |+| unit "c" |+| speed "0.5"
+  |+| gain "1.5",
+                  jux (0.25<~) $ slowspread (stut 4 0.9) [(0.125/2),2,0.125,1] $ sound "drum(3,8)",
+slow 2 $ jux (rev . iter 4 . chop 8) $ sound (fit 7 (words "xx:50 xx:52 xx:53 xx:55 xx:67") "[0 1 2*4,3*3 [~ 4] 5 6]")
+  |+| speed "0.5"
+  |+| shape "0.9",
+jux (slow 2 . chop 8) $ sound "[gabba(3,8), bd(5,8)]"
+  |+| shape "0.9"
+  |+| gain "1.2"
+  ]
+
+t1 (anticipateIn 16) $ sound "os" |+| unit "c"
+
+d1 $ foldEvery [2,3] (density 2) $
+  slowcat [sound (samples "os" (irand 3)) |+| unit "c",
+           sometimes (rev) $ chop 8 $ sound "bd*8" |+| speed "2"
+          ]
+
+d2 $ jux (iter 4) $ chop 16 $ sound "breaks165"
+
+d3 $ sound "jvbass*3"
+hush

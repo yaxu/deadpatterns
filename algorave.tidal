@@ -1,0 +1,79 @@
+hush
+
+
+d1 $ sound "sn:2*2"
+  |+| pan "0 1"
+
+d1 $ every 4 (density 2) $ slow 2 $ sound "{hit ~ hit*3 ~, hit:2 hit:3*3 [hit:5 hit:6]:2, odx*2}"
+  |+| speed "[1.4 2 0.5]/2"
+
+d2 $ jux (rev) $ sound "drum*3 drum:2*8"
+  |+| shape "0.5"
+
+d3 $ whenmod 8 6 (((1/8) <~) . (slow 2)) $ sound "gabba*2 drum:1" 
+  |+| shape "[0.9 0.4]/3"
+
+d4 $ (every 4 (density 2) $ superimpose ((1/8) <~) $ (slow 8 $ striate 32 $ sound "[pad:2 pad:4]/2"
+  |+| shape "0.7")
+  |+| speed "[1 1 [2,1 4] 1]")
+  |+| pan "0 1"
+
+d5 $ slow 8 $ jux (|+| speed "2") $ sound (samples "{h:2 stab sn:2 off, [alphabet alphabet*3]}" (run 26))
+
+hush
+
+d6 $ every 2 (density 2) $ stack [sound "{jungbass*3 jungbass:1*4, jungbass:5 [east*3 east:3*2] east:2*4}"
+                                  |+| speed "[2 1 3]/2"
+                                  |+| shape "0.5",
+                                  every 3 (density 2) $ every 2 (jux rev) $ sound (samples "east*8" "{1 2 3, 4 5 6 7, 8 9 10 11 12}")
+                                  |+| speed "[2 1]/2"
+                                  |+| end "0.2"
+                                 ]
+
+d2 $ sound (samples "bass3*5 [sn bass3*2]" (slow 8 $ ((floor) . (*16)) <$> sinewave1))
+  |+| speed "1 2"
+
+d1 $ slow 2 $ sound "sn:2 hh hh hh hh hh hh hh"
+
+bps $ 126/60
+
+d1 $ sound "wobble"
+  |+| pan "0"
+
+d2 $ whenmod 6 3 (slow 2) $sound "bd*2 bd*5"
+  |+| shape "0.8"
+  |+| speed "0.5"
+
+d1 $ every 2 (rev) $ (slow 16) $ striate 128 $ sound "bev"
+  |+| speed "[0.5, 2]"
+  |+| shape "0.6"
+
+hush
+bps $ (140/60)
+
+hush
+
+d1 $ (every 4 (density 2) $ slow 2 $ jux (0.25 <~) $ striate' 32 0.04 $ sound "pad:2 bass4"
+  |+| speed "[0.25 2]")
+  |+| shape (brak "0.1 0.2 0.4 0.9")
+
+d2 $ jux (brak . (0.25 <~)) $ sound "{odx*4 odx*3, future bd sn:2*2}"
+  |+| shape "0.97"
+  |+| pan "2.5"
+
+d3 $ slow 4 $ every 4 (density 2) $ sound "{bleep:4 [~ bleep:5], bleep:6 bleep:7 bleep:7}"
+  |+| shape "0.9"
+  |+| vowel "[p a]/2"
+
+d4 $ spread' (<~) (slow 8 $ ratsine1) $ sound (samples "east*3 east:4*4 alphabet*2" (slow 5 $ run 26))
+  |+| speed "1"
+  |+| shape "0.5"
+
+
+d1 $ smash 4 [1,2,3,4] $ sound "bd [sn:2 bass3:4]"
+
+d1 $ sound "gabba sn:2"
+
+bps $ (126/60)
+
+hush

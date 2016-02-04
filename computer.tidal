@@ -1,0 +1,15 @@
+
+
+d1 $ weave 32 (crush (scale 2 4 sine1)) $
+  [jux rev $ slowspread ($) [id, iter 8] $ sound "bd ~ sn:2*3?",
+   every 2 (|+| vowel "a") $ jux rev $ iter 4 $ chop 128 $ sound "breaks165"
+     |+| gain "1.7",
+   spin 0.75 $ slow 4 $ chop 16 $ superimpose (slowspread (<~) [0.25, 0.75]) $
+     sound "bass3 bass3:3"
+     |+| shape "0.8"
+     |+| speed "[2, -2.03]",
+   palindrome . chop 8 $ jux (2 <~) $
+     sound (pick <$> "h*4" <*> (slow 8 $ floor <$> scale 0 16 sine1))
+     |+| speed "0.7"
+  ]
+

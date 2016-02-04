@@ -1,0 +1,74 @@
+
+-- polyrhythm
+
+d1 $ sound "{drum cp*2}"
+  # vowel "[e i o u a]/4"
+  # resonance "0.6"
+  # room "0"
+
+-- weave
+
+d2 $ weave' 16 (sound (palindrome $ samples' "arpy" (run 8)))
+  [(vowel "a i e" #),
+   (vowel "a o*3" #),
+   (speed "1 2" #),
+   (density 2 . (crush "8 4 3 2"#))
+   ]
+
+t3 (anticipateIn 4) $ (jux ((# speed "2") . iter 4) $ slowspread (chop) [32,64,128] $ sound (samples "feel*3" (irand 16)))
+
+# nudge (stack [(slow 8 sine1), "0"])
+
+
+d4 $ jux (iter 4) $ slow 4 $ chop 32 $ sound "paper" # unit "c" # speed "0.25"
+
+d1 $ sometimes (|*| up "12") $ jux rev $ slow 4 $ sound (samples' "[aid]" (offadd (-0.125) 12 $ tom "c3(3,8) e3(3,8) f3(3,8) g3(3,8)")) # up "3"
+
+d1 $ foldEvery [5,7] (|*| up "7") $  jux (iter 4) $ stut' 7 (- (1/32)) ((|+| crush "3") . (|*| gain "0.9")) $ sound (samples' "arpy" (slow 2 $ "0 [5 3]"))
+  # speed "[1,2]"
+
+d1 $ jux rev $ slow 4 $ sound (samples' "[xx]" (offadd (-0.125) 12 $ tom "c(3,8) e(3,8) f(3,8) g(3,8)"))
+
+d $ sound "bd:2"
+
+(d,t) <- dirtSetters getNow
+
+cps $ 0.8
+
+d1 $ s "drum" # n (irand 16)
+
+-- anticipateIn 8
+
+-- clutchIn 4
+
+-- stut
+
+-- nudge + granulation
+
+-- iter
+
+-- rev
+
+-- jux
+
+-- off
+
+-- slowspread density
+
+-- every
+
+-- foldEvery
+
+-- ghost
+
+
+let randpick xs = (xs !!) <$> (irand $ fromIntegral $ length xs)
+
+
+d1 $ sound $ samples "arpy*3" (randpick [3,5,6])
+
+(([0,1,6,30,12,13] !!) <$> (irand $ toInteger 5))
+
+d1 $ do n <- ("[1 1.5 2]/3")
+        spr <- scale 0.5 0.75 $ slow 8 sine1
+        slow n $ stut 4 0.9 (toRational spr) $ sound "drum*4 sn:3" 

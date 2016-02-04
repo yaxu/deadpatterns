@@ -1,0 +1,68 @@
+d1 $ every 3 (rev) $ striate 32 $ sound "[tabla tabla/1]/2"
+d1 silence
+
+d1 $ rev (sound "[bd bd bd hh sn*8 bd ~ kurt ~]")  
+
+d3 $ every 4 (rev) (sound "hh ~ ~ hh")
+d3 silence
+hush
+
+d4 $ jux rev $ (slow 4 $ striate 64 $ sound "sax")
+  |+| vowel "a e i o u o o o o "
+
+d4 silence
+
+d5 $ every 3 rev $ slow 1 $ sound "hh*2 ~ wobble [hh*2  hh/64 ~]"
+
+d6 $ jux rev $ sound "industrial sid"
+  |+| pan sinewave4
+
+d7 $ jux (slow (4/3)) $ sound "~ [bd,sn,sn,hh,bd]*2 [bd sn/1 hc] [bd sn hc]"
+
+d8 $ whenmod 8 4 (|+| speed "2") $ every 4 (density 2) $ sound (pick <$> "bass3 wobble jvbass*4" <*> ("[1 1 1 0.5 8 4]/3"))
+  |+| shape "0.4"
+  |+| pan "0"
+
+d9 $ brak $ whenmod 8 6 (|+| speed "2") $ every 4 (density 2) $ sound (pick <$> "bass3 bass bass wobble jvbass*4" <*> ("[1 2 3 4]/3"))
+  |+| shape "0.4"
+  |+| pan "1"
+
+d3 $ stack [jux rev $ every 4 (0.25 <~) $ sound "{odx [~ odx*2] sn odx, bd/8 bd bd sn/3 cp}"
+            |+| end "0.2",
+            every 3 (0.25 <~) $ jux rev $ smash 4 [1,2,3] $ sound "[~ off, odx ~ odx/4]"
+            ]
+
+
+
+hush
+
+
+d2 $ (slow 4 $ jux rev $ every 2 (slow 2) $ (striate 32 $ sound (samples "[newnotes*8 newnotes*12 newnotes*8 newnotes]" (slow 5 $ run 16))))
+  |+| speed ((+0.5) <$> (slow 8 $ sinewave1))
+  |+| vowel "[ao o o e i o u]"
+  |+| shape "0.4"
+
+d1 $ jux (density (3/2)) $ slow 2 $ sound "bd [~ sn] bd*3 bd*2"
+
+d1 $ brak $ sound "h h/1"
+  |+| speed "2"
+
+d2 $ every 2 (jux ((1/16) <~)) $ sound (pick <$> "amencutup*8" <*> (slow 5 $ "5 1 5 5 3 4"))
+
+d3 $ every 2 (slow 2) $ jux rev $ slow 4 $ striate 128 $ sound "bev"
+  |+| speed "2"
+  |+| shape "0.2"
+
+d4 $ slow 2 $ sound "~ bass3 ~ [bass3/2 bass3/4]"
+  |+| speed "[1 2]/2"
+
+d4 silence
+
+d1 $ every 3 rev $ sound "{bd sn cp, bd sn/2}"
+
+d2 $ sound "bd*4"
+
+# overtone
+# extempore
+# fluxus
+toplap.org

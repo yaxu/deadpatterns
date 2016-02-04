@@ -1,0 +1,50 @@
+
+b $ slow 2 $ palindrome $ B.note (sometimes (fmap (+ 12)) $ slowspread (offadd 0.125) [5,5,5,5,7,7,7,12] $ tom "c3*4")
+  # B.ctf (slow 8 sine1)
+  # pit1 "1 0"
+  # pit2 "0.5"
+  # pit3 (slow 4 sine1)
+
+d $ density 2 $ every 4 (echo 0.25) $ D.drum "bd [mt ag*2 sn ht]"
+  
+
+d1 $ foldEvery [5,7] (0.25 <~) $juxBy 0.1 (0.25 <~) $
+  slowspread (chop) [8,16] $
+  sound "[future:1 sd8:3 ~ future] [sn ~ ~ sd8:4]"
+  |+| gain "0.8" |+| speed "1 2"
+
+d2 $ sometimes (rev . chop 8 . (|+| speed "2")) $
+  jux (0.25 <~) $ sound (samples "[ifdrums*8, future*8]" (slow 4 $ scan 16))
+  # nudge "[0 0.04]*4" # shape "0.2" # gain "0.7"
+
+d10 $ weave' 16 ((slow 8 $ striate' 128 (1/64) $ sound "bev*2") |+| pan (scale 0.25 0.75 sine1))
+  [density 1.5 . (vowel "i e p u" |+|) . (|+| cut "-2"),
+   density 2 . (vowel "p p u o" |+|) . (|+| cut "-1"),
+   density 3 . (vowel "p p o" |+|) . (|+| cut "-3")
+  ] |+| gain "1.1"
+
+d9 $ sound "[bd8:1*8, bd8:4]"
+
+d6 $  ((1/4) <~) $ slow 2 $ chop 4 $ sound "sb:1"
+  |+| speed "2"
+  |+| gain "1.4"
+
+d2 $ chop 4 $ sound "{cp8 ~ cp8 [~ cp8], sn sd8*2 ht8}"
+  |+| cutoff "0.04"
+  |+| resonance (scale 0.8 0.90 $ slow 4 saw1)
+  |+| speed "4"
+  |+| gain "1.05"
+
+d7 $ (rev $ every 2 (inside 2 rev) $ chop 8 $ sound "arc")
+  |+| speed "0.9"
+  |+| resonance "0.1"
+  |+| cutoff "0.1"
+
+d5 $ superimpose (density 2) $ brak $ sound "[feel feel:2, g mt*2]"
+  # gain "1.3" # speed "2"
+
+d3 $ stut 2 0.6 (1/3) $ every 4 (density 1.5) $ sound "bubble:1 bubble:4 bubble:5 bubble:6"
+  |+| speed "0.9" # gain "1.4"
+
+
+hush

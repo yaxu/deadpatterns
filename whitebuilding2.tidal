@@ -1,0 +1,49 @@
+d1 $ jux (rev)$ slow 2 $ sound "[bd*2 sn/2 bd*3 ~, [gabba*2]/3]"
+  |+| end "0.05"
+  |+| shape "[0 0.8 0 0.4]/4"
+
+d2 $ slow 2 $ every 4 (striate 4) $ jux (slow 3) $ sound "~ can*2"
+  |+| speed "[1,2]"
+
+d3 $ every 4 (slow 1.5) $ jux (|+| speed "2") $ every 2 (density 2) $ sound "drum*2 drum/1"
+
+
+d4 $ every 2 (slow 2) $ (jux rev $ slow 2 $ striate 4 $ sound "[bass3*4, sn/2*2]")
+  |+| speed "[1 [1,4] 1 2]/2"
+  |+| vowel "a e"
+
+d5 $ slow 1 $ every 3 (slow 3) $ striate 8 $ jux (rev) $ slow 4 $ sound (pick <$> "~ kurt*4 [~ kurt ~] kurt kurt/2" <*> "[1 3 3 4 6 8]/5")
+  |+| speed "[1,1.1,2,4 8]"
+
+d6 $ brak $ sound "[bd*2 wobble, bass3 ~ bass3/4]"
+  |+| shape "0.8"
+
+d7 $ jux (iter 4)  $ every 4 (density 3) $ slow 2 $ every 3 ((1/4) <~) $ sound "bd sn/2"
+
+d4 $ every 2 (rev) $ striate 4 $ sound "latibro*2"
+  |+| speed "[1 1 1 2]/3"
+
+d7 silence
+
+d7 $ slow 2 $ every 2 (slow 2) $ sound "future/0*4"
+
+
+d8 $ jux rev $ sound (pick <$> "[amencutup*8, amencutup*4]" <*> (slow 3 $ run 25))
+  |+| shape "0.2"
+
+d1 $ density 2 $ (striate 2 $ sound "~ wobble")
+  |+| speed "[2 4 2 4]/4"
+  |+| shape "0.6"
+
+d9 $ slow 4 $ jux rev $ every 3 (slow 2) $ every 3 (rev) $ slow 8 $ striate 128 $ sound "bev*4"
+  |+| speed "[1,2,3,0.5]"
+  |+| shape "0.2"
+
+d2 $ slow 2 $ jux (density 2) $ every 2 (slow 2) $ sound "future drum/1 [latibro/0 latibro/4 latibro/2]/4 cp*2"
+  |+| shape "0.4"
+
+d8 silence
+hush
+
+bps $ 140/60
+

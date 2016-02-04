@@ -1,0 +1,35 @@
+
+
+d1 $ jux (slow 2) $ sound "bd*8 bd*6 [bd*12 jungbass:3] [~ bd*3]"
+
+d2 $ 0.5 <~ (jux (slow 2) $ sound "bd*8 bd:3*6 [bd*12 jungbass:3] [~ bd*3]")
+
+d3 $ sound "gretsch gretsch:1"
+   |+| shape "0.6"
+
+d4 $ every 4 (|+| speed "0.8") $ sound "jvbass*4"
+   |+| gain "2"
+
+d5 $ jux (iter 2) $ sound "drum drum:1*2?"
+   |+| gain "2"
+
+d6 silence
+d6 $ jux (|+| speed "2") $ sound (samples "kurt*4" (every 3 ((+ 3) <$>) $ "1 2 3 0"))
+   |+| gain "2"
+   |+| speed "0.8"
+
+d7 $ sound "bd8:9*4"
+
+d8 $ sound "gabba cp*2?"
+
+d9 $ jux (rev) $ (every 2 (chop 8) $ sound "{drum*3 cp drum:2 bd, jvbass:3 newnotes sid}"
+   |+| shape "0.6")
+
+
+d1 $ sound "~ wobble"
+   |+| speed "2"
+   |+| accelerate "-4"
+   |+| shape "0.6"
+
+d2 $ sound "latibro rave2"
+   |+| shape "0.6"

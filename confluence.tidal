@@ -1,0 +1,27 @@
+
+d1 $ slow 2 $ every 3 (density 3) $ sound "chin*32"
+  |+| shape "0.7"
+  |+| pan triwave4
+
+d2 $ every 2 rev $ spin4 (1/2) $ brak $ sound "mouth wobble mouth/2"
+  |+| vowel "[a e i o u]/5"
+  |+| shape "0.2"
+
+d3 $ every 2 (|+| pan rand4) $ sound "[bd sn, cp*4]"
+
+d4 $ jux4 (rev) $ sound (samples "bass3/2 jvbass newnotes" (every 4 rev $ run 3))
+  |+| shape "0.3"
+  |+| speed "[0.9 1 3 4 5,2 4]/3"
+
+
+d7 $ slow (3) $ jux4 (iter 16) $ sound (samples "sn sn/2" (every 4 rev $ run 3))
+  |+| shape "0"
+  |+| end "0.1"
+  |+| speed (rev "[0.9 4 3 1.4 5]/4")
+
+d5 $ (slow 64 $ striate 256 $ sound "pebbles")
+  |+| pan (rand4)
+  |+| speed "0.6"
+
+d6 $ slow 2 $ sound "sid bleep/6"
+

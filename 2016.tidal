@@ -1,0 +1,205 @@
+d1 $ jux (iter 4) $ echo 0.25 $ slow 2 $ sound "[bd8:8([7 7 7 5]/4,16)]" # speed "2"
+
+d2 $ slow 2 $ sound (samples' "xx" (tom $ permstep 8 (words "d3 f3 c2 g3") (slow 8 $ sine1)))
+
+d3 $ jux rev $ off 0.125 (# speed "2") $ slow 2 $ sound (samples' "xx" (tom $ permstep 8 (words "g3 d3 c3") (slow 8 $ sine1)))
+  # vowel "a e u"
+
+d4 $ jux rev $ off 0.125 (# up "[-5 7]/2 12") $ slow 2 $ sound (samples' "xx" (tom $ permstep 8 (words "c f g e") (slow 16 $ sine1)))
+  # vowel "a i o" # cutoff "0.4" # resonance "0.3"
+
+"csf" :: Pattern Int
+
+
+
+d1 $ sound (samples' "xx" "d es3")
+import Sound.Tidal.Utils
+
+type ParamMap = Map.Map Param (Maybe Value)
+
+let grp :: Parseable a => [Pattern a -> ParamPattern] -> String -> ParamPattern
+    grp fs s = lookupPattern <$> (p s :: Pattern String)
+      where lookupPattern ::  String -> ParamMap
+            lookupPattern s = foldr (Map.union) empty  $ map (\(f,s') -> f (p s')) $ zip fs $ wordsBy (==':') s
+
+:t split
+
+grp [sound,vowel] "a:e"
+
+
+d1 $ slow 2 $ stack [
+  {- rarely (# up "0") $ jux rev $ (slow 4 $ sound (samples' "xx" (tom "d2(3,16) f2(3,8) d2(5,16) g2(3,8)")))
+            # vowel "[a,e] o e"
+            # cutoff (slow 4 sine1)
+            # speed "[1,1.01]"
+            # resonance (slow 8 $ scale 0 0.85 $ slow 4 sine1), -}
+  -- 0.03 ~> (rev $ chop 8 $ sound "drum [cp8 drum:2]" # speed "1"),
+     --        sound "~ sd8:3*2"  # gain "1.2" # speed "2" -- ,
+            -- jux rev $ sometimes (|*| up "3") $ (slow 4 $ sound (samples' "xx" (tom "b3(3,8) a3(3,8) d3(5,16) d4(3,8)"))) # gain "1.1" # speed "1" # crush "5" # shape "0.2",
+            -- iter 4 $ rev $ slow 2 $ chop 8 $ sound "os os:2 os:3 os" # unit "c" # speed "1" # gain "0.9",
+            -- rev $ striate 16 $ sound "[fm:13*2 ~ ~ ~]/4" # unit "c" # speed "0.45"
+            -- # delay "0.9" # delayfeedback "0.95" # delaytime "0.2" # gain "0.8"
+            -- # crush "5"
+            -- ,
+            -- sometimes (# vowel "a") $ sound "g([3 5]/2,16)" # gain "1.1"
+           ]
+
+           # nudge (scale 0 0.5 $ slow 4 $ (*) <$> sine1 <*> sine1)
+
+cps 0.8
+
+d2 $ sound "hoover"
+
+
+d1 $ sound "in(3,8)"
+
+
+d1 $ every 4 (speed "1 2*2" #) $ speed "3 4" # sound "arpy"
+
+d1 $ every 4 (# speed "1 2*2") $ speed "3 4" # sound "arpy"
+
+d1 $ every 4 ((speed "1 2*2" #) . (# speed "1 2*2")) $ speed "3 4" # sound "arpy"
+
+d1 $ every 4 ((speed "1 2*2" #) . (# speed "1 2*2")) $ speed "3 4" # sound "arpy"
+
+d1 $ sound $ const <$> "{0 0*2 [~ 0] [~ 0]*2 0 0 ~ 0*4}%4" <*> "[bd, [arpy bass2]/8]" 
+
+let struct :: Pattern String -> Pattern a -> Pattern a
+    struct ps pv = (flip const) <$> ps <*> pv
+
+d1 $ jux rev $ sound $ struct ("[x x*3 x*2 x*3 x*5]/3") (samples' "arpy" $ run 8)
+
+d1 $ slowspread (struct) ["x ~ x*2 x x*4", "x*8", "x*16"] $ sound (samples' "voodoo" (run 8))
+
+d1 $ speed "1 2" # sound "hoover" # end "0.4"
+
+
+
+
+d1 $ sound "[drum([6 7]/2,16)]/2"
+
+d2 $ sound "~ cp"
+
+d3 $ superimpose (|*| up "[3 -5 12 -7]/3") $
+  slowspread (chop) [8,4,2,1] $ up "[1 5 12]/3" # sound "hoover"
+  
+d4 $ iter 4 $ slow 2 $ chop 16 $ sound "os:1" # unit "c" # speed "0.5"
+  # vowel "a i o" # speed "[1,1.01,2]" # gain "1."1
+
+d5 $ sometimes (rev . chop 8) $ sometimes (|+| speed "2") $
+  jux (0.25 <~) $ sound (samples "[ifdrums*8, future*8]" (run 8))
+  # nudge "[0 0.04]*4" # shape "0.2" # gain "0.9"
+
+d6 $ jux (iter 4) $ brak $ sound "feel:5*2 feel:3"
+  # gain "1.4"
+
+d1 $ struct "x ~ x*3" $ vowel "a e*3" # sound "g"
+  # pan "0 1*3"
+
+d1 $ sound "bd" # note "40"
+  
+hush
+
+grp [sound . p, speed . p] "a:3 b:3"
+
+sound "a b" # speed "3 3"
+
+
+:t vowel_p
+
+
+
+grp [sound.p,speed.p] "bd:1 sn:3"
+
+mapM 
+
+:t mapM
+
+d1 $ sound "bd*3" # grp [speed.p,vowel.p] "1:a 3:i"
+
+dirt <- dirtStream
+
+dirt $ sound "drum:1 drum:1*3" # cutoff "0.01 [0.04 0.06]" # resonance "0.7"
+
+d1 $ (slow 8 $ chop 32 $ sound "bev")
+ |+| hcutoff (slow 8 $ scale 0 0.4 sine1)
+ |+| hresonance "0.001"
+
+hush
+
+:t sound_p
+:t speed_p
+
+
+import Sound.Tidal.Utils
+import qualified Data.Map as Map
+
+grp :: [Param] -> Pattern String -> ParamPattern
+grp [] _ = silence
+grp params p = (lookupPattern <$> p)
+  where lookupPattern :: String -> ParamMap
+        lookupPattern s = Map.fromList $ map (\(param,s') -> stringToParamMap param s') $ zip params $ (split s)
+        split s = wordsBy (==':') s
+
+grp [speed_p,vowel_p] "2:a 3"
+
+speed "3"
+
+let stringToParamMap :: Param -> String -> (Param, Maybe Value)
+    stringToParamMap param@(S _ _) s = (param, (Just $ VS s))
+    stringToParamMap param@(F _ _) s = (param, (Just $ VF $ read s))
+    stringToParamMap param@(I _ _) s = (param, (Just $ VI $ read s))
+
+  
+  data Param = S {name :: String, sDefault :: Maybe String}
+           | F {name :: String, fDefault :: Maybe Double}
+           | I {name :: String, iDefault :: Maybe Int}
+
+instance Parseable Double where
+  p = parseRhythm pDouble
+
+instance Parseable String where
+  p = parseRhythm pVocable
+
+instance Parseable Bool where
+  p = parseRhythm pBool
+
+instance Parseable Int where
+  p = parseRhythm pInt
+
+instance Parseable Rational where
+  p = parseRhythm pRational
+
+
+d1 $ grp [sound_p,speed_p,vowel_p] "bd sn:3*3 cp:3:i*2"
+
+d1 $ s "xx xx" # grp [n_p,speed_p,vowel_p] "60:1.5:a 40:3:e" # resonance "0.7" # cutoff "2"
+
+
+d1 $ s "xx" # speed "cssssf"
+
+
+t1 (histpan 4) $ sound "[feel(7,16)]/2"
+  # gain "1.1"
+
+
+d4 $ jux (iter 4) $ (slow 4 $ chop 16 $ sound "paper"
+                     # unit "c"
+                     # speed "[0.25]"
+                     # gain "0.8")
+  
+d2 $ jux' [id,iter 4,rev,(slow 1.5)] $ stut' 7 (- (1/32)) ((|+| crush "3") . (|*| gain "0.9")) $ sound (samples' "arpy" (slow 2 $ "[0 [5 3],2]"))
+  # speed "[1,2]" 
+
+d3 $ sometimes (|*| up "12") $ jux' [id,rev,iter 4,rev] $ slow 4 $ sound (samples' "[aid]" (offadd (-0.125) 12 $ tom "c3(3,8) e3(3,8) f3(3,8) g3(3,8)")) # up "3"
+  # gain "1.2" |+| pan "0.5"
+
+d1 $ jux' [id,rev] $ sound "aid:10(3,8)"
+
+let jux f = jux' [id,f]
+
+d2 $ sometimes (rev . chop 8) $ sometimes (|+| speed "2") $
+  jux' [id,(0.25 <~),rev,(0.5 <~)] $ sound (samples "[ifdrums*8, future*8]" (run 8))
+  # nudge "[0 0.04]*4" # shape "0.2"
+
+hush

@@ -1,0 +1,184 @@
+
+
+d3 $ jux rev $ (brak $ smash 8 [1,2,3,4] $ slow 2 $ sound (samples "wobble jvbass*4" (slow 6 $ run 6 ))
+  |+| shape "0.6")
+  |+| speed "[2,1 3 4]/3"
+
+d1 $ brak $ jux (smash 4 [1,2,3,5,0.5]) $ every 4 (0.25 <~) $ brak $ sound "{drum drum/1, bd*4 sn bd*3}"
+  |+| speed "1"
+
+d2 $ every 2 (slow 2) $ jux (smash 3 [1,2,3,5,0.5]) $ every 3 (density 8 . (0.25 <~)) $ brak $ sound "{drum drum/1*2, bd*4 sn bd*3}"
+  |+| speed "1 0.7"
+
+d4 $ slow 2 $ every 3 (\x -> cat [x, sound "bd*8"]) $ jux rev $ sound "jvbass*8 [newnotes/4 newnotes/3]/2"
+  |+| shape (slow 8 $ (*0.7)<$> sine1)
+
+d3 $ jux (rev) $ slow 2 $ sound "newnotes*3 newnotes/1*2"
+  |+| speed "0.25"
+  |+| end (slow 5 $ sine1)
+
+d4 silence
+
+d4 $ slow 2 $ sound (samples "odx alphabet*2" (slow 6 $ run 26))
+
+d4 $ slow 4 $ sound (samples "{diphone2 diphone2, kurt*2 alphabet*3 bd*4}" (every 3 rev $ slow 5 $ run 26))
+
+d5 $ every 2 (density 2) $ jux (iter 8) $ every 3 (0.25 <~) $ sound "jvbass*2 jvbass*3"
+  |+| speed "[1,2,4]"
+  |+| shape "0.2"
+
+d6 $ jux (iter 16) $ sound "[bd drum/2 jvbass [sn*2 bd*2]]/2"
+  |+| shape "0.2"
+  |+| pan "1"
+
+d7 $ brak $ slow 2 $ jux (iter 8) $ sound "bd*4 bd*4 bd*3 bd*2"
+  |+| shape "0.6"
+  |+| pan "0"
+
+d8 $ (striate 3 $ sound "gabbalouder sid/4*2")
+  |+| pan "[0 1]*2"
+
+d1 $ sound "~ bleep/5"
+
+d1 $ slow 2 $ sound (samples "sid*8" (run 8))
+  |+| pan "1"
+  |+| speed "2"
+  |+| shape "0.4"
+
+d2 $ every 2 (iter 8) $ slow 3 $ brak $ sound (samples "sid*8" (run 8))
+  |+| pan "0"
+  |+| speed "1"
+  |+| shape "0.4"
+
+
+d3 $ brak $ sound "drum drum/1"
+  |+| shape "0.8"
+
+d4 $ every 4 (striate 4) $ every 2 (iter 8) $ jux (0.25 <~) $ striate 8 $ sound "[tabla/6 tabla/7]/2"
+  |+| speed "[1.5, 2]"
+
+d5 $ (slow 2 $ every 2 (density 2) $ whenmod 6 3 (|+| shape "0.4") $ jux (0.25 <~) $ sound (samples "gretsch*8" (slow 5 $ run 16)))
+  |+| pan sine1
+  |+| shape "0.2"
+
+d6 $ jux rev $ superimpose (iter 4) $ sound "bass/3*3 bass/5*2
+"
+  |+| speed "2"
+
+
+d7 $ jux ((density 3) . (iter 4)) $ every 4 ((1/4) <~)$ sound "{bd*2 bd*4, [~ [hh sid bd]] [sn/2 [bd bd*2]] [bd*2 drum*2]}"
+  |+| shape "0.5"
+
+d1 $ sound "~ bleep/4"
+
+
+d3 $ every 3 (density 2) $ jux rev $ sound "[gabba*2 bass3/2 jvbass*4]/3 odx*4"
+  |+| shape "0.5 0.8"
+
+
+d8 $ jux (every 2 (density 2)) $ density 2 $ sound "{gabba industrial/4, cp bass3/6*2 wobble*4}"
+  |+| shape "0.8"
+  |+| speed "[1,2]"
+
+
+d2 $ smash 2 [1,2] $ (every 4 (0.175 <~) $ jux (iter 12) $ sound "newnotes*5 kurt jvbass*4 latibro"
+  |+| speed ((+0.3) <$> run 4))
+  |+| vowel "[a e i o u, p]"
+
+d5 $ sound (samples "amencutup*4 amencutup*2" (slow 12 $ run 16))
+  |+| shape "0.7"
+  |+| speed "0.8"
+  |+| pan sine1
+
+
+d2 $ slow (2/3) $ superimpose (slow 3 . iter 6) $ sound "newnotes/2*2 newnotes/8*2"
+  |+| speed ((+0.1) <$> run 16)
+  |+| vowel "a"
+  |+| pan "0"
+
+d3 $ slowcat [jux (density 2) $ smash 2 [4,1,2,3] $ every 3 (brak) $ sound (samples "[[bd bd*2 mt*3]*4 [sn sn*2]]/4" (slow 5 $ run 8))
+              |+| shape "0.7",
+              sound "bd bd"
+             ]
+
+d2 $ jux (iter 4) $ every 4 (0.5 <~) $ sound "{odx drum/2, gabba gabba*2 sn/2}"
+
+
+d3 $ jux (iter 8) $ every 2 (0.5 <~) $ sound "{odx bass/2, jvbass jvbass/4 sn}"
+  |+| speed "[1, 1.1]"
+
+d4 $ every 3 rev $ jux (slow 2 . rev) $ (slow 2 $ striate 16 $ sound "breaks165")
+  |+| speed "[1 1 1 0.5]/2"
+
+d5 $ slow 4 $ every 3 rev $ every 2 (density 2) $ spread' (striate) "[16 8, 6 32 64]" $ sound "rave/6"
+  |+| speed "1 0.5 2"
+
+d6 $ brak $ every 2 (slow 2) $ slow 16 $ jux (every 3 rev) $ striate 128 $ sound "bev"
+  |+| speed "[0.5 0.75]/2"
+  |+| shape "0.5"
+
+d6 hush
+
+d1 $ whenmod 8 6 (|+| vowel "a") $  brak $ sound "drum drum/1"
+hush
+
+d3 $ every 3 (density 2) $ sound "hh*4"
+  |+| vowel "a e i o u"
+
+
+d4 $ every 2 (slow 2) $slow 4 $ every 2 rev $ striate 128 $ sound "pad/4"
+  |+| speed (((+1) . (*0.4) <$>) sine1)
+  
+
+d5 $ (slow 2 $ striate 16 $ sound "breaks165")
+  |+| speed "0.5 1"
+
+d6 $ every 2 (density 2) $ every 4 (density (4/3)) $ sound "gabbaloud"
+
+d7 $ every 3 (density 2) $ sound "bass3 jvbass*8"
+  |+| shape "0.9"
+  |+| end "0.3"
+
+d8 $ every 6 (density 2)$ sound "~ h"
+
+d1 $ slow 2 $ every 2 (jux (iter 8)) $ sound "[bass3 [~ bleep/6 ~]3]"
+  |+| speed "1"
+
+
+
+
+d2 $ jux (smash 4 [1,2,3]) $ brak $ sound "drum drum/1"
+
+hush
+
+d1 $ sound "wobble"
+
+d2 $ slow 2 $ superimpose (iter 4) $ weave 16 (pan sine1) 
+  [every 2 (rev) $ striate 4 $ sound "sid/1", slow 2 $ sound "bd [bd [bd sn bd]] ",
+   sound (slow 2 "bass2 [bass3*3, ~ bass3*2] newnotes/3 bd/3*4")
+   |+| speed "[1,1.04 1.06]/3 3 2",
+   sound "bd*4 sn"
+  ]
+  |+| speed "0.2"
+
+d3 $ brak $ sound "bd wobble sn/2 ~"
+  |+| shape (slow 3 $ (*0.5) <$> sine1)
+
+d4 $ spread' (\x -> smash x [1,2,3]) "[4 2 3]/2" $ sound "odx industrial/3 bd*2"
+
+d5 $ sound "sid/3"
+
+bps $ (130/60)
+
+d9 $ every 4 (density 2) $ sound "bd*16 bd*8 bd*3"
+  |+| shape "0.9"
+  
+hush
+
+d1 $ sound "padlong"
+hush
+
+d1 $ sound "gabba*8"
+  |+| pan "0 1"
+
+hush 

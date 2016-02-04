@@ -1,0 +1,51 @@
+
+
+d7 $ slow 2 $ slow 16 $ smash 4 [0.5,2,0.75,1] $ sound "newnotes newnotes/1 newnotes/2 newnotes/4"
+  |+| pan "0 1"
+  |+| speed "0.25"
+
+d6 $ slow 2 $ 0.5 <~ (slow 16 $ smash 4 [0.5,2,0.75,1] $ sound "newnotes newnotes/1 newnotes/2 newnotes/4"
+  |+| pan "1 0"
+  |+| speed "0.25")
+
+d6 silence
+d3 silence
+
+d3 $ slow 2 $ every 3 (density 2) $ every 4 ((0.5) <~) $ sound "[bd sn] [sn/2 bd bd]"
+  |+| pan "0"
+  |+| speed "0.8 0.6"
+
+
+  |+| pan "1"
+  |+| speed "0.7 0.64"
+
+
+d2 $ slow 8 $ smash 4 [4,2,3,1] $ sound "jvbass jvbass/1 jvbass/2 jvbass/4"
+  |+| pan "1 0"
+  |+| speed "1"
+
+d1 $ slow 12 $ smash 4 [4,2,3,1] $ sound "jvbass jvbass/1 jvbass/2 jvbass/4"
+  |+| pan "1 0"
+  |+| speed "1"
+
+d4 silence
+
+d3 $ slow 8 $ every 4 (0.5 <~) $ every 4 (speed "3 [3 2.5 1.4 2] 3" |+|) $ sound "[wobble ~ ~] [wobble ~]"
+  |+| speed "2"
+  |+| pan "1"
+
+
+d4 $ slow 8 $ 0.25 <~ (every 4 (0.5 <~) $ every 4 (speed "3 [3 2.5 1.4 2] 3" |+|) $ sound "[wobble ~ ~] [wobble ~]"
+                       |+| speed "2"
+                       |+| pan "0"
+                      )
+
+d5 $ every 8 (speed "1" |+|) $ every 2 (|+~ (slow 4 $ pan sinewave1)) $ sound "[odx/0 wobble, newnotes [click/2]*2 ~ [click/2]*4]"
+  |+| speed "0.5"
+
+d5 silence
+
+d1 $ brak $ smash 2 [2,6] $ slow 2 $ striate 4 $ sound "breaks152"
+  |+| vowel "o e p e"
+  |+| pan (slow 2 $ "0 1")
+  

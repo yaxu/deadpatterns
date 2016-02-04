@@ -1,0 +1,37 @@
+:load Cardenas
+import Sound.Tidal.Context
+d1 <- dirtStream
+d2 <- dirtStream
+d3 <- dirtStream
+d4 <- dirtStream
+d5 <- dirtStream
+d6 <- dirtStream
+c <- cardenasStream
+(cps, getNow) <- bpsUtils
+let bps x = cps (x/2)
+let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,sc]
+let solo = (>>) hush
+
+c $ density 16 $ freq "200 1000 250"
+  |+| atk (slow 3 $ scale 0 0.01 sine1)
+  |+| rel "0.01"
+
+(sc, shape) <- scStream "hn1" [ F "vol" (Just 1.2),
+                                F "freq" (Just 3000),
+                                F "atk" (Just 0.01),
+                                F "rel" (Just 0.2),
+                                I "pos" (Just 0)
+                              ] 0
+
+
+let vol   = makeF shape "vol"
+    freq  = makeF shape "freq"
+    atk   = makeF shape "atk"
+    rel   = makeF shape "rel"
+    pos   = makeI shape "pos"
+
+sc $ vol "0.6"
+  |+| rel "1"
+
+d1 $ sound "can sd8:3*3"
+hush

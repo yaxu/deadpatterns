@@ -1,0 +1,54 @@
+# join #lurkorg on irc.freenode.net to chat
+
+d1 $ every 4 (0.5 <~) $ sound "[[bd can can/2 can/3 can/4]*2/5, [[[sn/2 [bd]*8]*1%2] lighter/2 lighter sn]]"
+  |+| (every 4 (rev) $ speed "2 3")
+
+d2 $ every 3 (slow 4 . striate 4) $ sound "bd [sn/4, cp ~ hc]"
+  |+| speed "1"
+
+d3 $ slow 2 $ every 3 (density 2) $ slow (7/4) $ striate 7 $ (slow 2 $ sound "bass3/2 bass3/4 bass3/3")
+  |+| speed (slow 4 $ "1 [2,3 4]")
+  |+| (slow 8 $ shape ((*0.2) <$> sinewave1))
+
+d4 $ brak $ slow 2 $ echo 0.125 $ (every 3 (0.25 <~) $ slow 2 $ sound "jvbass/2 jvbass/1 [~ jvbass/2] jvbass/1")
+  |+| (slow 16 $ cutoff ((*0.3) <$> sinewave1))
+  |+| resonance "0.7"
+  |+| (slow 4 $ speed "[1,1.5] [2,2.5]")
+  |+| shape "0.2"
+  |+| pan "0"
+
+d9 $ brak $ 0.25 <~ (echo 0.12 $ (every 3 (0.25 <~) $ slow 2 $ sound "jvbass/8 jvbass/3 [~ jvbass/4]*2 [jvbass/2]*6")
+             |+| (rev $ slow 16 $ cutoff ((*0.3) <$> sinewave1))
+             |+| resonance "0.76"
+             |+| (rev $ slow 4 $ speed "[1,1.5] [2,2.5]")
+             |+| shape "0.8"
+             |+| pan "0.6")
+
+d5 $ slow 2 $ every 2 (0.25 <~) $ sound (pick <$> "[amencutup [amencutup amencutup]/2]*4" <*> (slow 5 $ run 15))
+  |+| speed (((+0.5) . (*0.5)) <$> sinewave1)
+
+d6 $ every 3 (density 2) $ every 4 (brak) $ sound "[bd bd]*4 [bd/2 bd/4]"
+  |+| end "0.04"
+  |+| speed "0.25"
+
+
+d8 $ slow 4 $ interlace ((every 2 (rev) $ slow 32 $ striate 256 $ sound "bev")
+                |+| vowel "[a o e, p]"
+                |+| pan "0"
+               )
+  (slow 2 $ ((every 2 (rev) $ slow 32 $ striate 256 $ sound "bev")
+                |+| vowel "[a o e, p]"
+                |+| pan "1"
+            ))
+
+
+d7 $ slow 16 $ sound "[psr ~ psr/4, [gabba printshort/2]*4]"
+
+d9 $ silence
+
+:module +Tempo
+(tempo, bps) <- runClient
+
+putMVar bps 2
+
+# that's it

@@ -1,0 +1,56 @@
+:load Sound.Tidal.Context
+:load V3
+
+let w = v "/home/alex/Dropbox/experimentallabor/weave.pdf" 
+    
+w $ "black"
+
+w $ density 3 $ every 3 rev "[red blue orange, grey black]"
+
+
+
+w $ rev "[black blue orange, red green]"
+
+
+w $ flip darken <$> "[black blue orange, red green]*16" <*> sinewave1
+
+
+
+w $ (density 10 $ flip darken
+     <$> "[black blue, grey ~ navy, cornflowerblue blue]*2"
+     <*> (slow 5 $ (*) <$> sinewave1 <*> (slow 2 triwave1))
+    )
+
+
+
+
+
+
+
+let blend' a b c = blend c a b in
+  w (every 2 rev $ density 10 $ (blend'
+                                 <$> "blue navy"
+                                 <*> "orange [red, orange, purple]"
+                                 <*> (slow 6 $ sinewave1)
+                                )
+    )
+
+
+
+w $ (density 32 $ (flip over
+                   <$> ("[grey olive, black ~ brown, darkgrey]")
+                   <*> (withOpacity
+                        <$> "[beige, lightblue white darkgreen, beige]" 
+                        <*> ((*) <$> (slow 8 $ slow 4 sinewave1) <*> (slow 3 $ sinewave1)))
+                  )
+    )
+
+
+
+
+
+w (density 2 $ (flip darken 
+                <$> (density 8 $ "[black blue, grey ~ navy, cornflowerblue blue]*2")
+                <*> sinewave1
+               )
+  )

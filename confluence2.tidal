@@ -1,0 +1,36 @@
+d1 $ slow 2 $ sound "bd sn bd ~ [sn bd] ~ bd [~ sn]"
+  |+| shape "0.4"
+
+d2 $ whenmod 4 2 (slow 2)  $ every 2 rev $ slow 2 $ sound "bd sn bd ~ [sn bd] bd [~ sn] cp"
+  |+| pan "2.5"
+
+d3 $ (slow 2 $ sound "{bd*4 ~ sn/2*2 sn, sn*4 cp lt*4 mt ht}"
+  |+| shape "0.3")
+  |+| pan (slow 4 $ triwave4)
+
+d4 $ (sound "{bd ~ sn/2 sn, sn*4 lt*4 mt ht}"
+  |+| shape "0.3")
+  |+| pan (rev $ slow 2 $ triwave4)
+  |+| speed "2"
+
+d5 $ every 2 rev $ sound "bd*8 bd*14 ~ bd*16"
+
+d6 $ sound "gabbalouder bass3/3"
+  |+| shape "0.2"
+
+d7 $ sound (samples "diphone2 kurt*2" (slow 5 $run 32))
+  |+| shape "0.7"
+  |+| pan rand4
+
+d8 $ (sound (samples "amencutup*8" (slow 5 $ run 6))
+  |+| shape "0.8")
+  |+| pan rand4
+
+d9 $ every 3 (slow 4) $ every 4 rev $ (striate 8 $ sound "rave/6")
+  |+| pan rand4
+  |+| shape "0.1"
+  |+| speed "[2]"
+
+
+
+hush

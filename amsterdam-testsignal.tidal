@@ -1,0 +1,41 @@
+
+d1 $ stack [sometimes rev $ slowspread (chop) [16,64,8] $ sound (slow 2 $ unwrap $ e <$> "[3 5 7]/3" <*> "[8 16]/2" <*> atom "feel arpy"),
+            sound "bd*4"
+           ]
+  # room (slow 8 sine1)
+
+
+d2 $ jux rev $ slow 2 $ n (sometimes ((+12) <$>) $ offadd 0.125 7 "[d3 f3(3,8) d3 g2(5,8)]/2") # s "xx"
+  # vowel "[a e i o u]/5"
+  # resonance "0.3"
+
+d2 silence
+
+d3 $ slow 2 $ jux (iter 4) $ off 0.125 (# up "7 12") $ sound "ravebass:10([3 5]/2,8)" # shape "0.4"
+  |*| speed "[1 2 4]/2" |*| speed "0.5"
+
+
+d4 $ degrade $ jux (rev . chop 8 . iter 4) $ sound "~ ~ numbers:4 ~"
+  # gain "1.5"
+  # room (slow 16 saw1)
+
+
+
+d3 $ sometimes (|*| up "12") $ jux rev $ slow 4 $ sound (samples' "[aid]" (offadd (-0.125) 12 $ tom "c3(3,8) e3(3,8) f3(3,8) g3(3,8)")) # up "3"
+
+
+d4 $ jux (iter 4) $ (slow 4 $ slowspread (chop) [16,128,32] $ sound "paper"
+      # unit "c"
+      # speed "[0.25]"
+      # gain "0.8") # room "1" # size "1"
+
+d2 $ foldEvery [5,7] (|*| up "7") $  jux (iter 4) $ stut' 7 (- (1/32)) ((|+| crush "3") . (|*| gain "0.9")) $ sound (samples' "arpy" (slow 2 $ "0 [5 3]"))
+  # speed "[1,2]" # gain "0.8"
+
+d1 $ jux rev $ slow 4 $ sound (samples' "[xx]" (offadd (-0.125) 12 $ tom "c(3,8) e(5,8) f(5,8) g(3,8)"))
+  # gain "0.8" |*| speed "0.5"
+
+
+-- thanks for listening to this quick line test
+-- will stream to amsterdam on .. err.. 11th feb, listen in then too
+-- if you like .. 23hrs amsterdam time-ish (thanks felipe)

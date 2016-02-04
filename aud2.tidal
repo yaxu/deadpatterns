@@ -1,0 +1,48 @@
+bps $ 126/60
+
+d1 $ striate 4 $ slow 2 $ sound "bd bd"
+  |+| speed "[-1 2]/2"
+  
+d2 $ sound "~ wobble"
+  |+| shape "0.3"
+  |+| speed "1.2"
+
+d3 $ slow 2 $ jux (iter 8) $ sound (pick <$> "jungbass*4" <*> (slow 5 $ run 12))
+  |+| speed "4"
+
+d4 $ jux (0.25 <~) $ brak $ sound "feel [feel:2*2?]"
+  |+| gain "1.3"
+  |+| end "0.5"
+
+d5 $ slow 2 $ jux (iter 4) $ sound (pick <$> "amencutup*8" <*> (slow 3 $run 12))
+  |+| gain "1.9"
+
+
+
+d5 silence
+d6 silence
+
+d6 $ slow 8 $ slow 2 $ striate 64 $ sound "bev*4"
+  |+| gain "1.3"
+  |+| speed "-0.9"
+
+  
+d7 $ jux rev $ every 3 (0.25 <~) $ slow 2 $ sound (pick <$> "rave2:6 rave2*3" <*> (slow 2 $ run 12))
+  |+| gain "1.4"
+
+d8 $ slow 2 $ slowspread ($) [id, rev, iter 8] $ sound "bd sn bd*2? sn ~ bd ~ sn:2"
+  |+| pan "1"
+
+d9 $ slow 2 $ slowspread ($) [id, iter 8] $ sound "bd sn bd*2? sn ~ bd rave2:2 sn"
+  |+| pan "0"
+
+d1 $ jux (iter 8) $ sound "[gabba*4?, gabbaloud ~ jungbass:6]"
+  |+| speed "2"
+  |+| gain "0.7"
+
+d2 $ jux (iter 4) $ slow 2 $ sound "feel*4 feel*3"
+  |+| speed ((+) <$> "1 2" <*> (slow 2 $ sine1))
+  |+| gain "0.7"
+  
+d3 $ sound "~ off*2"
+  |+| accelerate "-1"

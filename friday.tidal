@@ -1,0 +1,31 @@
+cps 0.6
+
+d1 $ slowspread (\x -> stut' 3 x (|*| speed "2")) [0.125, 1/16, 0.25] $ off (-0.125) (# vowel "[a e i]/2") $ slow 8 $ chop 8 $ sound (samples' "xx" (tom "c3 e4 f g"))
+  # nudge (slow 4 $ sine1)
+  # gain "1"
+
+d2 $ sometimesBy 0.25 (chop 8) $ sound "drum:1 wobble*4"
+
+d3 $ foldEvery [5,7] (0.5 <~) $ slow 2 $ sound "jungbass([3 5]/2,8)"
+  # shape "0.94" # speed "1.2"
+
+d4 $ degrade $ slow 2 $ within (0,0.25) (density 2) $ sometimes (# speed "[2 1.5]/2") $ every 4 (slow 2 . chop 8) $ superimpose (iter 4) $ every 4 (0.25 <~) $ sound "{bd*2 ~ [ht8*3 sd8:1] ~, arpy sd8:4 ~}"
+
+cps 1
+
+d2 $ jux (iter 4) $ sometimes (# vowel "[a o,p]") $ foldEvery [5,7] (0.25 <~) $ slow 2 $ chop 16 $ sound "[os os:1 os:2]/3"
+  # unit "c"
+  # gain "0.95"
+  # speed "0.5"
+
+d4 $ jux (iter 4 . chop 8) $ slow 3 $ sound "ravebass:10"
+   # speed "[0.5 0.25]/2"
+
+sound (brak $ "[bd sn:2] ~") # speed "1 2"
+brak $ sound ("[bd sn:2] ~") # speed "1 2"
+
+d1 $ every 2 (const silence) $ sound "bd"
+
+hush
+
+dirt

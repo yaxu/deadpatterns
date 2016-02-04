@@ -1,0 +1,27 @@
+d1 $ slow 4 $ whenmod 8 4  (rev) $ cat [slow 2 $ palindrome $ striate 32 $ sound "can",
+                                        palindrome $ striate 64 $ sound "can/1",
+                                        palindrome $ striate 32 $ sound "bd/4",
+                                        palindrome $ striate 64 $ sound "can/5",
+                                        striate 16 $ sound "bd/4"
+                                       ]
+
+
+d2 $ brak $ slow 2 $ sound "bd [bd [mouth/4 mouth/2]*3/4]"
+  |+| shape "0.4"
+
+
+d4 $ brak $ sound "bd sn/2"
+
+d3 $ slow 8 $ echo 0.5 $ spread' striate "1 8 2 4"  $ whenmod 6 4 (density (2/3)) $ sound (pick <$> "kurt kurt" <*> (slow 5 "1 2 3 4 5 6 3"))
+  |+| speed "[1,2]"
+
+
+d4 $ slow 4 $ echo 0.5 $ spread' striate "16 8 32 4"  $ whenmod 6 4 (density (2/3)) $ sound (pick <$> "[kurt diphone2 kurt diphone2/2]*2" <*> (slow 5 "1 2 3 4 5 6 3"))
+  |+| speed "[1,2]"
+
+
+:t spread'
+
+
+d2 silence
+bps $ 1.6

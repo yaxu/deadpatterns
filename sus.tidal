@@ -1,0 +1,26 @@
+cps 1.1
+
+d1 $ every 2 (iter 4) $ sound "bd wobble*2"
+  |+| shape "0.6"
+
+d2 $ jux (iter 4) $ every 2 (density 1.5) $ sound "bd8 sd8(3,8) bd8 bd8"
+
+d3 $ jux (iter 4) $ weave' 16 ( sound (samples "arpy*8" $ rev  $ run 8))
+  [
+   (vowel "a e i" |+|),
+   (vowel "a e i o" |+|),
+   (vowel "a o i a i" |+|)
+  ]
+
+d4 $ iter 4 $ brak $ sound "drum*2 drum:1*2"
+  |+| end "0.1"
+  |+| speed "[2 1]/3"
+
+d5 $ sometimes (density 2 . rev) $ jux ((|+| speed "1.5") . rev) $ smash 4 [1,2,3,4] $ slow 2 $ sound (samples "onoff*4" (slow 4 $ scan 6))
+  |+| gain "1.1"
+  
+d6 $ iter 4 $ slow 2 $ chop 16 $ sound "breaks165"
+
+d7 $ slow 2 $ jux ((|+| speed "0.5") .rev) $ slow 64 $ striate 128 $ sound "bev*4"
+  |+| gain "1.1"
+             

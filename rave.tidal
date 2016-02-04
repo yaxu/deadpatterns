@@ -1,0 +1,63 @@
+d1 $ jux (every 3 (0.5 <~)) $ slowspread ($) [rev, density (2%3), slow 2 . striate 4,(|+| speed "2")] $ sound "future drum*3 cp bd"
+
+
+d2 $ every 5 (|+| sound "bass3") $ density 2 $ every 2 (|+| speed "4") $ every 3 (|+| sound "sn:2 ht lt") $ sound "[bd*2 sn:2 ~ sn sn*2]/2"
+  |+| speed (slow 5 $ sine1)
+
+d3 $ spin (1/4) $ (every 3 (density 1.5) $ slow 2 $ sound (pick <$> "[rave2 ~ rave2] [rave2*8]" <*> "[3 4 2 3]/3"))
+  |+| speed (slow 4 $ (+1.5) <$> sine1)
+
+d4 $ jux (iter 2) $ every 2 (iter 4) $ sound "bd [sn ~ sn]"
+
+d5 $ jux rev $ brak $ sound "[gabba gabba*2]/2 drum:1"
+
+d4 $ slowspread ($) [echo 0.5, rev, density 2, density 1.5] $ jux (iter 4) $ every 2 (iter 3) $ sound "bd:3 [sn:1 ~ sn:1]"
+  |+| speed (every 3 rev "2 1")
+  |+| end "0.2"
+
+d3 $ slow 4 $ jux (striate 4) $ sound "{jvbass*4 jvbass*2 [jvbass*8 jvbass*4]/3, hh*3 ~}"
+  |+| speed "0.5"
+
+
+d4 $ jux ((|+| speed "0.5") . rev) $ every 3 rev $ slow 8 $ striate 128 $ sound "bev"
+  |+| speed "1"
+
+d5 $ every 3 (slow 3) $ every 2 (density 2) $sound (pick <$>  "amencutup*8" <*> (every 3 rev $ run 8))
+
+drum $ slow 4 $ seqt [echo 0.25, rev, density 2, brak] $ superimpose (iter 4) $ "[[kick ~ claves] kick kick]"
+
+d7 $ (density 2 $ every 2 (density 2) $ (jux (iter 8 . rev) $ slow 2 $ striate 8 $ sound "rave:6")
+  |+| speed "[1 -1]*2")
+  |+| vowel "[a e]/2"
+
+d1 $ sound "bd"
+  |+| gain "1"
+
+drumstop
+
+d8 $ every 3 (smash 4 [1,2,0.5,4]) $ sound "[gabba*2 industry, ~ bass3 wobble]"
+  |+| shape "0.2"
+  
+d1 $ sound "sn*24" |+| vowel "i [a e o]/2]*2"
+hush
+hush
+bps $ 130/60
+hush
+let ap
+
+d1 $ slow 4 $ striate 64 $ sound "bev"
+
+d1 $ slowspread (density) [1, 2, 3, 4] $ sound "bd bd*3"
+  |+| pan "0"
+
+d1 $ sound (spread' (density) "1 2 3 4c" $ "bd bd*3")a
+
+d2 $ spread' (density) "[1 2 3 4]/4" $ sound "bd bd*3"
+  |+| pan "1"
+
+hush
+hush
+
+d1 $ sound "bd*8"
+  |+| offset sine1
+  

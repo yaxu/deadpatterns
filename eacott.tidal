@@ -1,0 +1,32 @@
+d1 $ stut 4 0.95 (- (1/4)) $ slow 2 $ every 3 (0.5 <~) $ sound (pick <$> "bd ~ bd bd" <*> (slow 5 $ run 16))
+
+hush
+
+d1 $ slow 2 $ sound "sn:2 can can can"
+hush
+d1 $ slow 4 $ striate 32 $ sound "atlast:2"
+
+d1 $ slowspread ($) [density 2, rev, iter 8] $  sound "bd rave2*3 ~ cp"
+
+d3 $ slow 4 $ sound "pad"
+
+d1 $ sound "bd can"
+
+bps $ 1.2 
+
+d4 $ every 4 (const (sound "feel:2"))  $ superimpose (iter 4) $ stut 4 0.9 (1/4) $ every 4 rev $ striate 4 $ sound "[[bd*4, can] [bass3:2, can:2]]/2"
+   |+| speed "4"
+
+d3 $ every 3 (slow 1.5) $ every 2 (density 1.5) $ (density 2 $ striate 32 $ sound "wobble wobble wobble wobble")
+   |+| speed "2 8 ~ 5"
+
+d4 $ superimpose (iter 4) $ sound "feel [rave2 rave2:4]/2 feel:2 ~"
+   |+| speed "[1 2 3 2]/4"
+   |+| gain "1.2"
+
+d5 $ slow 2 $ striate 32 $ sound "breaks125*2"
+   |+| gain "1.1"
+
+d6 $ superimpose (iter 8) $ sound "chin*4 chin*3 ~ chin*4"
+
+hush

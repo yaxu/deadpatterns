@@ -1,0 +1,42 @@
+d4 $ sound (sample <$> "gabbaloud [bd bd] [bd gabba bd] [sn/2 ~ [bd bd] bd]" <*> "0 1 2 3")
+  ~~ (slow 8 $ pan sinewave1)
+  ~~ speed "2.1"
+  ~~ begin "0.04"
+
+d2 $ (every 2 ((1%8) <~) $ every 2 ((1%9) <~) $ sound "bd/2 [ht bd] lt [bd [bd bd] bd]")
+  ~~ pan ((1-) <$> sinewave1)
+  ~~ speed "0.95"
+  ~~ begin "0.03"
+
+d1 $ slow 3 $ sound "bd [~ sn/0 ~] [bd bd bd]"
+
+
+d3 $ slow 8 $ striate (sound "diphone2/1 diphone/4 diphone/5") 32
+  ~~ pan sinewave1
+  ~~ speed ((+ 0.8) . (* 0.05) <$> sinewave1)
+
+
+d4 $ (1%8) <~ (slow 8 $ striate (sound "diphone/0 diphone/3 diphone/4") 16
+  ~~ speed ((+ 0.7) . (* 0.05) <$> sinewave1)
+  )
+
+d5 $ (slow 4 $ striate (sound "koy/1") 64
+  ~~ speed ((+ 0.8) . (* 0.3) <$> sinewave1)
+  )
+  -- ~~ vowel "a e i o u"
+  ~~ pan "0"
+
+
+d6 $ slow 2 $ striate (sound "koy/0") 64
+  ~~ speed (((+ 0.9) . (* 0.2) <$> sinewave1))
+  -- ~~ vowel "a e i o u"
+  ~~ pan "1"
+  )
+
+d7 silence
+
+d7 $ slow 2 $ (every 4 ((1%2) <~) $ sound "gabba [cp cp cp]")
+  ~~ speed "0.9"
+  ~~ end "0.2"
+
+

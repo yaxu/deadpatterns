@@ -1,0 +1,103 @@
+-- hello, I'm going to try to explain how patterns of synth parameters
+-- are composed together in tidal
+
+-- sound is a synth parameter, or more correctly a cyclic pattern
+-- of synth parameters, of infinite length.
+
+d1 $ sound "bd sn cp ~"
+
+-- ok I've replaced it with a pattern of the 'speed' effect. It makes
+-- no sound unless you combine it with a sound pattern
+
+d1 $ sound "xx:50 xx:60" # speed "1 2 3"
+
+-- ah but what happens if you swap the sound and speed pattern?
+
+d1 $ speed "1 2 3" # sound "xx:50 xx:60"
+
+-- in the first example, it took the structure from the sound pattern,
+-- and in the second it took it from the speed pattern.. The leftmost
+-- pattern wins.
+
+d1 $ speed "1 [2 4] 3" # sound "xx:50 xx:30"
+
+-- lets swap them again
+
+d1 $ sound "xx:50 xx:30" # speed "1 [2 4] 3"
+
+-- now there's only two events, instead of four. The events from the
+-- two patterns are combined when they are composed together with
+-- the # operator, by taking each event from the left, and matching
+-- it with events on the right which the onset of the event from the
+-- pattern on the left fits within. Difficult to explain..
+
+d1 $ sound "xx:50 ~ ~" # speed "1 2 3"
+
+-- Ok.. Now what about if you combine the parameters with a combinator
+-- function like 'every'
+
+d1 $ every 3 (# speed "2") $ sound "xx:50 xx:52 xx:56 xx:80"
+
+-- It's kept the structure of the sound because the # is on the
+-- left of speed
+
+d1 $ every 3 (speed "2" #) $ sound "xx:50 xx:52 xx:56 xx:80"
+
+-- In the above the 2 matches with the first event in the sound
+-- pattern, i.e. xx:50.. Because it is applied as if it were on the left,
+-- because of where the # is. Magic
+
+d1 $ every 3 (speed "2 3" #) $ sound "xx:50 xx:52 xx:56 xx:80"
+
+-- The 3 there matches with xx:56..
+
+-- Ok that's about it .. Let me know how this went.
+
+-- Ok you're still here?
+-- hmm
+-- ah
+
+d1 $ degrade $ stut 2 0.9 3 $ slow 2 $ every 3 (slow 2) $
+   superimpose (speed "[1 0.5*2 1,[4*8 6*6]/2]" #) $
+   sound (samples' "xx xx*2" (every 2 ((+7) <$>) $
+   offadd (-0.125) 7 $ tom "[d e f]/4"))
+
+ d1 $ slow 4 $ stut' 4 (0.125/2) (|*| nudge "1.2") $ sound "bd"
+
+d2 $ slow 4 $ stut' 4 (0.125/2) ((|*| nudge "1.5") . (|+| nudge "0.05")) $ sound "bd" |=| nudge "0"
+    # pan "0"
+
+d1 $ slow 4 $ stut' 4 (0.125/2) ((|*| nudge "1.5") . (|+| nudge "0.05")) $ sound "bd"
+    # pan "1"
+
+let ghost'' a f p = superimpose (((a/2 + a*2) ~>) . f) $ superimpose (((a + a/2) ~>) . f) $ p
+    ghost' a p = ghost'' 0.125 ((|*| gain "0.7") . (|=| end "0.2") . (|*| speed "1.25")) p
+    ghost p = ghost' 0.125 p
+
+cps 0.5
+
+d1 $ ghost $ sound "~ sd8:5 ~ ~"
+
+let ghost'' a f p = stut' 1 (a/2) (((a*2) ~>) . f) $ stut' 1 (a/2) (((a) ~>) . f) $ p
+    ghost' a p = ghost'' 0.125 ((|*| gain "0.95") . (|=| end "0.2") . (|*| speed "1.25")) p
+    ghost p = ghost' 0.125 p
+
+d2 $ sound "bd*2"
+
+0.125
+
+let unwrap' pp = stack [compress (s,e) pat | ((s,e),_,pat) <- (arc pp (0,1))]
+    fit' n pi p = unwrap' $ fit n [zoom (i%n',(i+1)%n') p | i <- [0..n'-1]] pi where n' = fromIntegral n
+    slowfit' cyc n pi p = slow cyc $ fit' n pi (density cyc $ p)
+
+
+d1 $ slowspread (\x -> fit' x "0 [1*2 3] 4 3*4") [3,5] $
+          slow 2 $ (chop 32 $ sound "[feel*2, breaks165]")
+hush
+d2 $ jux (iter 4) $ off 0.125 (|*| speed "2") $  fit' 3 "[0*4 [3 1*2] 3 5]" $
+            (striate 64 $ sound (samples' "gretsch" "0 2 [4 5] 3"))
+
+d3 $ juxBy 0.25 (iter 16) $ sound (samples "[g(3,8)]*4" (slow 4 $ run 4))
+  # coarse "15"
+d3 silence
+d4 $ ghost $ sound "drum:1([3 5]/2,8)"

@@ -1,0 +1,449 @@
+{-
+                       .,,uod8B8bou,,.
+              ..,uod8BBBBBBBBBBBBBBBBRPFT?l!i:.
+         ,=m8BBBBBBBBBBBBBBBRPFT?!||||||||||||||
+         !...:!TVBBBRPFT||||||||||!!^^""'   ||||
+         !.......:!?|||||!!^^""'            ||||
+         !.........||||                     ||||   Peak Cut EP
+         !.........||||  ##                 ||||   Computer Club
+         !.........||||                     ||||   Live Code Remix
+         !.........||||                     ||||
+         !.........||||                     ||||
+         !.........||||                     ||||
+         `.........||||                    ,||||
+          .;.......||||               _.-!!|||||
+   .,uodWBBBBb.....||||       _.-!!|||||||||!:'
+!YBBBBBBBBBBBBBBb..!|||:..-!!|||||||!iof68BBBBBb.... 
+!..YBBBBBBBBBBBBBBb!!||||||||!iof68BBBBBBRPFT?!::   `.
+!....YBBBBBBBBBBBBBBbaaitf68BBBBBBRPFT?!:::::::::     `.
+!......YBBBBBBBBBBBBBBBBBBBRPFT?!::::::;:!^"`;:::       `.  
+!........YBBBBBBBBBBRPFT?!::::::::::^''...::::::;         iBBbo.
+`..........YBRPFT?!::::::::::::::::::::::::;iof68bo.      WBBBBbo.
+  `..........:::::::::::::::::::::::;iof688888888888b.     `YBBBP^'
+    `........::::::::::::::::;iof688888888888888888888b.     `
+      `......:::::::::;iof688888888888888888888888888888b.
+        `....:::;iof688888888888888888888888888888888899fT!  
+          `..::!8888888888888888888888888888888899fT|!^"'   
+            `' !!988888888888888888888888899fT|!^"' 
+                `!!8888888888888888899fT|!^"'
+                  `!988888888899fT|!^"'
+                    `!9899fT|!^"'
+                      `!^"'
+-}
+
+
+-- * ANIMALS *
+-- bline
+cps 1.2
+
+d1 $ juxBy 0.25 (iter 4) $ slowspread (stut 4 0.9) [2,4,8,1.5] $ slow 2 $ sound "[jungbass ~ ~ jungbass]"
+         |+| speed ((*1.71) <$>"[2 1.5 1]/3")
+         |+| gain "1"
+
+-- g
+d2 $ every 2 (0.5 <~) $juxBy 0.1 (0.25 <~) $
+  chop 8 $
+  sound "[future:1 sd8:3 ~ future] [sn ~ ~ sd8:4]"
+  |+| gain "1.25" |+| speed "1"
+
+-- break
+d4 $ slow 2 $ juxBy 0.5 (0.5 <~) $
+            slowcat [juxBy 0.25 (every 2 (0.25 <~)) $
+                     every 2 (0.25 <~) $
+                     every 3 (0.25 <~) $ striate 16 $
+                     sound "breaks125",
+                     juxBy 0.25 (every 2 (0.25 <~)) $
+                     every 2 (0.25 <~) $
+                     every 3 (0.25 <~) $
+                     striate 16 $ sound "breaks165"
+                     |+| gain "1.2"
+                    ]
+
+-- break2
+d3 $ stut 2 0.9 4 $ whenmod 8 8 (const silence) $ slow 2 $ weave' 8 (slow 2 $ slowspread (striate) [16, 12,8,4] $ sound "fm:6")
+             [rev . (|+| speed "4"),
+              juxBy 0.5 (iter 4) . (|+| speed "1.25 1 1"),
+--              (|+| coarse "4 8 2 4"),
+              (|+| crush "4 8 16 4 4"),
+              -- (vowel "p [o e]/2 p i" |+|). (|+| gain "0.9"),
+--              (vowel "p i e i" |+|). (|+| gain "0.6"),
+--              (vowel "p i i" |+|). (|+| gain "0.8"),
+              slow 2
+             ] |+| gain "0.9"
+
+-- pad
+d5 $ jux (rev) $ stack [weave' 4 (slowspread (\x -> striate' x ((1/8) / (fromIntegral x))) [4,2,16,8] $ sound "pad:3")
+            [id,
+             (|+| speed "1.5")
+            ],
+            slow 2 $ (striate' 16 (1/24)) $ sound "pad:3"
+           ] |+| gain "1.2"
+
+-- sb
+d6 $ jux (iter 8) $ sound (en [(3,8), (4,7), (2,9)] "sb")
+         |+| shape "0.2"
+         |+| speed "2" |+| end "0.1"
+d6 silence
+
+-- ah
+d7 $ jux ((0.25 <~) . (|+| speed "1.01")) $ iter 4 $ slow 4 $ every 2 ((|+| speed "-1") . rev) $ striate 16 $ sound "[fm:10]*2" |+| gain "1.1"
+
+d7 silence
+
+-- ah2
+d8 $ stut 2 0.9 4 $ whenmod 8 8 (const silence) $ slow 4 $ weave' 8 (slowspread (striate) [16, 12,8,4] $ sound "fm:10")
+             [--rev . (|+| speed "0.5"),
+              jux (iter 4) . (|+| speed "1.5 1 1"),
+              --(|+| coarse "4 8 2 4"),
+              --(|+| crush "4 8 16 4 4"),
+              -- (vowel "p [o e]/2 p i" |+|). (|+| gain "0.9"),
+--              (vowel "p i e i" |+|). (|+| gain "0.7"),
+--              (vowel "p i i" |+|). (|+| gain "0.8"),
+              slow 2
+             ]
+
+
+-- * DRUMS *
+cps 0.8
+
+-- bd
+d1 $ juxBy 0.1 ((1 <~) . (|+| speed "1.45")) $ slow 2 $ sound (pick <$> "bd sd8 [mt8 ~ bd8]*2 [bd8 ~ bd8 lt8*2] [~ [bd8 ~ bd8]] bd8*2 ht8 ~" <*> "6") |+| speed "1.45" |+| shape "0.8" |+| gain "0.8"
+
+-- noise
+d2 $ slowspread (\x -> chop x) [2,3,4,5] $ sound "glitch:2 ~ ~ ~" |+| speed "6" |+| gain "1.2"
+
+-- light
+d3 $ (jux (|+| accelerate "-8") $ every 4 (|+| speed "1.5") $ slow 2 $ spread (\x -> (x <~)) [1/2, 1/4] $ striate 16 $ sound "[breaks125,breaks165]" |+| accelerate "-6" |+|  speed "1.4") |+| cutoff "0.06" |+| resonance "0.1" |+| gain "1.2"
+
+-- bass
+d4 $ slowspread (\x -> juxBy x (|+| speed "4.02")) [0.25, 0.5, 1] $ slowspread ($) [id, trunc 0.25, rev, trunc (1/8)] $ striate' 3 0.3 $ sound "jungbass:6*2"
+      |+| gain "0.8" |+| speed "4"
+
+d4 $ spin (3) $ jux (chop 8) $ sound "gab ~ off"
+
+-- gabba
+d6 $ (chop 2) $ every 2 (0.25 <~) $ sound "drum feel drum [~ sd8:2]"
+
+-- yeah
+d7 $ slow 2 $ gap 32 $ sound "fm:12*2"
+           |+| speed "[1,2.01]"
+           |+| gain "0.85"
+
+-- * ICFDBTT *
+
+-- phase
+d1 $echo (1/64) $ sound "bd8:1*2 ! ! bd8:5"
+       |+| cutoff (scale 0.005 0.04 $ slow 4 sine1)
+       |+| resonance (scale 0.01 0.7 $ slow 16 sine1)
+       |+| speed "[5.9]"
+       |+| gain "0.9"
+
+-- cp
+d2 $ chop 4 $ sound "{cp8 ~ cp8 [~ cp8], sn sd8*2 ht8}"
+       |+| cutoff "0.04"
+       |+| resonance (scale 0.8 0.90 $ slow 4 saw1)
+       |+| speed "4"
+       |+| gain "1.05"
+
+-- bubble
+d3 $ stut 2 0.6 (1/3) $ every 4 (density 1.5) $ sound "bubble:1 bubble:4 bubble:5 bubble:6"
+       |+| speed "0.9"
+
+-- click
+d4 $ every 4 (density 3) $ sound "east"
+
+-- tok
+d5 $ slow 4 $ jux (|+| speed "6.08") $ spread' (stut 4 0.95) "[1/8 1/8 1/8 1/8, 1/3 5 3 2]/4" $ sound "~ [tok tok:1 tok:2 tok:3]" |+| speed "8"
+
+-- bleep
+d6 $ ((1/4) <~) $ slow 2 $ chop 4 $ sound "sb:1"
+       |+| speed "2"
+       |+| gain "1.4"
+
+-- breaks
+d6 $ (rev $ every 2 (inside 2 rev) $ chop 8 $ sound "breaks165")
+       |+| speed "0.9"
+       |+| resonance "0.1"
+       |+| cutoff "0.1"
+
+-- breaknorm
+d7 $ chop 8 $ sound "breaks165"
+       |+| speed "0.9"
+       |+| resonance "0.1"
+       |+| cutoff "0.1"
+
+-- bd
+d8 $ sound "[bd8:1*8, bd8:4]"
+
+-- vocal
+d9 $ stack [weave' 16 ((slow 16 $ striate' 128 (1/64) $ sound "bev*2") |+| pan sine1)
+            [(vowel "a e i o u" |+|),
+             (vowel "i e p u" |+|),
+             (speed ("1 1.5 0.5") |+|)
+            ] |+| gain "1.1",
+  weave' 16 ((slow 8 $ striate' 128 (1/64) $ sound "bev*2") |+| pan (scale 0.25 0.75 sine1))
+            [density 1.5 . (vowel "i e p u" |+|) . (|+| cut "-2"),
+             density 2 . (vowel "p p u o" |+|) . (|+| cut "-1"),
+             density 3 . (vowel "p p o" |+|) . (|+| cut "-3")
+            ] |+| gain "1.1" |+| speed "1"]
+
+d1 $ jux (|+| speed "2") $ iter 8 $ striate 8 $ sound "wobble wobble*2"
+  |+| speed "-1"
+  |+| shape "0.9"
+
+-- cyclic
+let x n = stack [rev $ juxBy 0.5 ((|+| speed "-1.02")) $ (striate' 6 (3/6) $ sound (samples "arpy arpy" (3 <~ (slow 8 $ scan n))))
+               |+| gain (scale 0.9 1 $ slow 2 sine1)
+               |+| speed "[1]"
+               ,
+               sound "bd8:4"
+               |+| shape "0.7"
+               |+| speed "1.55"
+              ]
+    bdtune n = stut 3 0.9 (2) $ whenmod 8 4 (\y -> overlay y ((5%4) <~ y)) (x n)
+
+
+let notes1 = slow 3 $ chop 3 $ chop 4 $ sound "newnotes:2 ~ newnotes:3"
+             |+| speed (every 2 ((/2) <$>) "1.28")
+             |+| gain "1.2"
+             
+let notes2 = slow 3 $ chop 3 $ striate 4 $ sound "newnotes:5 newnotes:8 newnotes:6"
+             |+| speed (every 2 ((/2) <$>) "1.28")
+             |+| gain "1.2"
+
+let wobble = every 8 (rev) $ sound "wobble*2 wobble [wobble*3]/2"
+             |+| speed "2.5 3.4"
+             |+| gain "1.2"
+
+let latibro = juxBy 0.25 ((|+| speed "[-2.41]/4") . (0.006 <~)) $ chop 4 $ sound (samples "latibro ~ latibro" "[0 5 0]/3")
+              |+| speed "[-2.4]/4"
+              |+| gain "1.1"
+
+let echobreak = stut 3 1.1 (2) $ brak $ sound "bd8:7 sd8:1"
+                |+| gain "1.2"
+
+let broke = juxBy 0.25 (iter 4) $ sound "{bd8:3 ~ [~ rs8] [~ mc8] [~ bd8] sd8*2? bd8:3 ~, ch8 bd8:3*2 mt8:2 ~ ~}%3"
+            |+| end "0.2"
+
+let tap = every 2 (density 1.5) $ sound "jungbass:1 ~ sd8*2"
+          |+| speed (slow 12 $ scale 7.5 8 sine1)
+          |+| end "0.5 0.2"
+          |+| gain "1.1"
+
+let glitchroll = every 4 (chop 3) $ sound "{bd8*2 sd8:2 [~ ~ glitch:2]}%3"
+                 |+| gain "1.2"
+                 |+| end "0.4"
+                 |+| speed "1 1 2"
+
+let glitchroll2 = slow 2 $ rev $ chop 3 $ sound "bd8 sn glitch:3"
+                  |+| gain "1"
+
+let bah = slow 2 $ chop 3 $ jux ((1/3) <~) $  sound "{[jvbass sid:3 jvbass:2] ~ jvbass jvbass:3}%3"
+          |+| speed (whenmod 8 4 ((*1.5) <$>) $ "[10,10.02,5,2.5]")
+          |+| pan (scale 0.3 0.7 sine1)
+          |+| vowel "a"
+
+let oa = slow 2 $ whenmod 12 4 (id) $ jux (iter 3) $ chop 4 $ sound "[bd8:1*4 bd8:5*4 cp8]"
+         --   |+| (shape $ slow 4 $ scale 0.4 0.9 sine1)
+         |+| delay "0.99"
+         |+| delayfeedback "0.8"
+         |+| delaytime (slow 5 $ scale 0.015 0.03 sine1)
+         --   |+| speed (whenmod 8 4 (superimpose ((*2) <$>)) $ (slow 2 $ trunc 0.5 $ scale 2 4 sine1))
+         |+| vowel "[a e i o u]/5"
+         --   |+| gain "0.7"
+
+let brek = (chop 2) $ sound "[drum drum:2 [~ drum] drum:1]*3/2"
+           |+| gain "1.5"
+           |+| speed "2"
+           |+| end "0.26"
+
+-- lucky chop
+
+let tick = jux (iter 8) $ stut 4 0.99 3 $ slowspread (\b p -> e 3 b p) [8,4,8,16] $ sound "drum:2"
+            |+| speed "[2 1]/2"
+            |+| gain "1.1"
+
+let down = slow 1.5 $ spin 3 $ sound "ht8 rs8 mt8 lt8"
+            |+| speed (slow 4 $ scale 3 2 saw)
+            |+| gain "1"
+
+let drum = slowspread (\x -> within (0,0.25) (density x)) [2,4,1,4,2,4,8,4] $ jux (iter 4) $ chop 2 $ sound "bd8:3 bd8:2"
+            |+| gain "0.8"
+            |+| shape "0.9"
+            |+| speed "1.5"
+
+let bass = superimpose (slow 1.5) $ jux (iter 8) $ sound "bass3:4 bass3:5 bass3:6 bass3:3"
+            |+| speed ("[4,4.01]")
+            |+| gain "0.8"
+
+let key1 = every 4 (0.25 <~) $ note (every 4 ((+ 12) <$>) $ superimpose (((+12) <$>). ((0.25) <~)) $ (subtract 12) <$> "[49 [~ 52] 55 59, 61*4]")
+            |+| dur "0.03"
+            |+| kcutoff (scale 0.4 0.3 $ slow 32 sine1)
+            |+| vcfegint "[0.4 0.3 0.5 0.9]/8"
+            |+| portamento (slow 16 $ scale 0 0.01 sine1)
+            |+| decay "[0.2 0.6]/3"
+            |+| attack "0.04"
+            |+| sustain "0.5"
+
+let key2 = slow 2 $
+           -- superimpose (iter 8) $
+           slow 2 $ note (every 3 ((+ 5) <$>) $ ((+ 12) <$>) $ whenmod 8 4 ((+ 2) <$>) ( "[43(3,16), 40(5,8)] [54 ~ 30 30]"))
+           |+| dur (scale 0.01 0.02 rand)
+           |+| vcfegint "[0.4 0.3 0.5 0.9]/8"
+           |+| kcutoff (scale 0.3 0.4 $ slow 16 sine1)
+           |+| attack "[0 0.03]/4"
+           |+| decay "0.8"
+           |+| sustain "0.4"
+
+let beat = stack [jux (iter 4) $ sound (samples "bd ~ ~ sd8 rs8 ~ [~ mt] ~ " $ irand 16),
+                  sound "[drum ~ sd8:3, ~ ~ ~ sd8:1]"
+                 ]
+
+let jung = stack [every 4 (every 16 (rev) . chop 8) $ sound "~ drum:1",
+            slow 2 $ slowspread ($) [id, density 2, iter 4, echo 0.25] $ (sound (samples "jungbass(3,8)" (irand 16))) |+| shape (scale 0.2 0.4 rand) |+| speed "2" |+| end "0.2"
+           ]
+
+let hard = slow 2 $ stack [jux (iter 4) $ sound "[drum(5,8) drum(3,8)]/2"
+                           |+| shape (slow 8 $ scale 0.8 0.95 tri)
+                           |+| gain "1",
+                           sometimes (density 2) $ sound "[drum ~ drum] drum"
+                           |+| gain "1"
+                           |+| crush (scale 2 16 rand),
+                           jux (rev . chop 4) $ sound "gabbaloud*2"
+                           |+| gain "0.8"
+                          ] |+| speed "[1,2]"
+
+let shack = sometimes (slow 2) $ slow 8 $ chop 128 $ sound "shackup"
+      |+| speed "0.75"
+
+let leaf = chop 16 $ slow 2 $ sound (samples "leaf*8" (irand 16))
+      |+| gain "1.4"
+      |+| speed "[1 2 1 -1]/4"
+
+-- public life
+
+let a0 = slow 2 $ sound "bd sd8:2 bd sd8"
+
+let a1 = slow 2 $ spread' density (iter 4 "1 8 2 4") $ slow 2 $ sound "bd sd8:2 bd sd8"
+
+let a2 = slow 2 $ jux (iter 4) $ spread' density (iter 4 "1 8 2 4") $ sound "bd sd8:2 bd sd8"
+
+let b0 = (slow 8 $ jux rev $ every 2 (slow 2) $ (striate 32 $ sound (samples "[newnotes*8 newnotes*12 newnotes*8 newnotes]" (slow 5 $ run 16))))
+       |+| speed ((+0.5) <$> (slow 8 $ sinewave1))
+       |+| gain "1.2"
+
+let step = slowspread ($) [id, trunc 0.25, slow 1.5, trunc (1/8)] $ sound "{bd ~ [~ hc], future bd*2 bd*3 sn:2 drum}%4" |+| gain "1"
+
+let risea0 f = sound $ samples "arpy*8" (f $ run 8)
+
+let risea1 f = weave' 16 (sound (samples "arpy*8" (f $ run 8)))
+          [
+            (vowel "a e o" |+|)
+          ] |+| gain "1"
+
+let risea2 f = weave' 16 (sound (samples "arpy*8" (f $ run 8)))
+          [
+            (vowel "a e o" |+|)
+          , rev . (vowel "a i e o" |+|)
+          , rev . density 2 . chop 2 . (vowel "i o" |+|) . (|+| speed "0.75")
+          ] |+| gain "0.9"
+
+let risea3 f = weave' 16 (sound (samples "arpy*8" (f $ run 8)))
+          [
+            (vowel "a e o" |+|)
+          , rev . (vowel "a i e o" |+|)
+          , rev . density 2 . chop 2 . (vowel "i o" |+|) . (|+| speed "0.75")
+          ] |+| gain "0.9"
+
+let riseb f = jux (rev) $ weave 16 (sound (samples "arpy*8" (slow 1 $f $ run 8)))
+          [vowel "a e o",
+           vowel "a e o i",
+           vowel "o i a o i",
+           speed "2 3 1",
+           speed "-0.75 -0.5"
+          ] |+| gain "0.8"
+
+let risec f = jux (rev) $ weave' 16 (sound (samples "arpy*8" (f $ run 8)))
+          [density 2 . (vowel "a e o" |+|),
+           every 2 rev . (vowel "a e o i" |+|),
+           rev . chop 2 . (vowel "o i a o i" |+|),
+           slow 2 . rev . chop 4 . (speed "2 3 1" |+|),
+           rev . chop 4 . (speed "-0.75 -0.5" |+|)
+          ] |+| gain "0.8"
+
+d1 $ risec id
+
+let plastika = weave 16 (speed (scale 1 1.4 sine1)) [juxBy 0.5 (iter 8) $ sound "sd8:4*4",
+                                                   juxBy 0.5 (iter 4) $ sound "bd*2",
+                                                   juxBy 0.5 (iter 3) $ sound "sd8:3*4"
+                                                  ] |+| gain "0.9"
+
+let plastikb = weave 32 (speed (scale 0.9 1.6 sine1)) [juxBy 0.5 (iter 8) $ sound "sd8:4*4",
+                                                     juxBy 0.5 (iter 4) $ sound "bd*2",
+                                                     juxBy 0.5 (iter 3) $ sound "sd8:3*4"
+                                                    ] |+| gain "0.9"
+
+let kick0 = sound "[bd8:3,future]*2" |+| speed "1.3" |+| gain "1"
+
+let kick1 = slowspread (stut 3 0.7) [0.25,0.5,1/3] $ sound "[bd8:3,future]*2" |+| speed "1.3" |+| gain "0.85"
+
+let fast = stack [(spread' density ("[3 2 5 [~ 96 32 64]/2]/2") $ sound (pick <$> "[bd ~ sn ~, hc]" <*> "[0 1 2 4 5 6 7]*1%6"))
+                |+| speed "[1 2]/4" |+| gain "0.7",
+                sound "[gabba gabba, [hc]*16]/8"
+                |+| shape "0.25" |+| gain "0.8"
+               ]
+
+let broke = every 3 (0.25 <~) $ every 4 (density 2) $ jux (iter 8) $ sound "drum mouth:2"
+          |+| speed (every 3 ((*2) <$>) $ "0.75")
+          |+| resonance "0.7"
+          |+| cutoff (slow 12 $ (*0.1) <$> sine1)
+          |+| gain "1.2"
+
+
+d1 $ seqP [
+  (0, 128, sound "bd bd*2"),
+  (8, 128, sound "hh*2 [sn cp] cp future*4"),
+  (16, 128, sound (samples "arpy*8", (run 16)))
+]
+
+
+do now <- getNow
+   d1 $ (now + 1) ~> seqP [(0,4,sound "arpy(3,8)"),(2,6,sound "arpy:2(5,8)")]
+
+
+d1 $ sound "bd*16"
+
+let runnow d p = do now <- getNow
+                    d $ (nextSam now) ~> p
+
+runnow d1 $ 2 <~ seqP [(0,4,sound "arpy(3,8)"),(2,6,sound "arpy:2(5,8)")]
+
+let preplace beatPattern valuePattern = slow cycles $ stack $ zipWith (\( _, (start, end), _) v -> (start ~>) $ densityGap (1 / (end - start)) $ pure v) (arc (density cycles $ beatPattern) (0, 1)) (cycle values)
+  where beats  = arc beatPattern (0, 1)
+        values = thd' <$> arc valuePattern (0, 1)
+        cycles = fromIntegral $ lcm (length beats) (length values) `div` (length beats)
+    
+
+let restructure p1 p2
+    = 
+    where e1 = arc (0,1) p1
+          e2 = arc (0,1) p2
+
+let p1 = "a b c" :: Pattern String
+let list = ['a','b']
+
+let e1 = arc p1 (0,1)
+let e2 = arc p2 (0,1)
+
+let groupEvents es = groupBy (\a b -> (fst $ fst' a) == (fst $ fst' b)) $ sortBy (\a b -> compare (fst $ fst' a) (fst $ fst' b)) es
+let firstCycle p = arc p (0,1)
+let onsetCount = length . groupEvents . firstCycle
+
+
+
+
+do now <- getNow
+d1 $ (nextSam now) ~> 
+
+
+hush

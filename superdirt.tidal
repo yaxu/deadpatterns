@@ -1,0 +1,125 @@
+
+d1 $ sound "drum"
+  # gain "1.2"
+  # pan "0"
+  # nudge "0.42"
+
+s $ sound "drum"
+  # pan "1"
+
+
+
+s <- stream "127.0.0.1" 57120 dirt {timestamp = BundleStamp,Sound.Tidal.Context.latency= 0.1}
+s1 <- stream "127.0.0.1" 57120 dirt {timestamp = BundleStamp,Sound.Tidal.Context.latency= 0.1}
+s2 <- stream "127.0.0.1" 57120 dirt {timestamp = BundleStamp,Sound.Tidal.Context.latency= 0.1}
+s3 <- stream "127.0.0.1" 57120 dirt {timestamp = BundleStamp,Sound.Tidal.Context.latency= 0.1}
+s4 <- stream "127.0.0.1" 57120 dirt {timestamp = BundleStamp,Sound.Tidal.Context.latency= 0.1}
+s5 <- stream "127.0.0.1" 57120 dirt {timestamp = BundleStamp}
+s6 <- stream "127.0.0.1" 57120 dirt {timestamp = BundleStamp}
+s7 <- stream "127.0.0.1" 57120 dirt {timestamp = BundleStamp}
+
+s $ rev $ chop 8 $ stack [off ((1/4)) (|*| up "7") $ jux rev $ (weave 8 (sound $ samples' "xx" (palindrome $ tom "g3 d3 e3 c3")))
+           [up "0 12*2 12",
+            up "0(3,8) 12 7"
+           ]
+          ] |*| speed "4"
+
+
+
+
+s
+
+s silence
+
+d1 $ superimpose (iter 4) $ weave 16 (sound (samples "arpy*8" (rev $ run 8)))
+  [vowel "a e u",
+   vowel "o i*2 u e",
+   vowel "i o*2 ~ e",
+   speed "1 2 [3 4] 2"
+  ] |+| pan "1" |+| gain "1.3"
+
+
+s $ sound "numbers:1 numbers:2" |+| pan "0 1"
+
+s $ sound "bd" |+| gain "1.5" |+| pan "0"
+
+d1 $ sound "bd"|+| pan "1"
+
+s $ jux (rev) $ slow 16 $ slowspread (striate) [128,64] $ every 2 (density 2) $ sound "bev"
+  |+| gain "1.5"
+
+s $ stack [every 2 (within (0,0.5) (density 2 . rev)) $ slow 4 $ chop 16 $ sound "atlast:2" |+| speed "0.25" |+| unit "c",
+            jux (iter 4) $ foldEvery [2,5,6] (density 2) $ slow 2 $ chop 128 $ sound "breaks125",
+            sound "g(3,8)" |+| gain "1.2"
+           ]
+
+
+s $ stack [jux (iter 4) $ every 2 (density 2) $ rev $ slow 32 $ striate 64 $ sound "bev*4" |+| speed "[1,0.5]",
+            sometimes (|+| speed "[2, 1.5 3]") $ every 2 (density 1.5) $ sound "xx:60*4 [xx:56 xx:48]" |+| vowel "[a e i o u]/4" |+| gain "1.2" |+| (slow 8 $ pan sine1),
+            jux (iter 4) $ sound "[bd(3,8), sd8:3(5,8)]"
+           ]
+
+
+s $ jux (iter 4) $ slow 4 $(rev $ chop 8 $ sound "bd drum:1")
+
+s silence
+
+s $ sound "bd"
+
+s $ jux (iter 4) $ slowspread (\x -> (within (0,x)) (rev)) [0,0.5,0.25,0] $ chop 8 $sound (samples "voodoo*8" (run 8))
+  |+| vowel "a e i o u"
+--  |+| crush (slow 2 $ (scale 2 8) sine1)
+
+
+s $ sound "h"
+
+s silence
+cps 0.9
+
+s $ sound (samples "cp*16" (run 16))
+
+s silence
+s silence
+sd1 silence
+sd1 silence
+  |+| begin "0"
+  |+| end "1"
+  |+| offset "0"
+  |+| speed "1"
+  |+| pan "0.5"
+  |+| vowel "p"
+
+sd1 sile
+vowel        = makeS dirt "vowel"
+cutoff       = makeF dirt "cutoff"
+resonance    = makeF dirt "resonance"
+accelerate   = makeF dirt "accelerate"
+shape        = makeF dirt "shape"
+gain         = makeF dirt "gain"
+delay        = makeF dirt "delay"
+delaytime    = makeF dirt "delaytime"
+delayfeedback = makeF dirt "delayfeedback"
+crush        = makeF dirt "crush"
+
+coarse :: Pattern Int -> OscPattern
+coarse       = makeI dirt "coarse"
+hcutoff      = makeF dirt "hcutoff"
+hresonance   = makeF dirt "hresonance"
+bandf        = makeF dirt "bandf"
+bandq        = makeF dirt "bandq"
+unit         = makeS dirt "unit"
+loop         = makeI dirt "loop"
+
+cut :: Pattern Int -> OscPattern
+cut = makeI dirt "cut"
+
+ksymbol      = makeF kriole "ksymbol"
+kpitch       = makeF kriole "kpitch"
+
+d1 $ sound $ spread' (~>) (toRational <$> (scale 0 0.1 sine1)) ("bd hc*2 sn:2 rm" :: Pattern String)
+
+
+d1 $ sound "bd hc*2 sn:2 rm"
+  |+| nudge (scale 0 0.1 sine1)
+
+  hush

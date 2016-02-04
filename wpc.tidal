@@ -1,0 +1,35 @@
+
+s $ 
+  stack [-- slow 2 $ jux rev $ sound (samples' "xx" (sometimes ((subtract 12) <$>) $ slowspread (\x -> offadd x 7) [1/8,1/16,1/6,1/8] $ palindrome $ tom "c3 ~ [~] [[e3 e4]/2 g3]"))# speed "[1,2]" # gain "1.1",
+         -- slowspread (\x -> off x (|+| coarse ((+6) <$> irand 6))) [0.125,(1/16)] $ slow 2 $ sound "ravebass:8([3 5]/2,8)",
+         jux ((# speed "4") . (echo 0.125)) $ brak $ sound "drum(3,8)",
+         stut' 3 1 (|*| speed "0.5") $ slow 8 $ sound "fm:10" # end "0.15" # speed "[0.5 1]/2",
+         jux (rev) $ sound (samples' "xx" (offadd (-0.125) 7 $ palindrome $ tom "[d3(3,8) e3(3,8) f3(5,8) g3(3,8)]/4")) # speed "[1,1.5]" # vowel "a",
+         iter 4 $ sound (samples' "xx" (offadd (-0.125) 7 $ palindrome $ tom "[d3(5,8) e3(2,8) f3(4,8) g3(5,8)]/4")) # speed "[3,2]",
+         within(0,0.25) (density 2) $ density 2 $ jux (1 <~) $ sound (samples "amencutup*8" (irand 16)) # gain "[1 0.9]*4" # speed "1" # coarse "5",
+         juxBy 0.25 (rev . chop 8) $ sound (samples "g [ind g ~ ind]" (irand 8)),
+         sound "jungbass*8" # speed "[1,2,4]",
+         jux (iter 4) $ sound "~ [wobble ~ wobble*2]" # gain "1.2" # speed "2",
+         slow 4 $ (density 4 $ chop 16 $ sound "[os os:2 os:1]/3" # speed "0.5") # unit "c",
+         -- degradeBy 0.6 $ jux (rev . iter 4) $ slow 32 $ striate 64 $ sound "bev*8" # gain "1.5" # speed "-1" # vowel "o a" # gain "0.7",
+         brak $ sound "feel feel:2" # gain "1.3",
+         chop 8 $ sound "arc" # unit "c" # speed "[0.5 ! ! -0.5]/4",
+         sometimes (rev . chop 4) $ sound "[g:4 [~ g:4]] g*3" # coarse "0 8",
+         sound "gabba [drum g*2]"
+        ]
+
+-- thanks for listening
+  
+  # nudge "[0 0.03]*4"
+
+cps 1.2
+
+
+d1 $ sound "bd sn"
+   # coarse "5 16" |+| coarse "[5 0]/2"
+
+d1 $ density 2 $ sound "jvbass" |+| sound ":4"
+
+d1 $ sound (samples "jvbass jvbass*2" "[[8 2]/3, 4 5 4]")
+
+hush

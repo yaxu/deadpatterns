@@ -1,0 +1,10 @@
+d1 $ every 2 (density 2) $ slowspread ($) [id, density 2, rev, rev . chop 32] $ every 3 (|+| speed "2") $ sound "leaf leaf:4 leaf:3*2 ~"
+   |+| pan (slow 8 sine1)
+   |+| gain "1.4"
+
+d2 $ jux (rev . iter 4) $ every 3 (rev) $ slow 32 $ striate 128 $ sound "bev*4"
+  |+| speed (every 2 ((+1) <$>) $ "[1,1.01]")
+
+d3 $ every 2 (density 1.5) $ every 3 rev $ slow 8 $ chop 128 $ sound "shackup"
+ |+| gain "0.9"
+

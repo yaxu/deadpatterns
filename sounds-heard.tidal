@@ -1,0 +1,42 @@
+
+lx $ slow 4 $ text "x(3,8) XXXX xx"
+  # speed "1 0"
+  # post "lf"
+
+d1 $ slow 2 $ sometimes (|*| speed "2 3") $ (every 2 (rev) $ jux' [id, (# vowel "a e o"), slow 1.5, density 2, (# speed "2")] $ chop 8 $ sound "future drum:1 arpy*2 sn:1*2")
+  |+| pan (slow 4 saw1)
+
+
+d2 $ every 4(rev) $ jux' [id, (# speed "2"), rev, (# speed "-2")] $ (slow 4 $ chop 16 $ sound "liq")
+  # speed "[1,1.02]"
+  |+| pan (slow 4 saw1)
+
+d3 $ sound "ravebass:10(5,8)"
+
+d4 $ jux' [id, rev, iter 4, iter 8] $ sound (samples "amencutup*8" (slow 8 $ scan 8)) # accelerate "2"
+  # crush "4"
+  # speed "8"
+
+d5 $ stack [jux' [id, rev, (|+| vowel "a")] $ slow 2 $ sound (samples' "xx" (offadd (-0.125) 7 $ tom "d(3,8) e(5,8) f(3,8) g(5,8)")),
+   sometimes (# up "7") $ weave 16 (sound $ samples' "xx" (tom "d e f"))
+            [(vowel "a e i i*2" # pan "0"),
+             (vowel "a i o" # pan "0.5"),
+             (vowel "a e i o" # pan "0.75"),
+             (speed "1 2*2 3" # pan "0.25")
+            ]
+           ]
+
+d6 $ superimpose (rev) $ sound (samples "voodoo*8 voodoo*16 voodoo*8 voodoo*3" (irand 16))
+  # pan rand
+
+  
+d7 $ (slow 2 $ chop 16 $ sound "atlast")
+  # pan saw1
+  # gain "1.1"
+
+d8 $ sound "g(3,8)"
+  # pan rand
+  # gain "1.1"
+
+
+lx silence

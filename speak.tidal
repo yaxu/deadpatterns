@@ -1,0 +1,11 @@
+
+d1 (jux rev $ chop 8 $ sound "bd sn:2")
+
+d2 $ slow 4 $ sound (samples' "xx" (offadd 0.125 7 $ tom "d(3,8) e f(3,8) g(5,8)"))
+  |+| vowel "a e i u"
+
+d3 $ every 3 rev $ slow 2 $ chop 16 (sound "arc")
+
+hush
+
+

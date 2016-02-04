@@ -1,0 +1,43 @@
+
+
+
+bps $ (140 / 60 )
+
+d1 $ stack [slow 2 $ jux (whenmod 6 4 (density 2)) $ brak $ sound (samples "newnotes newnotes" (slow 8 $ run 9))
+            |+| speed "[1,2 4 3]/4",
+            slow 2 $ (1/32) <~ (rev $ brak $ sound (samples "newnotes newnotes newnotes" (slow 8 $ run 12))
+            |+| speed "[1,2 4 8]/4")
+           ]
+
+d1 $ slow 2 $ striate 2 $ every 2 (0.25 <~) (sound "[drum bd*2 drum/2*2] drum/1 bass3 [jvbass drum/1]")
+  |+| shape "0.7"
+  |+| speed "[2 3]/3"
+
+bps $ 0.5
+
+d2 $ sound "[bd sn/2, hh*3 hh*4]/2 bd*4"
+
+d1 $ slow 3 $ sound "bd*2 [bd sn/2, hh*3 hh*4]/2 bd*4"
+
+d3 $ slow 16 $ striate 128 $ sound "[pad/2 pad/4]"
+ |+| speed "[2 1]*8"
+ |+| pan "0 1"
+
+
+d4 $ every 3 rev $ slow 4 $ striate 32 $ sound "[bev, rave/3]"
+  |+| speed "2"
+
+d5 $ striate 4 $ every 4 rev $ sound (samples "[diphone2*52]/26" (slow 26 $ run 26))
+  |+| shape "0 0.7"
+  |+| speed "1.5"
+
+d2 $ sound "[chin*16 chin*8]/4"
+  |+| shape "0.6"
+  |+| pan (slow 2 $ sinewave1)
+
+
+bps $ 150/60
+
+
+d6 $ every 3 (rev) $ slow 2 $ sound (samples "amencutup*8" (slow 5 $ run 16))
+  |+| shape "0.5"

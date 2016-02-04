@@ -1,0 +1,24 @@
+(note, [portamento, expression, voice, octave, detune, vcoegint, cutoff, vcfegint, lforate, lfopitchint, lfocutoffint, attack, decay, sustain, delaytime , delayfeedback], stop) <- keystart
+let sine128 = (+) <$> "0*256" <*> ((floor . (* 128)) <$> sine1 :: Pattern Int)
+
+note $ every 2 (echo (1/8)) $ every 3 rev $ ((+10) <$>) <$> every 2 ((+0) <$>) $ whenmod 32 28 (const  $ slow 2 "[50*2 [~ 50] 38 50] [~ 50 ~ ~]") $ slow 4 $ "[50 50] [~ 50 53 55] [48 [~ 48] [~] 48] [~ 46 46 48]"
+
+beatstop
+
+
+cutoff $ "40" 
+hush
+beatstop
+
+note $ "[60 60 60 60]/2"
+
+d1 $ slow 2 $ jux (iter 8) $ sound "ul:2 ul:1 ~ ul:3"
+  |+| shape "0.9"
+
+stop
+cutoff $ slow 32 $ (<$> (`div` 2)) <$> sine128
+
+peak $ slow 12 $ sine128
+
+
+stop

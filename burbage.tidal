@@ -1,0 +1,157 @@
+let d p = do vis 16 $ dirtToColour p
+             d1 p
+
+d $ jux rev $ every 8 (iter 4) $ sound "bd sd8 cp*3"
+
+d $ sound "bd [arpy jvbass] sd8:2"
+
+t (anticipate) $ sound "bd [~ bd arpy ~] sn cp"
+
+t1 (anticipate) $ sound "bd(3,8)"
+
+d1 "0 1 0 2 3 2 1 2 0 1 0 2 3 2 1 2 2 0 1 0 2 3 2 1 2 0 1 0 2 3 2 1 1 2 0 1 0 2 3 2 1 2 0 1 0 2 3 2 2 1 2 0 1 0 2 3 2 1 2 0 1 0 2 3 3 2 1 2 0 1 0 2 3 2 1 2 0 1 0 2 2 3 2 1 2 0 1 0 2 3 2 1 2 0 1 0"
+
+:t mapM
+
+let dirtchan total = mapM (\n -> do {s <- dirtStream; return $ \p -> s (p |+| pan (pure $ n/(total-1)))}) [0..(total-1)]
+
+cs@[a,b,c,d] <- dirtchan 4
+
+let hush = mapM_ ($ silence) cs
+
+d1 $ sound "bd" |+| pan (pure $ 1/8)
+2
+import Data.Map as Map
+
+
+let panBy p = look
+      where look = (Map.lookup (param dirt "sound")) <$> p
+
+panBy $sound "bd" |+| pan (pure $ 1/8)
+
+d1 $ jux rev $ chop 8 $ sound "bd bd*2"
+  |+| gain "2"
+  |+| speed "16"
+  |+| end "0.1"
+  |+| nudge (slow 16 sine1)
+
+d1 silence
+
+d1 $ slow 4 $ chop 8 $ sound "wobble"
+  |+| speed "4"
+  |+| shape "0.9"
+
+d1 $ every 4 (|+| accelerate "2") $ jux (iter 4) $ sound (samples "[insect ~ insect] ~" (irand 16))
+  |+| gain "1.5"
+  |+| speed ("2")
+
+d2 $ every 4 (const $ superimpose (slow 1.5) $ chop 8 $ sound "cp" |+| gain "4") $ superimpose rev $ stut 4 0.9 (-0.25) $ chop 8 $ slow 2 $ superimpose (iter 8) $ sound ((flip pick) <$> ((+) <$> "80(3,8)" <*> "[0 3 6]/8") <*> "drum")
+  |+| gain "2"
+
+d3 $ jux (iter 8) $ slow 4 $ weave 16 (sound (samples "vocobass" "60 64 72 80"))
+  [vowel "a e*2 i",
+   vowel "a i*2 o u"
+   ]
+  |+| gain "2" |+| speed "[2,4]"
+
+d1 $ rev $ chop 8 $ jux (iter 4) $ sound (samples "voodoo*8" (run 8))
+  |+| gain "4"
+  |+| speed "3"
+
+
+d2 $ jux (iter 4)$ (slow 4 $ chop 8 (sound "liq"))
+  |+| gain "3"
+  |+| speed "-0.25"
+  |+| accelerate "0"
+  |+| unit "c"
+
+d3 $ superimpose (iter 4) $ sound "[sqrpad]"
+  |+| gain "1"
+  |+| unit "c"
+  |+| speed "[1,1.01]"
+
+d4 $ rev $ chop 8 $ superimpose (iter 4) $ sound "[sqrpad:4]"
+  |+| gain "1"
+  |+| unit "c"
+  |+| speed "[-1,-1.01]"
+
+d1 $ foldEvery [5,7] (0.25 <~) $ (slow 8 $ chop 128 $ sound "fire")
+  |+| gain "4"
+  |+| speed "1 2 3"
+
+
+d3 silence
+d3 $ sound "cp(3,8)"
+  |+| gain "3"
+
+cps 0.5
+
+d1 $ sometimes (slow 2) $ slow 2 $ slowspread (chop) [12,16,128,64] $ sound (fit 4 ["bd", "diphone2:8", "diphone2:4", "diphone2:4", "diphone2:3", "diphone2"] "2 [2 1] [3  4] 0")
+  |+| gain "3.5"
+
+d2 $ jux (rev . iter 4) $ slow 2 $ sound "bd*8 [bd8:4 ~ bd8:3]"
+  |+| gain "3.5"
+  |+| end "0.02" |+| speed "-1"
+
+d3 $ every 4 (slow 1.5) $ sound (samples "[birds3(3,8) birds3(5,8)]" (irand 16))
+  |+| gain "3.5" |+| speed "[1]"
+
+solo $ d4 $ sound "numbers:0 numbers:1" |+| pan "0 1"
+
+
+d4 $ jux (iter 4) $ weave 16 (sound (samples "xx*8" (slow 2 $ tom "e3 d4 g2 b2 a3 e2 e3"))
+  |+| gain "2"
+  |+| speed "2")
+  [speed "1 3*2",
+   speed "1 2 3 4",
+   speed "1 2 3",
+   speed "1 2"
+  ]
+
+
+
+d1 $ slow 8 $ sound "grey green bg purple"
+
+
+
+d1 $ (slow 8 $ sound $ fit 8 (words "green green green green green green green green green green green brown green green green brown green green green brown green green green brown green green green brown green green green brown green green green brown green green green brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown white red white red white red white red white red white red white red white red white red white red white red white red red red red red red red red red") "0 1 2 3 4 5 6 7")
+  |+| unit "c"
+  |+| speed "1"
+
+d1 $ chop 128 $ (slow 8 $ sound $ fit 8 (words "green green green green green green green green green green green brown green green green brown green green green brown green green green brown green green green brown green green green brown green green green brown green green green brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown white red white red white red white red white red white red white red white red white red white red white red white red red red red red red red red red") "0 1 2 3 4 5 6 7")
+
+
+d1 $ chop 128 $ sound $ pick <$> (slow 8 $ fit 8 (words "green green green green green green green green green green green brown green green green brown green green green brown green green green brown green green green brown green green green brown green green green brown green green green brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown white red white red white red white red white red white red white red white red white red white red white red white red red red red red red red red red") "0 1 2 3 4 5 6 7") <*> (irand 16)
+
+
+v $ sound $ pick <$> (slow 8 $ fit 8 (words "green green green green green green green green green green green brown green green green brown green green green brown green green green brown green green green brown green green green brown green green green brown green green green brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown grey brown white red white red white red white red white red white red white red white red white red white red white red white red red red red red red red red red") "0 1 2 3 4 5 6 7") <*> (slow 8 $ slow 32 $ run 16)
+
+-- heather
+v $ (sound $ pick <$> (slow 4 $ fit 4 (words "bg purple bg bg purple purple bg bg bg purple purple bg purple purple bg bg bg purple purple bg purple purple bg bg bg purple purple bg purple purple bg bg bg purple purple bg purple purple bg bg bg purple purple bg bg purple bg bg bg bg bg bg bg bg bg bg") (run 4)) <*> (slow 4 $ slow 32 $ run 16))
+  |+| gain "2"
+
+
+v silence
+
+let dirtchan total = mapM (\n -> do {s <- dirtStream; return $ \p -> s (p |+| pan (pure $ n/total))}) [0..(total-1)]
+cs@[a,b,c,d] <- dirtchan 4
+
+
+s <- stream "127.0.0.1" 8010 dirt {timestamp = NoStamp}
+
+let v p = do d1 $ now ~> (chop 8 p)
+             s $ now ~> p
+
+-- millstone
+d1 $ chop 128 $ sound $ pick <$> (slow 12 $ fit 12 (words "green green green green grey grey grey green green green green green green green green grey grey grey grey grey green green green green green green grey grey grey grey grey grey grey green green green green grey grey grey grey grey grey grey grey grey green green green grey grey grey grey green grey grey grey grey green green green grey grey grey grey grey grey grey grey grey green green green green grey grey grey grey grey grey grey green green green green green green grey grey grey grey grey green green green green green green green green grey grey grey green green green green green green green green green green green green green green green green green") (run 12)) <*> (slow 12 $ slow 32 $ run 16)
+
+
+
+fit :: Int -> [a] -> Pattern Int -> Pattern a
+fit perCycle xs p = (xs !!!) <$> (Pattern $ \a -> map ((\e -> (mapThd' (+ (cyclePos perCycle e)) e))) (arc p a))
+  where cyclePos perCycle e = perCycle * (floor $ eventStart e)
+
+
+
+
+s $ sound "red"

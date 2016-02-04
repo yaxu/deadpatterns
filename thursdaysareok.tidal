@@ -1,0 +1,30 @@
+solo $ d1 $ juxBy 0.25 (density 2) $ every 3 (|*| speed "1.2") $ stack [(slow 2 $ sound "bd aid:3 sd8:1 aid"),
+                                                                                  sound "[bd ravebass bd] ravebass:3" |+| speed "4"
+                                       ]
+
+d3 $ slow 2 $ sound "~ kurt ~ kurt:2"
+  |+| vowel "[o e i o u]/2"
+
+d2 $ iter 4 $ slow 2 $ chop 16 $ sound "arc"
+
+d3 $ sound (samples' "ravebass" "10 ~ 12")
+
+d4 $ rev $ iter 4 $ slow 2 $ chop 16 $ sound "arc"
+  |+| vowel "a"
+
+d5 $ sound "g([3 5]/2,8,[0 4]/2)"
+
+d6 $ rev $ (slow 4 $ chop 32 $ sound "atlast:2")
+  |+| crush "5"
+  |+| speed "[1, 2]"
+
+d1 $ every 2 (jux rev) $ sound (samples' "xx" (off (0.125) ((+7) <$>) $ tom "[[d4(4,16)]/2 e4(3,8) f3(1,8) [g3 a4]]/4"))
+  |+| speed "[1 2 0.5 1.5]/3"
+  |+| gain "1.1"
+
+d2 $ rev $ chop 8 $ sound "[ravebass:12*2 ravebass:13]/2"
+
+-- ok that was just a quick one
+-- thanks for listening you two
+-- oh four listeners!
+-- have enjoyable evenings

@@ -1,0 +1,72 @@
+d1 $ slow 16 $ striate 128 $ sound "pebbles"
+  |+| speed "0.5"
+
+d2 $ smash 2 [1,2,3,4] $ jux rev $ sound "odx bd*3 bd*4"
+  |+| vowel "[a e o]"
+
+
+d3 $ jux (iter 16) $ sound "odx*4 sn/2 [gretsch sn/2*2 drum/1]"
+  |+| shape "0.4"
+  |+| speed "[1]"
+
+d1 $ slow 4 $ superimpose (iter 4) $ jux rev $ sound "bd*4 bd*3"
+  |+| speed (slow 2 $ (+2) <$> sine1)
+
+d2 $ brak $ sound "drum drum/1"
+  |+| shape "0.2"
+  
+d3 $ slow 2 $ every 3 rev $ sound (samples "[amencutup*4 amencutup*3]/2" (slow 3 $ run 26))
+  |+| shape "0.5"
+
+
+d4 $ slow 2 $ sound "alphabet alphabet/2"
+
+d5 $ jux rev $ slow 16 $ striate 128 $ sound "bev"
+  |+| speed "0.25"
+d5 silence
+d6 $ jux (iter 8)  $ slow 16 $ striate 256 $ sound "bev"
+  |+| speed "0.5"
+
+
+d1 $ every 2 (density 3) $ smash 2 [4,1,2,0.3] $ sound "bd sn/2 bd*16 bd*2"
+  |+| vowel "[p]/2"
+  |+| pan "0"
+  |+| speed "1"
+  |+| shape "0.5"
+
+d2 $ every 2 (density 2) $  smash 2 [1,2,3,0.6] $ every 3 (0.25 <~) $ sound "bd sn/2 bd*16 bd*2"
+  |+| pan "1"
+  |+| speed "0.9"
+  |+| shape "0.7"
+
+d3 $ every 3 (density 2) $jux (iter 16) $ sound "bd bd*5 sn/2 sn/2"
+  |+| shape "0.5"
+  |+| speed "2"
+
+
+
+d4 $ jux rev $ every 4 rev $ striate 16 $ sound "breaks165"
+  |+| shape "0.7"
+  |+| speed "0.5"
+
+d5 $ sound "~ bleep/4"
+
+d6 $ slow 4 $ jux rev $ every 2 (slow 2 . striate 4) $ sound "gabbalouder bd*4 sn/2"
+  |+| shape "0.9"
+
+hush
+
+d7 $ slow 16 $ smash 2 [1,0.2,5,0.5] $ every 2 (density 2) $ jux (rev) $ sound (samples "{jvbass*4 drum*3}" (slow 4 $ run 6))
+  |+| speed "[3 2]"
+  |+| vowel "[a i o u a]/5"
+
+d8 $ slow 15 $ smash 2 [3,0.5,2] $ every 3 (density 3) $ jux (rev) $ sound (samples "{jvbass*8 jvbass*4}" (slow 4 $ run 6))
+  |+| speed "[4 8 2]"
+  |+| vowel "[a e i o u]/4"
+
+hush
+
+bps $ 135 / 60
+
+
+d1 $ jux rev $ every 2 (smash 2 [1,2,3]) $ brak $ sound "[future [drum/1 sn/2], ~ cp]"

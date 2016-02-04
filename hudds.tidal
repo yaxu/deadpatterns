@@ -1,0 +1,75 @@
+
+d2 $ sound "drum sd8:2*2"
+
+d3 $ every 2 rev $ chop 4 $ slow 4 $ sound (samples "onoff*4" "1 2 3 4")
+
+d1 $ sound (samples "amencutup*8" (slow 4 $ scan 8))
+  |+| gain "1.1"
+
+
+d2 $ slow 2 $ weave' 16 (sound (samples "arpy*8" (slow 4 $ scan 8)))
+  [(vowel "a e i" |+|),
+   (vowel "a i u o i" |+|),
+   (speed "0.75 1 0.5" |+|)
+  ] |+| speed "0.5"
+k1 silence
+
+d3 $ rev $ weave' 16 (sound (samples "arpy*8" (slow 4 $ scan 8)))
+  [(vowel "a e i" |+|),
+   (vowel "a i u o i" |+|),
+   (speed "0.75 1 0.5" |+|)
+  ] |+| speed "2"
+
+d4 $ jux (iter 4) $ every 4 (chop 4) $ sound "[bd ~ bd] ~ sn:2 ~"
+
+d5 $ every 2 rev $ jux (iter 4) $ slow 4 $ chop 64 $ sound "breaks165" |+| speed "0.5"
+
+d6 $ slowspread ($) [id, (|+| speed "2")] $ sound "gabba ~ wobble"
+
+d7 $ spin (4) $ every 4 rev $ weave' 8 (sound (samples "bd*2 sd8 kurt:2 sd8:2" (slow 4 $ scan 8)))
+  [(|+| vowel "a e o u"),
+   (|+| vowel "a p u")
+  ]
+
+d8 $ sometimes (density 2) $ brak $ sound "[drum,future] cp8 ~ ~c"
+  |+| shape "0.7"
+  |+| speed "2"
+
+d9 $ every 3 (rev . chop 8) $ jux (iter 4) $ sound "bd8:2 sb arpy*2 ~"
+
+d1 $ slow 16 $ striate 128 $ sound "atlast:1*2"
+  |+| gain "1.2"
+
+d2 silence
+
+d4 $ sound "bass3*4"
+  |+| shape "0.5"
+
+
+k1 $ every 2 (density 1.5) $ superimpose (iter 4) $ note "40 ~"
+  |+| vcfegint "0.5 0.25"
+  |+| cutoff (slow 8 sine1)
+  |+| dur "0.1"
+
+d3 $ sound "[bd off bd sn:2, bd arpy jvbass*2 [arpy:2 arpy:4]]"
+
+d4 $ slow 2 $ jux (rev . chop 8 . iter 4) $ sound "drum sb:2 off sb:4"
+
+d3 $ sound "can cp8"
+
+d5 $ superimpose (iter 4) $ slow 2 $ spin 4 $ sound "[bd wobble] bd kurt:2 ~"
+  |+| accelerate "[1 -2]/2"
+
+d8 $ rev $ slow 4 $ slow 16 $ striate 128 $ sound "bev*4"
+  |+| gain "1.2"
+  |+| speed "[2]"
+
+d9 $ jux (iter 4) $ sound "bd*2 drum sd8 sd8:4"
+  |+| shape "0.4"
+
+cps 
+
+d4 $ sound "~ wobble"
+
+
+hush

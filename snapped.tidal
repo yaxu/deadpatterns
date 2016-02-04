@@ -1,0 +1,17 @@
+let x = (slow 2 $ every 2 (slow 2) $ sound (pick <$> "[bd lt] mt lt [bd [bd lt] bd sn]" <*> (slow 5 $ run 16))) in
+  d1 $ stack [x |+| pan "0.4" |+| speed "2",
+              0.5 <~ (x |+| pan "0.6") |+| speed "2"
+             ]
+
+d2 $ every 3 (0.5 <~) $ rev $ slow 8 $ striate 64 $ sound "bev"
+  |+| pan "0"
+  |+| speed "2"
+
+d3 $ (slow 1 $ striate 16 $ sound "bev"
+  |+| pan "1"
+  |+| speed "2")
+
+d3 silence
+
+d4 $ density 2 $ every 4 rev $ striate 64 $ slow 4 $ sound "~ wobble ~ [bd [bd, cp, wobble]]"
+  |+| speed "0.92"

@@ -1,0 +1,4 @@
+
+d1 $ slow 2 $ sound "odx*2 ! ! odx*8"
+
+hush 

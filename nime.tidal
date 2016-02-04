@@ -1,0 +1,36 @@
+import Sound.Tidal.Vis
+import qualified Graphics.Rendering.Cairo as C 
+import Data.Colour
+import Data.Colour.Names
+import Data.Colour.SRGB
+import System.Cmd
+
+let vis pat = do vLines (C.withSVGSurface) "nime.svg" (400,400) pat 10 10
+                 rawSystem "/home/alex/Dropbox/bin/fixsvg.pl" ["nime.svg"]
+                 rawSystem "convert" ["nime.svg", "nime.pdf"]
+                 return ()
+
+vis $ (stringToColour . show . (*1000)) <$> ((p "1 2 3 4 5")  :: Pattern Int)
+
+import Sound.OSC.FD
+myk <- dirtStream
+
+let startMYK = do x <- udpServer "127.0.0.1" 4040
+                  --mvMYK <- newMVar silence 
+                  mvF <- newMVar (const silence)
+                  forkIO $ mykLoop x (mvF :: MVar (Pattern Int -> OscPattern))
+                  return (mvF)
+    mykLoop x mv = do m <- recvMessage x
+                      act m mv
+                      mykLoop x mv
+    act (Just (Message "/tidal" [ASCII_String str])) mvF = 
+      do let pat = ((p $ tail $ init $ show str) :: Pattern Int)
+         f <- readMVar mvF
+         myk $ f pat
+         putStrLn $ "got '" ++ (show str) ++ "'"
+         putStrLn $ "parsed as " ++ (show pat)
+         return ()
+    act _ _ = return ()
+
+mv <- startMYK
+

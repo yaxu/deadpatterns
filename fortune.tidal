@@ -1,0 +1,46 @@
+d1 $ sound "{bd8:4*4 bd8*3 sd8*4, cp sd8 bd:8}"
+  |+| shape "0.7"
+  |+| speed "1.4"
+
+d2 $ jux (rev . chop 8)$ sound "bd*4 off"
+  |+| vowel "[a e i o u]/3"
+
+d3 $ jux (iter 4) $ weave' 16 (sound (samples "arpy*8" (run 8)))
+  [(vowel "a e*2 i o" |+|),
+   (speed "1 2*3 3" |+|),
+   slow 2 . (vowel "a e i i o" |+|)
+  ]
+
+d4 $ sound "~ wobble*2"
+  |+| shape "0.7"
+
+d5 $ foldEvery [3,5] (within (0,0.5) (density 2)) $ slow 2 $ every 4 (|+| speed "0.7") $ jux (iter 4) $ striate 8 $ sound "breaks165*2"
+  |+| shape "0.3"
+
+d6 $ every 2 (rev . chop 8) $ sound "~ off"
+
+b $ (foldEvery [3,8] (density 2) $ K.note $ tom "a f g e7")
+  |+| pit1 "0"
+  |+| pit2 "0.5"
+  |+| pit3 "1"
+
+d1 $ jux (rev) $ sound (samples "g*8" (run 12))
+  |+| shape "0.2"
+
+t2 (histpan 4) $ jux (iter 4) $ chop 8 $ sound "gabba(3,8) rave2*4"
+
+d1 $ jux (chop 8)$ sound "[bd8(3,8), sd8(5,8)]"
+  |+| shape (slow 8 $ scale 0 0.9 sine1)
+  |+| vowel "[a p e e i]/3"
+  
+
+d2 $ jux (rev . (|+| accelerate "-8")) $ slow 8 $ striate 128 $ sound "atlast:2"
+  |+| gain "1.2"
+
+d3 $ jux (iter 8) $ sound (samples "amencutup*8" (irand 16))
+
+d4 $ jux (iter 4) $ sound (slowspread (e 3) [8,16,4,16] $ "g g:6")
+  |+| shape "0.4"
+
+d1 $ smash 8 [2,3,4] $ sound (samples "onoff*4 diphone2" (irand 16))
+

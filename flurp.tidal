@@ -1,0 +1,81 @@
+d1 $ sound (sampleNotes "xx" $
+
+
+d1 $ slow 2 $ jux ((0.125 <~) . (|+| speed "1")) $ (sound $ sampleNotes "xx" $ slowspread (\x -> ((+x) <$>)) [3, 7, 12] $ tom "[d3 e3 c3 c2 g2]") |+| speed "[2]" |+| gain "1.4"
+
+d2 $ slowspread (\x -> (stut x 0.9 (0.5))) [2,4,3] $ sound "ravebass:3(3,8)" |+| speed "[1,2,4]" |+| gain "1.2"
+
+D1, E1, C1, C0, G0
+
+d1 $ slow 8 $ (sound $samples' "xx" ((subtract 12)<$> (superimpose (((+7) <$>) . (0.125 <~)) $ tom "d4(3,8) e4(5,8) f4(3,8) g4(5,8)"))) |+| speed "[1,2,0.5]" 
+
+d1 $ sound "bd(3,8) g"
+
+d3 $ (jux (|+| speed "0.9") $ chop 8 $ sound "[os:1 os:2 os:0]/3")
+  |+| gain "1.2"
+
+d4 $ jux (iter 4) $ weave 16 (sound "xx:50 xx:62 xx:48 xx:45")
+  [vowel "a e i",
+   vowel "o u*2"
+  ]
+
+
+
+
+
+d1 $ stack [--sometimes (rev) $ sometimes (|+| speed "0.5") $ jux (iter 4) $ slow 4 $ chop 8 $ sound "fm:10",
+  slow 4 $ striate 32 $ sound "liq"
+           ]
+
+d2 $ (sound (samples "amencutup*8" (slow 8 $ scan 8)) |+| gain "1.4")
+  |+| pan rand
+
+d3 $ slow 4 $ sound (samples' "xx" (superimpose ((0.125 <~) . ((+7) <$>)) $ tom "d4(3,8) e4(5,8) f4(3,8) g4(5,8)"))
+  |+| gain "1.2" |+| speed "[1,0.5]"
+
+d1 $ sound "xx:28"
+
+
+d1 $ weave 16 (sound (samples "arpy*8" (slow 16 $ run 16)))
+  [vowel "a e i",
+   vowel "e o",
+   speed "2 3 4*2 0.5",
+   vowel "a e i*2 o"
+  ]
+
+d2 $ jux (rev)$ slow 4 $ sound (samples' "xx" $ superimpose (((+7) <$>) . (0.125 <~)) $ tom "d4(3,8) e4(5,8) f4(3,8) g4(5,8)")
+  |+| gain "1.4" |+| speed "[1,0.5]"
+
+d3 $ jux (iter 4) $ slowspread (\x -> stut x 0.9 2) [7,3,5,2] $ stack [sound "ravebass:10(3,8)" |+| shape "0.9" |+| gain "1",
+                                                                       sound "odx" |+| gain "1"
+                                                                      ]
+
+d4 $ jux (rev) $ (chop 16 $ sound "fm:10" |+| speed "1")
+  |+| gain (slow 4 $ scale 1 1.5 sine1)
+
+
+d1 $ (slow 2 $ sound (samples "[g]*16" (run 16)))
+  |+| nudge "[0 0.05]*4"
+
+
+d1 $ sound (samples "newnotes:7 [newnotes*2] cp [~ cp]" (irand 4))
+  |+| shape "0.9"
+  |+| speed "[3,1,0.75]"
+
+d1 $ sound "vocobass:40 cp [~ vocobass:42] cp"
+  |+| gain "1.5" |+| speed "2"
+
+d2 $ sound "odx*8?" |+| speed "2" |+| gain "1.2"
+
+d3 $ jux (iter 4)$ sound "[aid:11 aid:13 aid:15 aid:18]/3(5,8)" |+| gain "1.4"
+  |+| speed "8"
+
+d4 $ sound "g*4" |+| gain "1.2"
+
+s $ [slowspread (stut 4 0.9) [-3,1,2,0.125] $ sound "ravebass:10(3,8)"
+    ]
+
+d2 $ sound "bd*2 sd8:2"
+
+
+d1 $ sound "sn:4 can can can" |+| gain "1.5"

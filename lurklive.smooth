@@ -1,0 +1,29 @@
+# tweet if you're listening -> @lurkorg
+# or irc on #lurk.org @ irc.freenode.net
+
+d1 $ slow 4 $ sound "bd odx bd sn/5"
+  |+| pan "0.4"
+
+d2 $ slowcat [striate 4 $ sound "bd sn bd sn/2",
+              striate 8 $ sound "bd sn bd drumtraks"
+             ]
+  |+| pan "0.6"
+
+d3 $ (smash 16 [1,1.4,1.8,1.2] $ slow 2 $ sound "bd [bd bd bd] [bd bd] [bd bd bd bd]"
+  |+| speed "0.5")
+
+
+d4 $ every 2 (0.25 <~) $ every 2 brak $ sound "[bd bd bd] sn/2"
+
+
+d5 $ (smash 16 [8,4,16,8] $ sound (samples "jvbass ~ jvbass jvbass" (slow 5 $ "1 2 3 4 5"))
+  |+| (speed $ every 3 ((+ 0.2) <$>) "4 8"))
+  |+| (density 16 $ pan "0.4 0.6")
+
+
+
+d6 $ brak $ every 4 (0.25 <~) $ slowcat [sound "odx [odx odx] odx",
+                                         sound "bd bd bd [bd bd bd bd]"
+                                        ]
+  |+| shape "0.6"
+  |+| speed "2"

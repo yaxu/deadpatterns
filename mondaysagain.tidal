@@ -1,0 +1,6 @@
+d1 $ sometimes (|*| speed "2") $
+  superimpose (slow 2) $ slow 2 $
+  slowspread (stut 8 0.9) [0.06,0.1,2,3] $
+  jux (iter 4) $
+  (sound (slow 2 $ samples "voodoo*4 lighter*3 bd*4 cp" (slow 8 $ scan 8)))
+  # speed "[0.5 2 1,1.01]/3"

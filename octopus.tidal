@@ -1,0 +1,25 @@
+
+d1 $ slow 2 $ (chop 32 $ sound "[leaf leaf:2 leaf:3]/3")
+   |+| pan (scale 3 4 $ tri1)
+   |+| gain "1.2"
+   |+| shape "0.3"
+
+d2 $ slow 3 $ (chop 32 $ sound "[leaf leaf:2 leaf:3]/3")
+   |+| pan (slow 4 $ tri1)
+   |+| speed (scale 3 5 $ slow 8 sine1)
+   |+| gain "1.2"
+
+d3 $ spin 1.5 $ every 3 (0.25 <~) $ superimpose ((|+| speed "2") . iter 4) $ sound "bd8:3*3 sn:2"
+   |+| end "0.4"
+
+d4 $ spin4 1.5 $ sound "bd8:4*4"
+
+d5 $ slow 2 $ iter 8 $ chop 16 $ sound "breaks125"
+
+d6 $ every 2 (density 2) $ jux4 (iter 8) $ slowspread ($) [slow 2, iter 8, id, (|+| speed "0.9")] $ sound (pick <$> "kurt*8" <*> (slow 3 $ run 12))
+   |+| speed "2"
+
+d7 $ brak $ sound "feel feel:2"
+
+d8 $ smash 4 [1,2,3,4] $ brak $ spin 0.5 $ slow 2 $ chop 3 $ sound "rave:6"
+

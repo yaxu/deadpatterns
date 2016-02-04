@@ -1,0 +1,22 @@
+
+d1 $ slow 2 $ smash 2 [1,2,3,6] $ (sound "[ab/2 sn/2] [bd bd bd]"
+  |+| (slow 4 $ pan "0 1"))
+
+d1 $ sound "ab/5"
+
+d1 silence
+
+d1 $ (striate 8 $ sound "sn/7 sn/3")
+  |+| speed "0.6"
+  |+| (pan "[0 1]")
+
+let spread f xs p = cat $ map (\x -> f x p) xs
+
+d2 $ combine [spread slow [2,4,0.5,6] $ striate 32 $ slow 4 $ (sound "bd sn/2 sn/3 bd")
+             |+| speed "0.5", 
+              slow 2 $ sound (sample
+                              <$> "[bd jvbass] [bd glitch jvbass]"
+                              <*> (slow 7 "1 2 3 4 5"))
+              |+| speed (slow 5 "[2,3] 0.5 [4,2,1] [1,2]")
+             ]
+

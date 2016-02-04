@@ -1,0 +1,28 @@
+d1 $ whenmod 8 4 (|+| vowel "a e i o u"
+) $ ((slow 8 $ striate 128 $ sound "padlong/7")
+  |+| (slow 32 $ speed (every 2 ((*2) <$>)$ ((+0.1) . (*0.5)) <$> (stack [(1-)<$> triwave1, (0.5 <~ triwave1) ]))))
+--  |+| shape "0.7"
+
+d3 $ sound "bleep/5 [bd*8 bd*4 sn/2 bd*3]/4"
+
+d2 $ slow 2 $ whenmod 3 2 (density 1.5) $ sound "bass3/2 bass3/8*2"
+  |+| speed "[0.5 2,3]/2"
+
+
+d3 $ slow 2 $ jux (striate 4) $ sound "gabba*2 bd*5"
+  |+| (slow 8 $ shape $ (*0.9) <$> triwave1)
+
+d4 $ sound (samples "amencutup*4 amencutup*3" (slow 7 $ run 17))
+  |+| shape "0.75"
+
+d5 $ jux (rev) $ rev $ slow 1 $ striate 16 $ sound "breaks125"
+  |+| speed "2"
+
+d6 $ every 3 (jux (rev . density 2)) $ brak $ sound "bass2/5 drum/1"
+  |+| shape "0.6"
+
+bps $ 130/60
+
+d1 $ sound "bd*2"
+  |+| pan "0 1"
+

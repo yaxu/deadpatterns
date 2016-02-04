@@ -1,0 +1,37 @@
+d4 $ every 2 (const silence) $ every 4 (density 2) $ slow 8 $ striate 64 $ sound "bev"
+  |+| speed ("0.5")
+  |+| pan "0"
+
+d5 $ every 2 (const silence) $ every 3 rev $ every 3 (density 2) $ slow 8 $ striate 64 $ sound "bev"
+  |+| speed ("0.5")
+  |+| pan "1"
+
+let x =  "bd [[sn/2 [mt lt]] printshort/4] [[jvbass/2 jvbass/7] [bd sn/2]] [printshort/2 [bd [bd bd bd] bd]]"
+  in d6 $ slow 2 $ stack [every 16 rev $ slow 2 $ sound x |+| pan "1",  (0.5 <~) $ slow 2 $ sound x |+| pan "0"]
+  |+| speed (every 8 ((*2) <$>) "1")
+  |+| (every 4 (rev) $ cutoff (((+ 0.01) . (* 0.05)) <$> density 2 sinewave1))
+  |+| resonance "0.6"
+  |+| shape "0.9"
+
+d1 $ every 4 rev $ sound "bd [sn sn] bd sn/2"
+  |+| shape "0.2"
+  |+| vowel "o"
+
+let x = every 3 (slow 2) $ every 2 (rev) $ sound "[bd [bd bd]] sn:2 [bd [bd bd] bd bd] [sn bd sn:4 bd]"
+  in d1 $ slow 2 $ stack [slow 4 $ x |+| pan "0.4", slow 2 x |+| pan "0.6"]
+
+
+
+let x =  "bd [[sn/2 [mt lt]] printshort/4] [[jvbass/2 jvbass/7] [bd sn/2]] [printshort/2 [bd [bd bd bd] bd]]"
+  in d1 $ stack [slow 2 $ stack [every 16 rev $ slow 2 $ sound x |+| pan "1",  (0.5 <~) $ slow 2 $ sound x |+| pan "0"]
+                 |+| speed (every 8 ((*2) <$>) "1")
+                 |+| (every 4 (rev) $ cutoff (((+ 0.01) . (* 0.05)) <$> density 2 sinewave1))
+                 |+| resonance "0.6"
+                 |+| shape "0.9",
+                 every 6 (0.25 <~) $ every 8 (slow 2) $ sound "bd [ht mt] [tabla2:8 [bd [bd bd] bd]] lt",
+                 every 4 (|+| speed "4") $ slow 2 $ sound "[mouth:2 mouth:4] psr:4 [mouth:1 mouth:3] psr:4"
+                 |+| cutoff (((+ 0.01) . (* 0.1)) <$> density 2 sinewave1)
+                 |+| resonance "0.5"
+                ]
+
+

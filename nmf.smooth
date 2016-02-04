@@ -1,0 +1,6 @@
+
+d6 $ every 2 (echo 0.5) $ sound (sample <$> "[jvbass [~ jvbass]]" <*> (every 2 ((*3) <$> ) $ slow 7 "3 2 4 5 8"))
+
+d6 silence
+
+

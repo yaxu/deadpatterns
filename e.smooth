@@ -1,0 +1,12 @@
+d1 $ sound ("[[bd sn/2 sn]*2] bd/3 future")
+  ~~ cutoff ((+ 0.01) . (* 0.1) <$> sinewave1)
+  ~~ resonance (slow 8 $ (+ 0.1) . (* 0.75) <$> sinewave1)
+  ~~ vowel "e"
+
+d2 $ sound (every 2 ((\x -> sample x 3) <$>) "[sn [bd bd bd] bd [cp cp]]")
+  ~~ cutoff ((+ 0.01) . (* 0.01) <$> sinewave1)
+  ~~ resonance (slow 8 $ (+ 0.1) . (* 0.75) <$> sinewave1)
+  ~~ vowel "e a i"
+d2 silence
+
+d3 $ every 3 ((1%4) <~) $ sound "[future future/1 future/2]*2"

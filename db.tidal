@@ -1,0 +1,8 @@
+d6 $ density 2 $ every 3 (0.25 <~) $ brak $ sound "[feel feel:2]"
+  |+| gain "1.5"
+
+d5 $ density 2 $ every 3 (0.25 <~) $ brak $ sound "[feel:1*8]"
+
+d4 $ density 4 $ every 3 (0.25 <~) $ every 4 (0.5 <~) $ striate 8 $ sound "mod:11*8"
+  |+| speed "4"
+  

@@ -1,0 +1,37 @@
+cps 1.1
+
+d2 $ brak $ iter 4 $ every 2 (slow 2) $ jux (rev . iter 4 . chop 8) $ sound "bd~~sn ~ ~[sn sd8]sd8"
+  |+| speed "0.5"
+
+d1 $ jux (iter 4) $ every 4 (rev . chop 8) $ weave' 16 (sound (samples "arpy*8" (run 8)))
+  [(vowel "a i e i" |+| crush "4" |+|),
+   (vowel "a [o i i] e i" |+| crush "4" |+|),
+   (vowel "i o u " |+| speed "0.5" |+|)
+  ]
+
+d3 $ every 3 (|+| speed "1.2 -1") $ jux2 (smash 8 [1,2,3,4]) (smash 8 [3,4,1]) $ sound "arc"
+
+d4 $ jux (iter 4 . rev) $ weave' 16 (sound (samples "arpy*8" (slow 8 $ run 8)))
+  [(vowel "a [o o] o ~ u" |+|),
+   (vowel "a e i" |+|),
+   (vowel "i e ~ a i" |+|),
+   (speed "0.75 1 1 0.5" |+|)
+  ]
+
+let jux2 f f' p = stack [f p |+| pan "0", f' p |+| pan "1"]
+
+
+d1 $ every 4 (|+| vowel "a") $ jux (iter 8) $ sound "[can(3,8),can:3(5,8)]"
+  |+| speed "[1 2 3]/3"
+
+d2 $ jux (iter 4) $ every 3 (rev) $ chop 16 $ sound "~ fms"
+
+d3 $ slow 4 $ smash 8 [1,2,3,4] $ brak $ sound "drum drum:1*2"
+  |+| shape "0.6"
+
+d4 $ slow 4 $ weave' 16 (sound (samples "arpy*8" (rev $ run 8)))
+   [(speed "0.5 1" |+|),
+    (speed "1 3 4" |+|),
+    (vowel "a [p p]*2? e p" |+| speed "2 1.5" |+|)
+   ]
+

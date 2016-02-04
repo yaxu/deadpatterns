@@ -1,0 +1,28 @@
+(note, [clapSpeed, clavesSpeed, agogoSpeed, crashSpeed, stutterTime, stutterDepth, tomDecay, clhatDecay, ophatDecay, hatGrain], stop) <- Volca.Beat.startbeat
+
+d1 $ jux (iter 4) $ sound "[arpy:2 rave2:3, ~ arpy ~]"
+  |+| speed "0.5"
+
+d2 $ slow 2 $ every 2 (slow 2) $ stut 4 0.9 (-(1/8)) $ slow 2 $ superimpose (iter 2) $ sound "[bd*2 bd*4, gabbaloud arpy ~]"
+  |+| speed "4"
+
+d3 $ jux (iter 4) $ sound "[bd rave2:3*2, arpy:3]"
+  |+| speed "0.5"
+
+d4 $ slow 2 $ sound "bass3:2 [bass3:4 bass3:1]/2"
+  |+| gain "1.4"
+  |+| speed "[2,4]"
+
+d5 $ sound "feel"
+
+d6 $ (jux (rev) $ striate 4 $ sound "[rave2:4*2 rave2:8*2]/2")
+  |+| speed "[1 1 1 -1.5]/4"
+
+d7 $ every 4 (0.25 <~) $ sound "bd [bass3:4] ~ bd*3"
+  |+| speed "0.5"
+
+bps $ 130 / 60
+
+hus
+
+

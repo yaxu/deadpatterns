@@ -1,0 +1,33 @@
+
+
+
+p1 <- pulsestream "149.62.86.36"
+
+d1 $ sound "bd sn/2"
+
+
+d1 $ slow 2 $ jux4 (every 2(0.25 <~)) $ sound "bd sn*3 bd drum/2*3"
+
+hush
+bps $ 140 / 60
+
+let square = Pulse.square in
+p1 $ stack [Pulse.square ("[0,1,2,3]*4" :: Pattern Int)
+           ]
+
+
+let square = Pulse.square in
+p1 $ stack [Pulse.square ("1*2 1*3" :: Pattern Int)
+            |+| Pulse.pspeed "10",
+            square ("2*4" :: Pattern Int)
+            |+| Pulse.r (0.1 <~ rand) |+| Pulse.g (0.2 <~ rand)  |+| Pulse.b rand,
+            square "3*8"
+            |+| Pulse.g "1" |+| Pulse.r "0"  |+| Pulse.b "0",
+            square "0*2"
+            |+| Pulse.b "1" |+| Pulse.g "[1 0]/2"  |+| Pulse.r "0"
+           ]
+
+d1 $ sound "bd*4"
+
+d1 $ slow 4 $ sound (samples "numbers*4" $ run 4)
+  |+| pan "0 1 2 3"

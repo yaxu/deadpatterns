@@ -1,0 +1,31 @@
+# 12
+
+let sinerat1 = fmap toRational sinewave1 
+
+cross f p p' = Pattern $ \t -> concat [filter flt $ arc p t,
+                                       filter (not . flt) $ arc p' t
+                                      ]
+  where flt = f . sam . fst . fst
+
+map (cyclePos . fst . fst) $ arc x (2,3)
+
+v "foo2.svg" $ dirtToColour $ stack [cross (< 1/4) 
+     (sound "[gabba, [bass3]*8 [bass3/5*2 drum/2*3]*4]/2" |+| speed "[2 1]/4") 
+     (slow 2 $ 
+      stack [silence
+            ,every 2 (0.5 <~) $ (jux (spread' (<~) (toRational <$> (slow 16 sinewave1))) $ sound "bd*2 [bass3*2]/2 sn/2 [bass3/3*2 bass3/4*3]/3") |+| speed (slow 2 $ "[5 3 4 0.5, 2]")
+            ,(jux (spread' (<~) (toRational <$> (slow 2 sinewave1))) $ striate 2 $ sound (samples "future*2" (slow 3 $ run 4)))
+            ,every 3 (0.25 <~) $ stack [smash 4 [1..16] $ (jux (spread' (<~) (slow 64 $ ratsine1)) $ sound $ samples "[bd bd*4, bass3*8/3]" (slow 4 $ run 8)), sound "future/1"]
+            ,every 2 (0.5 <~) $ jux (spread' (density) ((*4) . (1-) <$> (slow 4 $ rattri1))) $ sound "bd*4 drum*2 drum*4 [bass3/2,bd]/2" |+| speed (slow 8 $ (+4) <$> tri1)
+           ]),
+every 2 (striate 2) $ sound "drum ~ ~ ~",
+                   jux (spread' (double) "[1/16 1/6 1/7 1/5]/4") $ sound "[~ drum/2]*4"
+                  ]
+
+hush
+
+:t concat
+bps $ 130/60
+
+
+hush

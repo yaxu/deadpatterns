@@ -1,0 +1,15 @@
+s $ stack [every 2 (|+| vowel "a e i o u") $ sound (samples "voodoo*8" (run 8)),
+           sound "[future(3,8), future:2(5,8)]",
+           (weave 16 (sound $ samples "arpy*8" (rev $ run 8))
+            [vowel "a e i u",
+             speed "1 2*2 4 3"
+            ]
+           ),
+           jux (iter 4 . rev) $ sound "g g:4 g:5*2" |+| gain "1.5"
+          ]
+
+s silence
+
+s $ (jux (iter 8) $ sound $ (flip pick) <$> (every 2 (subtract 12 <$>) $ tom "c e [d4 c] g4") <*> "[xx,drum]" )
+  |+| crush "[2 4 8 16]/4"
+  |+| vowel "[a e i o u]/2"

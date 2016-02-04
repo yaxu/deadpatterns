@@ -1,0 +1,24 @@
+d1 $ every 2 (0.5 <~) $ slowcat [(striate 5 $ sound "jvbass/3 sn/5 sn/1"),
+                                 (striate 3 $ sound "sn/3 jvbass/4 sn/9"),
+                                 (striate 4 $ sound "sn/6 sn/2 jvbass/2"),
+                                 (striate 6 $ sound "sn/6 jvbass/4 sn/3")
+                                ]
+  |+| speed "8"
+  |+| pan "0.4"
+
+d5 $ every 2 (0.5 <~) $ slowcat [(striate 3 $ sound "jvbass/3 sn/5 sn/1"),
+                                 (striate 4 $ sound "sn/3 jvbass/4 sn/9"),
+                                 (striate 6 $ sound "sn/6 sn/2 jvbass/2")
+                                ]
+  |+| speed "1"
+  |+| pan "0.6"
+
+d2 $ sound "bd bd/4 ~ bd sn/2 ~"
+
+d3 $ sound "future [future/7 future/7 future/7] [future/3 wobble]"
+  |+| speed "1.2"
+
+d4 $ every 4 ((1/3) <~) $ every 3 brak $ sound "odx ~ [odx/3 odx/3]"
+
+d6 $ slowcat [striate 6 $ sound "stab", sound "h/1"]
+  |+| speed "3"

@@ -1,0 +1,38 @@
+cps 0.6
+
+d1 $ every 4 (within (0,0.25) (density 2)) $ spin 0.25 $ iter 4 $ sound "bd8 [sd8 ~ sd8]"
+  |+| gain "1.1"
+
+d2 $ spin 3 $ iter 4 $ sound "bd8:2*2 [~ ~ ~]"
+  |+| gain "1.1"
+
+d3 $ sound "bd*8 jungbass:2"
+   |+| speed "[1 1 1 2]/4"
+
+d3 $ slow 2 $ every 2 (slow 0.75) $ spin 1.5 $ sound "bd*8 bd:3*2 bd*32 ~"
+   |+| gain "0.9"
+
+d4 $ slow 2 $ every 2 (0.25 <~) $ stut 3 0.9 (0.75) $ every 2 (within (0,0.25) (density 2)) $ chop 32 $ sound "breaks125"
+   |+| speed "1"
+
+d5 $ jux rev $ slowspread ($) [id, iter 4, density 1.5, (0.5 <~)] $  sound "~ [rave2 ~ rave2:2*2]"
+
+d6 $ superimpose (iter 4) $ jux (0.25 <~) $ sound "arpy*3 arpy*2"
+   |+| speed (every 2 ((+0.5) <$>) $ (*0.25) <$> "1 1 2 2")
+   |+| end "0.5"
+
+d7 $ jux (iter 16) $ every 2 (0.5 <~) $ every 3 (0.25 <~) $ chop 8 $ sound "rave:6"
+   |+| vowel "[p e p a]/3"
+
+d1 $ echo 0.25 $ degrade $ every 3 (density 4) $ sound "bd sn:2"
+
+d2 $ sound "bd8"
+
+d3 $ (slowspread (chop) [4, 8, 3] $ sound "~ off")
+   |+| speed (slow 4 $ scale 0.5 2 $ sine1)
+
+d4 $ sound "drum*3"
+
+d5 $ sound "feel feel:2"
+
+d6 $ chop 16 $ sound "diphone2 ~ diphone2:3"

@@ -1,0 +1,39 @@
+d1 <- dirtstream "d1"
+d2 <- dirtstream "d2"
+d3 <- dirtstream "d3"
+d4 <- dirtstream "d4"
+d5 <- dirtstream "d5"
+d6 <- dirtstream "d6"
+d7 <- dirtstream "d7"
+
+d1 $ every 4 ((1%2) <~) $ sound "[<1/4> bd ht/2 ~ [~ bd] ht/3] [<1/2> bd ht/0 ~ [~ bd] ht/1]"
+  ~~ end "0.2"
+  ~~ speed "10.7"
+  ~~ cutoff "0"
+  ~~ resonance "0.1"
+
+d2 $ slow (1%2) $ striate (sound "[<1/8> sn/1 sn/2 sn/3 sn/5]") 8
+
+d3 $ striate (slow 4 $ sound "[diphone2/4 diphone2/2]*2") 4
+  ~~ pan "[0 1]*2"
+  ~~ speed (slow 4 $ ((+ 1.8) . (*0.6))  <$> sinewave)
+
+d5 $ striate (slow 4 $ sound "[diphone2/6 diphone2/5]*2") 4
+  ~~ pan "[1 0]*2"
+  ~~ speed (slow 4 $ ((+ 2.3) . (*0.6))  <$> sinewave)
+
+d4 $ sound "[[future/0]*4 [future/0]*2]*1/2"
+  ~~ speed "[0.9 1.6]*4"
+
+d6 $ (slow 16 $ striate (sound "[blue/1 ~ blue/0]*2") 32)
+  ~~ speed "[<1/2> 0.4 0.5 [0.2,0.4] [0.4,0.3]]"
+  ~~ pan "0.2"
+
+d7 $ (slow 8 $ striate (sound "[blue/1 blue/0]*2") 32)
+  ~~ speed "[<1/8> 0.5 0.4 0.3 0.8]"
+  ~~ pan "0.8"
+
+d7 silence
+
+d1 $ slow 2 $ sound "blue/1"
+

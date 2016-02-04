@@ -1,0 +1,24 @@
+let jux' fs p = stack $ map (\n -> ((fs !! n) p) # pan (pure $ fromIntegral n / fromIntegral l)) [0 .. l-1]
+      where l = length fs
+
+d1 $ (slow 2 $ jux' [id,density 1.5 . rev,rev . (chop 8) . (# speed "2"),density 2] $ sound "bd(3,8)")
+  # nudge (slow 4 $ sine1)
+
+
+
+d2 $ slow 2 $  (superimpose ((|*| up "-12") . (0.5 <~)) $ jux' [id,(|*| up "-5") . ((1/16) <~), (|*| up "7") . (0.25 <~), density 0.5, (vowel "a e i*2 i" #)] $ slow 4 $ sound (samples' "xx" (palindrome $ tom "d(3,8) e5*2 f5(5,8) g5*4")))
+  # nudge "[0 0.04]*8" |*| speed "[0.5,1 2]"
+
+
+d1 $ (slow 2 $ jux' [chop 8, rev . chop 16,chop 32,rev . chop 64] $ sound "os")
+    # speed "[1,0.75]"
+  |+| pan (slow 4 saw1)
+
+d4 $ slow 2 $ foldEvery [5,7] (0.25 <~) $ (jux' [id, (vowel "a e*2 o i*2" #),(|+| speed "2"), id] $ slow 4 $ chop 32 $ sound "liq") |+| pan (slow 4 saw1)
+
+t2 clutch $ sound (samples "amencutup*8" (slow 8 $ scan 32))
+  # gain "1.2" # speed "2"
+
+d3 $ (sound "drum*8 drum*32")
+  # pan rand
+

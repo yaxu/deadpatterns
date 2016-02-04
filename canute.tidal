@@ -1,0 +1,127 @@
+import Sound.OSC.FD
+
+myk <- dirtStream
+192.168.42.50
+let myIP = "10.0.1.3"
+    startMYK = do x <- udpServer myIP 4040
+                  mvF <- newMVar (const silence)
+                  forkIO $ mykLoop x (mvF :: MVar (Pattern Int -> OscPattern))
+                  return (mvF)
+    mykLoop x mv = do m <- recvMessage x
+                      act m mv
+                      mykLoop x mv
+    act (Just (Message "/tidal" [ASCII_String str])) mvF = 
+      do let pat = ((p $ tail $ init $ show str) :: Pattern Int)
+         f <- readMVar mvF
+         let dirtPat = f pat
+         myk dirtPat
+         putStrLn $ "got '" ++ (show str) ++ "'"
+         return ()
+    act _ _ = return ()
+
+mv <- startMYK
+
+ 
+do test <- openUDP "127.0.0.1" 4040
+   sendOSC test $ Message "/tidal" [string "1 2 3 4 5 8 9"]
+
+swapMVar mv $ \x -> stack [every 3 (slow 1.5) $ jux (iter 8) $ every 2 (slow 1.5) $ slow 2 $ sound ((flip pick) <$> (slow 2 $ x) <*> "jazz sn:2")
+                           |+| speed "2"
+                           |+| accelerate ((44-) <$> (fromIntegral <$> (slow 4 x)))
+                          ]
+
+
+swapMVar mv $ \x -> 
+
+swapMVar mv $ const silence
+
+k1 $ note 
+
+d1 $ juxcut (iter 4 . slow (2) . striate 4) $ brak $ (sound $ pick <$> "[bd sn bass3 ~ cp*2 jvbass jvbass drum]/2" <*> (slow 5 $ run 12))
+  |+| speed "2"
+
+d2 $ jux (iter 2) $ (every 3 (0.25 <~) $ brak $ sound "gabba ~ [drum/1 drum/1] ~")
+  |+| speed (slow 4 $ (+ 2.5) <$> sine1)
+
+d3 $ every 3 (iter 4) $ jux (slow 2 . rev) $ slow 2 $ brak $ sound "bd*16 drum*8 bd*12 drum*12"
+
+
+
+d1 $ slow 2 $ sound "cp"
+bps $ 130 / 60
+
+hush
+
+d1 $ every 5 (|+| speed "2") $ every 3 (rev) $ slow 2 $ sound "bd bd*3 bd bd*4"
+  |+| pan "2"
+
+d2 $ rev $ every 5 (|+| speed "3") $ every 3 (rev) $ slow 2 $ sound "bd bd*3 bd bd*4"
+  |+| pan "3"
+
+d7 $ slow 2 $ (every 3 (slow 2) $ slow 2 $ iter 4 $ every 3 rev $ slow 16 $ striate 32 $ sound "breaks152*4"
+  |+| pan "2.5")
+  |+| speed "2"
+  |+| shape "0.7"
+  
+d6 $ slow 2 $ (every 4 (slow 3) $ every 2 rev $ slow 16 $ striate 32 $ sound "[breaks152*3 breaks152*2]/2"
+  |+| pan "3")
+  |+| speed "2"
+  |+| shape "0.7"
+
+d5 $ every 3 (brak) $ sound "[~ bass3 bass3]/2 wobble"
+  |+| shape "[0.5,0.55]"
+  |+| pan "2.5"
+
+d6 $ slow 4 $ striate 8 $ sound "[kurt/2*4 kurt/1*5]/2"
+  |+| pan "2.5"
+
+d1 $ (superimpose (iter 8) $ sound (pick <$> "bd newnotes voodoo newnotes" <*> "[1 2 3 4]/5"))
+  |+| speed "[1 0.75 0.5 1]/2"
+
+
+d2 $ rev $ (superimpose (iter 8) $ sound "bd newnotes cp newnotes/2"
+  |+| pan "3")
+  |+| speed "[1 0.75 0.5 1]/2"
+
+d3 $ stack [every 2 (slow 2) $ rev $ every 3 (smash 4 [1,2,3])$ sound "drum/1*2 wobble"
+  |+| pan "2"
+  |+| shape "0.8"
+  |+| speed "4"
+  |+| cut "-1",
+ every 2 (slow 2) $ every 2 (smash 4 [1,2,3])$ sound "drum/1*3 wobble"
+  |+| pan "3"
+  |+| shape "0.5"
+  |+| speed "2"
+           ]
+  
+d5 $ sound "pad/2"
+  |+| pan "2.5"
+
+bps $ 150/60
+
+d1 $ slow 2 $ (slow 4 $ striate 4 $ sound (pick <$> "jvbass*4 numbers [jvbass*4 numbers] ~" <*> (slow 5 $ run 26))
+  |+| pan "0")
+  |+| shape "0.6"
+
+d6 $ slow 2 $ rev $ (slow 4 $ striate 4 $ sound (pick <$> "newnotes bass2 [bass3 jvbass] ~" <*> (slow 5 $ run 26))
+  |+| pan "1")
+  |+| shape "0.6"
+
+d2 $ every 4 (density 2) $ brak $ sound "drum wobble*2"
+  |+| pan "2.5"
+
+d4 $ slow 8 $ rev $ slow 2 $ striate 16 $ sound "lighter:3*16"
+  |+| shape "0.9"
+
+d3 $ slow 4 $ striate 8 $ sound "lighter:3*8 lighter:5*4"
+  |+| pan "3"
+  |+| shape "0.9"
+
+d8 $ brak $ every 2 (density 1) $ sound "gabba*2 sn/2"
+  |+| pan "2.5"
+  |+| shape "0.5"
+  |+| cut "-1"
+  
+hush
+d1 $ sound "alphabet/7"
+

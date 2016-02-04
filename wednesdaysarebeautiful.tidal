@@ -1,0 +1,50 @@
+
+d2 $ stack [every 2 (within (0,0.5) (density 2)) $ jux rev $ foldEvery [5,7] (0.125 <~) $ chop 8 $ sound (samples "os" (run 3))
+             |+| unit "c"
+             |+| gain "0.8",
+           slow 2 $ (slowspread (\x -> stut' 4 x (|*| speed "[4 3]")) [2,3,5,0.125] $ superimpose (rev . (|*| speed "3") . (0.125 <~)) $ sound "ravebass:10(3,8,[0 0 4 6]/4)"
+           )
+          ]
+  |*| speed "[1]"
+  |*| gain "0.4"
+s silence
+
+d1 $ stack [
+--  jux (iter 4) $ slow 8 $ (sound $ samples' "xx" (offadd 0.125 7 $ tom "g4(3,8) [c(3,8) d3*2] f3*2 c3*2")) |+| speed "1" |+| gain "1.2",
+  -- jux (rev . iter 4) $ chop 2 $ sound (samples "bd*2 [mt8 sn]" (irand 16)),
+  (jux rev $ sound "{bd sn:2, cp*2 drum*2 [ravebass:10 ravebass:10] bd ravebass:10}") |+| coarse (slow 4 $ floor <$> (scale 0 32 $ sine1)) |+| speed "2 1"
+  ]
+
+
+
+d1 $ stack [(slow 4 $ sound (samples' "xx" (slowspread (offadd (1/16)) [7] $ tom "[c3 d3] [f3 [g3 a3]]"))) |+| speed "[1,2 4 3 4]/3",
+            jux rev $ slow 2 $ chop 32 $ sound "bd sn:2 bd bd*2"
+            |+| nudge (slow 4 $ sine1) |+| coarse "[16 6 8]/4"
+           ] |+| gain "0.6"
+
+
+
+
+
+
+
+d1 $ sound "[bd8:4(3, 5, [0 1 2 3 4 5 6 7]/8), bd8*2]"
+  # gain "1.1"
+
+d2 $ (sound "drum hc8*2")
+  # nudge (stack [slow 4 sine1, "[0 0.02]*8"])
+  # speed "1.5"
+
+
+:t lx
+
+s silence
+
+s $ stack [sometimes (# crush "4") $ sound "[sid:1(7,16)]/2 sid:3",
+           sound "future:3*2 future:5(3,8)"
+           # shape (slow 4 $ scale 0 0.6 sine1),
+           slowspread (chop) [8,6,4,12] $ sound "drum [drum:2*3 drum:2*2]/2",
+           rev $ slowspread (chop) [8,6] $ sound "ravebass:10 [~ ravebass:9]",
+           sound "~ kurt:4" # vowel "a" # speed (superimpose ((+)<$> ((*0.1)<$>(slow 8 sine1) <*>) "[1]")
+          ]
+          # nudge (scale 0 0.25 sine1)

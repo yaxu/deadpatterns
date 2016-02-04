@@ -1,0 +1,31 @@
+-- starting in a second
+cps 1.2
+
+
+s $ slow 4 $ stack [-- sound ("{bd ~ ~ bd ~ ~ bd ~ ~ bd ~ bd ~ bd ~ bd, [~ bd] ~}")
+                    -- # shape "0.7"
+                     -- |+| sound "[:1 :4 :2]/2",
+                    -- slowspread (\x -> stut x 0.9 (-0.125)) [4,3] $  (sound "cp8"),
+                    -- superimpose ((0.5 <~) . (# speed "3")) $ sound "~ [drum:1 bd*2 drum:1]" # speed "4",
+                    -- sound "[drum*2 ~] drum ! ! ! ! ! !" # coarse "16",
+                    -- jux (iter 4) $ brak $ chop 8 $ sound (samples "~ printshort" (irand 4)),
+                    -- sometimes (# crush "8") $ off (-1/16) (|*| up "7 8") $ sound "ravebass(5,8)" |+| sound "[:10 :12 :10 :14]/4"
+                    -- # speed "[1,1.01,1.02]",
+                    -- slow 2 $ sometimes (|*| speed "2") $ jux (rev) $ stut 4 0.6 (0.125) $ off (-1/16) (|*| up "[12]") $ sound (samples' "xx" (slow 2 $ tom "d3(5,8) e4(5,8) f5(5,8) g5(5,8)"))
+                    -- # gain "1.2" # speed "[1,1.01]",
+                    -- juxBy 0.25 (iter 4) $ density 2 $ foldEvery [5,7] (0.25 <~) $ slowspread (chop) [32,16,8,64] $ sound "[arc:2]" # gain "1.1",
+                    -- jux rev $ echo 0.25 $ sound "fm:11(3,8)" # end "0.05 0.10" # speed "1",
+                    -- sound "g g*2",
+                    unwrap $ (\x -> stut 8 0.9 x (every 2 (density 2) $ sound (samples "voodoo*8" (run 8)) # gain "1.2") # cut "-1") <$> (toRational <$> sine1)
+                    -- density 4 $ brak $ sound "[feel feel:2]*2" # gain "1.4"
+                    -- inside 8 (jux rev) $ striate 32 $ sound "liq" # unit "c" # speed "0.125"
+                    -- density 2 $ slowspread ($) [id, jux rev, density 4, jux (iter 4)] $ chop 8 $ sound (samples' "jungbass" "10 [15 14]/2") # gain "1" # speed "[2,4]",
+                    -- sometimes (# up "-3") $ jux (1 <~) $ foldEvery [5,7,3] (0.25 <~)$ density 2 $ chop 32 $ sound "[narc narc:1]/2"
+                    -- # speed "-0.75"
+                   ]
+
+s $ unwrap $ (\x -> stut 8 0.9 x (every 2 (density 2) $ 
+            sound (samples "voodoo*8" (run 8)) # gain "1.2") # cut "-1") <$> (toRational <$> sine1)
+
+
+-- thanks for your listening skills

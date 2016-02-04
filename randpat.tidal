@@ -1,0 +1,6 @@
+
+
+let xs = [sound "bd sn", sound "cp cp cp"]
+
+let discretise p = atom (id) <*> p
+

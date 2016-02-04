@@ -1,0 +1,50 @@
+d $ stack [-- stut' 3 (1/16) (|*| hg "0.9") $ drum "[ch*8]"   # hg sine1,
+           drum "[[bd sn]*2, ~ sn cp]"
+          ]
+  # nudge "[0 0.04]*4"
+
+b $ slow 2 $ note (slowspread (offadd 0.25) [7,7,12,-5] $ palindrome $ tom "d [d3 ~ d3]")
+  # ctf rand
+  # lfo "0.2"
+  # lfoi "0.1"
+  # dur "0.05"
+  # slide "1"
+  # pit3 saw1
+  # pit1 sine1
+  # pit2 "1"
+
+d1 $ every 4 (rev . chop 8) $ sound "gretsch odx*2"
+  # vowel "a"
+
+d2 $ sometimes (rev . chop 8) $ sometimes (|+| speed "2") $
+  jux (0.25 <~) $ sound (samples "[ifdrums*8, future*8]" (run 8))
+  # nudge "[0 0.04]*4" # shape "0.2"
+
+d4 $ sometimesBy 0.8 (|*| speed "0.5") $
+  stack [((|*| speed "[1 0.5 1.5 2,1]/3") $
+          slow 8 $ sound (samples' "xx"
+                          (sometimes (fmap (+12)) $
+                           offadd (-0.125) 7 (tom "d4(3,8) c3(5,8) f4(3,8) g3(5,8)")))
+          # speed "1")
+         # shape "0.3",
+         weave 16 (sound (samples "xx*4" (rev $ tom "d4 e4 f4 g4")))
+         [vowel "a e i i",
+          speed "1 [2 2] 1 2*2"
+         ] # gain "1.1" # delay ("0.9") # delaytime "0.51" # delayfeedback (slow 8 sine1)
+        ]
+
+d $ drum "bd cp([3 5 3 7]/4,8) cp cp*2"
+  # scp sine1
+  # stt ((*) <$> "0.01 0.02" <*> sine1)
+  # std "1"
+  
+d1 $ jux rev $ weave' 16 (sound (samples' "arpy" (run 8)))
+  [(vowel "a ~ [e i]" #),
+   (vowel "i o" #),
+   (speed "1 2 3" #),
+   (vowel "i u*2 o i" # speed "1.5" #)
+  ]
+
+d2 $ slow 2 $ chop 32 $ sound "[arc]" # unit "c" # speed "0.5"
+
+hush

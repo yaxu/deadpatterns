@@ -1,0 +1,213 @@
+import GHC.Float
+
+import Sound.OSC.FD
+
+let oscport = 9090
+    startcps = do s <- udpServer "127.0.0.1" oscport
+                  (cps, _) <- bpsUtils
+                  forkIO $ oscLoop s cps
+    oscLoop s cps = do m <- recvMessage s
+                       act m cps
+                       oscLoop s cps
+    act (Just (Message "/setcps" [Float x])) cps = 
+      do cps $ float2Double x
+         return ()
+    act _ _ = return ()
+    cpsShape = OscShape {path = "/setcps",
+                 Sound.Tidal.Context.params = [ S "cps" Nothing],
+                 cpsStamp = False,
+                 timestamp = NoStamp,
+                 Sound.Tidal.Context.latency = 0,
+                 namedParams = False,
+                 preamble = []
+                }
+    cpsp = makeF cpsShape "cps"
+    cpsStream = stream "127.0.0.1" oscport cpsShape
+
+cps1 <- cpsStream 
+
+startcps
+
+let p = slow 8 $ (density 4 $ chop 128 $ sound "breaks165") in
+  d1 $ stack [p, density 2 p, slow 2 p, slow 4 p]
+
+cps1 $ slow 16 $ cpsp (scale 1 2 saw1)
+
+cps1 $ cpsp "1"
+hush
+
+import Data.Map as Map
+
+import Data.Maybe
+
+import Sound.OSC.Datum
+
+let out = pan . ((*4) <$>)
+
+
+
+let panBy mapping e = fromMaybe e e'
+      where e' = do v <- (Map.lookup (param dirt "sound") e)
+                    md <- v -- maybe datum
+                    s <- datum_string md -- the actual string
+                    let stripped = takeWhile (/= ':') s
+                    panning <- (Prelude.lookup stripped mapping)
+                    return $ Map.union (Map.singleton (param dirt "pan") (Just $ Sound.OSC.FD.float panning)) e
+    moses mapping p = (panBy mapping) <$> p
+
+
+d1 $ moses [("sn", 0), ("cp", 1)] $
+  sound "sn:2 cp:4 arpy"
+
+d1 $ sound 
+
+let panBy p = f <$> p
+    f v | isJust (Map.lookup (param dirt "sound") v) = panit v
+        | otherwise = v
+    panit v@(Just Nothing) = v
+    panit (Just v) = panit' (datum_string v)
+    panit Nothing = Nothing
+    panit' "bd" = Map.fromList(Just (datum_string "bd"))
+    filterJust p = fromJust <$> filterValues isJust p
+
+:t (panBy $ sound "bd")
+
+:t panBy
+
+    panBy p = look
+      where look = filterJust ((Map.lookup (param dirt "sound")) <$> p)
+            filterJust p = fromJust <$> filterValues isJust p
+
+:t panBy
+
+import Control.Monad
+
+let panBy ::OscPattern -> O
+  panBy p = look "bd"
+      where look s = join . ((Map.lookup (param dirt "sound")) <$> p)
+            filterJust p = fromJust <$> filterValues isJust p
+    
+:t panBy
+
+let x = panBy $ sound "bd" |+| pan (pure $ 1/8)
+
+:t x
+x
+(fromJust . datum_string . fromJust . fromJust) <$> x
+:t maybe
+let chain 1 = [1]
+    chain n
+        | even n = n:chain(n `div` 2)
+        | odd n = n:chain (n*3+1)
+
+chain 3
+
+
+d1 $ whenT (> (nextSam now)) (const (sound "bd*8")) silence
+
+changeAt :: Time -> Time -> [OscPattern] -> OscPattern
+
+onSam = nextSam now
+
+changeAt :: Time -> [OscPattern] -> OscPattern
+
+let cyc _ [] = silence
+    cyc _ (p:[]) = p
+    cyc now (p':p:_) = whenT (> (nextSam now)) (const p') p
+
+
+let stut' :: Integer -> Time -> (OscPattern -> OscPattern) -> OscPattern -> OscPattern
+    stut' steps steptime f p |steps <= 0 = p
+                             | otherwise = overlay (f (steptime ~> stut' (steps-1) steptime f p)) p
+
+
+d1 $ palindrome $ sound (samples "newnotes*2" (irand 8))
+
+d1 $ stut' 3 0.1 (<~) $ sound "bd sn"
+
+d1 $ sound "bd sn"
+
+
+d1 $ stack [jux rev $ slow 4 $ sound (samples' "xx" (sometimes ((+ 12) <$>) $ slowspread (offadd (-0.125)) [7,12,(-5)] $ every 4 rev $ tom "d3(3,8) [~ e3(5,8)] f4(3,8) g3(5,8)"))
+            |+| speed "[1,0.5]"
+            |+| delay "0" |+| vowel "[a e i o, p]",
+            jux rev $ slow 2 $ slowspread (chop) [16,8,4] $ sound "arc"
+            |+| unit "c" |+| speed "0.5"
+           ]
+  |+| nudge "[0 0.04]*4"
+
+
+s $ chop 128 $ sound "drum*32"
+
+-- 32 = 41 / 22 / 10
+
+
+
+s $ stack [slow 4 $ sound (samples' "rave2:2" "0*3 [0*2 [0*3 0*2]/2]")
+           # up "0 3 4 5",
+           slow 2 $ chop 32 $ sound "breaks165" # speed "0.9" # gain "1.1" # crush "3"
+          ]
+
+|x x x xx  xxx   |
+s silence
+
+s $ stack [slow 4 $ sound (samples' "rave2" "3 2 2 2 2 2 2 ~")]
+  # nudge (slow 4 $ (\x -> (x * (x/4))*4)<$> saw1)
+s silence
+s sound (samples' "rave2" "2 ~ 2")
+
+
+x x x x x x x x
+
+cps 1.3
+
+s $ silence
+
+x   x   x   x   |
+|x x x xx  xxx   |
+
+
+d1 $ sound "ht(3,8)"
+  # pan "1"
+  # gain "1.4"
+
+s $ sound "cp(3,8)"
+  # nudge "-0.4"
+  # pan "0"
+
+cps 0.4
+
+d1 $ slowspread (stut' 8 (0.125/2)) [(|*| up "2"), (|*| shape "0.9"), (|*| speed "-0.9")] $ sound "drum(3,8)"
+
+d1 $ (off 0.25 (|*| up "2") $ sound "rave2:2*4 [rave2:2 ! ~]")
+  # nudge ((*0.2) <$> saw1)
+
+d1 $ slowspread (\(n,t) -> stut' n t (|*| speed "1.5")) [(3,0.25),(5,0.125)] $ sound "arpy:1 arpy:2"
+
+d1 $ unwrap $ (\n t -> stut' (fromIntegral n) t (|*| speed "1.5")) <$> ("3 5" :: Pattern Int) <*> "0.25 0.125" <*> (pure $  sound "arpy:1 arpy:2")
+
+
+s <- stream "127.0.0.1" 57120 dirt {timestamp = BundleStamp}
+
+s $ stack [superimpose (rev) $ weave 8 (sound (samples' "arpy" (palindrome $ run 8)))
+           [speed "1 2 3 2",
+            speed "1 1.5*3 2*2",
+            vowel "a e*2 o u",
+            crush "1 2*2 3*3"
+            ],
+           slow 1 $ chop 8 $ sound "[os os:1 os:2]/3"
+          ]
+  # nudge "0.32"
+
+
+s $ stack [foldEvery [5,7] (0.25 <~) $ stut' 4 (1/16) (|*| speed "2") (sound (samples' "ravebass" "0 1 ~ 2"))
+          ] # crush "4" #hcutoff "400" # shape "0.6"
+  # nudge "0.32"
+
+s $ superimpose (iter 8) $ sound (samples "voodoo*8" (slow 8 $ scan 8))
+
+cps 0.5
+
+s silence
+
+d1 $ sound (fit 3 ["bd", "sn", "arpy", "arpy:1", "casio"] "0 [~ 1] 2 1")

@@ -1,0 +1,19 @@
+
+
+d6 $ slow 4 $ every 2 (slow 2) $ weave 16 (shape $ (*0.9) <$> (sinewave1)) [(slow 6 $ striate 32 $ sound "[bd]*4 [bd]*3"
+                                                                    |+| speed "2"
+                                                                   ),
+                                                slow 6 $ striate 64 $ sound "[bd]*8 [bd]*3"
+                                                |+| speed "2" ,
+                                                slow 6 $ striate 28 $ sound "[bd]*8 [bd]*6"
+                                                |+| speed "2"                                                
+                                               ]
+  |+| vowel "a e i o u"
+
+d1 $ every 3 ((1/6) <~) $ sound "[bd [hc]*2]*3"
+  |+| shape "0.9"
+
+
+:t weave
+
+bps $ 1.3

@@ -1,0 +1,17 @@
+s $ sound "xx:70"
+s $ sound "bd sn"
+s <- stream "127.0.0.1" 57120 dirt {timestamp = BundleStamp}
+
+s $ stack [
+           foldEvery [3,5,7] (off (0.125) (|*| up "[7 12 2 7]/4")) $
+           sound ("[aid:20 [xx:35 ~] [aid:20 xx:22] jungbass:40]/2") # speed "[1,2]",
+           jux ((1/64) <~)$ (slow 16 . (# nudge sine1)) $ slowspread (chop) [32,16,64,16] $
+             sound "bd8:8 sd8:4*3 cp [h:1 h:2]*2" # gain "1" ,
+           sound "[drum(5,16)]/2" # crush "6",
+           slow 16 $ juxBy 0.25 (rev) $ density 4 $ sound "fm:10*2" # begin "0.2 0.25" # end "[0.26 0.3]/2"
+           # vowel "o" # speed "0.72" # gain "0.7" # cut "1"
+          ]
+
+           |+| pan (slow 4 saw1)
+
+s silence

@@ -1,0 +1,47 @@
+
+d2 $ slow 4 $ superimpose (iter 5) $ sound ("newnotes ~ ~ newnotes ~ ")
+   |+| accelerate "-1"
+   |+| speed "2"
+   |+| pan "0"
+
+d1 $ slow 3 $ sound ("newnotes ~ ~ newnotes ~ ")
+   |+| accelerate "-1"
+   |+| speed "0.9"
+   |+| pan "1"
+
+d3 $ slow 3 $ sound (pick <$> "newnotes ~ ~ newnotes newnotes " (run 16))
+   |+| accelerate "-1"
+   |+| speed "0.9"
+   |+| pan "2"
+
+d4 $ slow 3 $ superimpose (iter 8) $ sound (pick <$> "newnotes ~ ~ newnotes newnotes " (slow 5 $ run 12))
+   |+| accelerate "-1"
+   |+| speed "0.9"
+   |+| pan "3"
+
+d5 $ degradeBy 0.6 $ (jux (iter 8) $ slow 3 $ striate 32 $ sound "pad")
+   |+| speed (((+1) . (* 0.1)) <$> sine1)
+   |+| gain "0.6"
+
+d6 $ every 3 (density 1.5) $ striate 32 $ sound "breaks165"
+   |+| speed "0.7"
+   |+| pan "0"
+   |+| gain "0.8"
+
+d7 $ degradeBy 0.6 $ iter 8 $ striate 32 $ sound "breaks125"
+   |+| speed "0.7"
+   |+| pan "1"
+   |+| gain "0.8"
+
+d8 $ degradeBy 0.6 $ rev $ iter 8 $ striate 16 $ sound "breaks165"
+   |+| speed "0.7"
+   |+| pan "2"
+   |+| gain "0.8"
+
+d9 $ degradeBy 0.6 $ (density 2 $ iter 4 $ striate 8 $ sound "breaks125")
+   |+| speed "1.4"
+   |+| pan "3"
+   |+| gain "0.8"
+   |+| accelerate "[-3 3]*3"
+
+

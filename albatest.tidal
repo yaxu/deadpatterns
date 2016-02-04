@@ -1,0 +1,55 @@
+
+let n = slow 8 (nudge $ scale 0 (0.2) sine1) in
+do d1 $ jux (iter 4) $ every 3 (rev) $ slowspread (chop) [1,2,3,4,8,16] $ sound "drum(5,8)" |+| n
+   b $ drum "bd(3,8)" |+| n
+   k $ slow 2 $ superimpose (iter 4) $ note ((+24) <$> (every 3 rev $ every 2 ((+12)<$>) $ "50 [62 48 72]")) |+| n |+| por "1" |+| dur "0.2"
+   d2 $ jux (iter 4) $ weave' 16 (sound (samples "arpy*8" (run 8))) [(vowel "a e i" |+|), (vowel "a e i o" |+|), (speed "1 2 3" |+|)] |+| cut "-1"
+
+
+d1 $ stack [weave 16 (shape (scale 0 0.9 sine1))
+            [jux (0.25 <~) $ sound "bd [~ bd] bd [~ bd glitch]",
+             sound "drum(3,8)",
+             sound "future(5,8)"
+            ],
+            every 2 rev $ slowspread (chop) [128, 64,32] $ sound "drum ~ ~ ~",
+            jux (iter 8) $ weave 16 (sound (samples "arpy*8" (rev $ run 8))) [vowel "a e i", vowel "a i o u"]
+           ]
+  
+k $ note ((+) <$> "[40(3,8)]" <*> "[1 2 3 5]/3")
+  |+| ctf "0.4"
+  |+| dur "0.4"
+  |+| por (slow 4 sine1)
+
+d1 $ jux (every 2 rev . iter 4) $ chop 8 $ sound "drum [drum:1 ~]"
+
+d3 $ rev $ chop 128 $ sound "loop"
+
+d2 $ sound "~ rave2*2"
+
+d1 $ sound "bd*8"
+  |+| nudge (slow 4 $ (const) <$> scale 0 0.25 sine1 <*> rand)
+
+
+d2 $ every 4 (slow 2) $ stack [jux (sometimes rev . slowspread (chop) [32,8,12] . slowspread (<~) [0.5, 0.25,0.75,1/16]) $ sound "[sd8:8(3,16), sd8:4(5,16)]",
+                               sometimes (|+| speed "1.8") $ jux (iter 8) $ degrade $ sometimes (density 2 . chop 8) $ sound "future:8*8",
+                               jux (iter 4) $ every 2 (slow 1.5) $ (chop 8 $ sound "kurt:3 [kurt kurt:5 ~ rave2:4*2]") |+| speed "[2,2.01,-1]"
+                              ]
+
+d3 $ jux (iter 8) $ stut 8 (0.3) (0.25) $ superimpose ((1%16) <~) $ sound (samples "can*8" (irand 16))
+  |+| speed "1.5"
+d3 silence
+
+d4 $ jux (slowspread (chop) [8,16,32] . iter 4) $ sound (samples "amencutup*8" (irand 32))
+  |+| gain "1.4"
+
+d5 $ smash 128 [1,2,3,4] $ (sound "fm:12")
+  |+| speed "[1.25,1 2]"
+
+
+d6 $ jux (rev) $ superimpose (iter 4) $ every 2 (slow 1.5 . superimpose rev) $ slowspread (chop) [8,16,32,12]  $ sound "[bd*8, cp*4?]"
+
+d7 $ (chop 128 $ sound "atlast:1/4")
+  |+| unit "c" |+| speed "0.25"
+  |+| gain "1.2"
+  |+| crush "4"
+

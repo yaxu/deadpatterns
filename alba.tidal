@@ -1,0 +1,42 @@
+d1 $ every 4 (rev . chop 8) $ sound (samples "bd sd8 can [cp sd8:8]" (irand 16))
+--  |+| nudge (slow 8 $ scale 0 0.5 sine1)
+  |+| speed "2"
+
+d2 $ jux (iter 4) $ weave 16 (sound (samples "arpy*8" (run 8)))
+  [vowel "a e o i",
+   vowel "a e o",
+   speed "[1 0.5] 2 [3 4]"
+  ]
+--  |+| nudge (slow 8 $ scale 0 0.5 sine1)
+
+d3 $ jux (iter 4) $ every 4 (density 1.5) $ sound (samples "amencutup*8" (irand 16))
+  |+| shape (slow 4 $ scale 0 0.5 sine1)
+
+d4 $ jux (0.25 <~) $ every 3 (rev . chop 8) $ sound "gab:2 [off [jungbass:2 jungbass:2]/2]" |+| speed "0.5"
+  |+| nudge rand
+
+k $ note "50 [52 ~ 60]"
+  |+| ctf (slow 8 sine1)
+--  |+| nudge (slow 8 $ scale 0 0.5 sine1)
+  
+d1 $ slowspread (chop) [8,16,4,2,3] $ spin 2 $ sound "bd [drum:1*4 drum:1*6]/2"
+  |+| nudge rand
+  
+b $ drum "bd*2 sd cp ~"
+
+d5 $ jux (1 <~) $ sound "[bd*8?, ~ cp]"
+  |+| speed "[1,1.03]"
+  |+| accelerate "-2"
+
+  hush
+d4 $ jux (iter 4) $ slow 8 $ chop 64 $ sound "atlast:1"
+
+d1 $ slow 4 $ jux (iter 4) $slow 8 $ striate 128 $ sound "bev*2"
+  |+| gain "1.1"
+
+d6 $ density 2 $ every 4 (rev) $ jux (density 1.5) $ slow 8 $ chop 16 $ sound "arc"
+
+d4 $ jux (rev)$ slowspread ($) [rev .chop 8, density 2, density 1, rev . chop 16] $ sound (samples "alphabet bd*4? [kurt bd] bd*2?" "[0 1 2 3 5 4]/4")
+
+d2 $ jux (iter 4) $ sound (samples "rave2*2" (slow 4 $ run 8)) |+| end "1"
+

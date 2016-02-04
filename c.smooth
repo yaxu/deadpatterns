@@ -1,0 +1,34 @@
+d1 <- dirtstream "d1"
+d2 <- dirtstream "d2"
+d3 <- dirtstream "d3"
+d4 <- dirtstream "d4"
+d5 <- dirtstream "d5"
+d6 <- dirtstream "d6"
+d7 <- dirtstream "d7"
+
+d1 $ slow (1%2) $ sound "bd/5 bd/4 bd/2"
+  ~~ speed (every 2 ((+) <$> (((/ 16) . fromIntegral . floor . (* 16)) <$> (slow 8 $ sinewave1)) <*>) "[2,1]")
+  ~~ (slow 2 $ pan "0.25 0.75")
+  ~~ end "0.01"
+
+d2 $ (sound $ sample <$> cat [slow 4 "[bd,sn] [lt bd bd] lt [bd bd]",
+                             slow 3 $ "[bd ~ bd] [~ [bd bd bd]]"
+                            ]
+  <*> slow 12 "0 1 2 3 4 5")
+  ~~ end "0.1"
+
+d3 $ slow 2 $ cat [sound $ (every 4 ((const "sn/2") <$>)) "future/3 [[future/4 ~ future] ~ future]"]
+  ~~ speed "2"
+  ~~ end "0.1"
+
+d4 $ cat [slow 2 (striate (sound "tink/1") 16), sound "~"]
+  ~~ speed "0.5"
+  ~~ pan "0"
+
+d1 silence
+
+d5 $ cat [slow 3 (striate (sound "tink/3") 10), sound "~"]
+  ~~ speed "0.5"
+  ~~ pan "1"
+
+d5 silence

@@ -1,0 +1,57 @@
+
+s1 $ every 4 (const (sound "cp cp*2")) $ stack [sound "[drum, future](3 5,8)" # pan (scale 0.25 0.75 rand),
+            sometimes (chop 16) $ sound "[g ~ g] drum:1" # gain "1"
+           ] |*| speed "1" |*| gain "0.85" # delay "0.3" # delaytime "[0.11 0.1]/8" # delayfeedback "0.9"
+
+s2 $ jux rev $ slow 4 $ chop 32 $ sound "[mef mef:1]/2" # unit "c" # speed "0.25"
+
+s3 $ slow 2 $ chop 16 $ sound "arc"
+
+d4 $ (slow 8 $ stack [slow 2 $ off 0.125 (|*| up "7") $ slowspread ($) [id, (0.25 <~), density 2, density 1.5] $
+            sound (samples' "xx" $ rev $ tom "[c4(3,8) d3(5,8) e4(3,8) f3(5,8)]/2")
+            # gain "1.3",
+            slow 8 $ off 0.125 (|*| up "7") $ sound (samples' "xx" (rev $ tom "c4(3,8) d4(5,8) e4(3,8) f4(5,8)"))
+            # gain "1.2"
+           ]) # crush "5"
+  # nudge (slow 4 sine1)
+
+
+d3 $ (slow 2 $ chop 32 $ sound "[[drum:1 xx:48] [cp sd8:2*2], xx:52 xx:38]")
+  # gain "1.2" # speed "2"
+  # nudge (slow 4 sine1)
+
+d2 $ brak $ jux (iter 4) $ slow 2 $ sound "[jungbass ~ jungbass:4] [bd [~ bd*2]]"
+  |+| pan (slow 4 saw1)
+
+d4 $ sound "drum*2 kurt:3"
+
+
+s1 $ stack [stack [slowspread (\x -> stut' 4 x (|*| speed "2")) [0.125, 0.25,(1/16),0.25] $ sound (samples' "sid" "0*2 1*2 2 3")
+             |+| speed "[1,0.75]" |+| gain "1.2" |+| cutoff "1000",
+             palindrome $ chop 8 $ slow 2 $ sound "arc" |+| unit "c" |+| speed "0.5"
+             |+| gain "1.1",
+             slow 2 $ sound "fm:12*2"
+             |+| begin "0.3" |+| speed "1",
+            sound "[ravebass:10([3 5]/2,[8,16])]"
+            |+| speed "[1,2 0.5]",
+             sound "drum drum:2" |+| gain "1.3"
+            ] |+| hcutoff (scale 1000 4000 $ slow 4 sine1) |*| gain "1.4",
+             sound "drum*3 drum*4"
+          ]
+
+d1 $ slow 4 $ jux rev $ off 0.125 (|*| up "7") $ weave 16 (palindrome $ sound (samples' "arpy" (run 8)))
+  [vowel "a [e a] i",
+   speed "1 2*2",
+   vowel "a i o*2 u",
+   speed "2 3 1"
+  ]
+
+d2 $ jux (1 <~) $ sound "ravebass:10([3 5]/2,8,[0 4 8]/3)"
+  # speed "[1,1.5,0.5,2]" # gain "1.1"
+
+d4 $ chop 8 $ jux rev $ sound (samples "amencutup*8" (slow 32 $ scan 32)) # speed "1.5"
+
+-- thanks for listening ++ goodnight
+
+d1 $ sound "numbers:1 numbers:2"
+  # pan "0 1"

@@ -1,0 +1,105 @@
+import Sound.Tidal.Vis
+import qualified Graphics.Rendering.Cairo as C 
+import Data.Colour
+import Data.Colour.Names
+import Data.Colour.SRGB
+import System.Cmd
+
+import Sound.OSC.FD
+myk <- dirtStream
+
+let startMYK = do x <- udpServer "10.0.1.5" 4040
+                  --mvMYK <- newMVar silence 
+                  mvF <- newMVar (const silence)
+                  forkIO $ mykLoop x (mvF :: MVar (Pattern Int -> OscPattern))
+                  return (mvF)
+    mykLoop x mv = do m <- recvMessage x
+                      act m mv
+                      mykLoop x mv
+    act (Just (Message "/tidal" [ASCII_String str])) mvF = 
+      do let pat = ((p $ tail $ init $ show str) :: Pattern Int)
+         f <- readMVar mvF
+         myk $ f pat
+         putStrLn $ "got '" ++ (show str) ++ "'"
+         putStrLn $ "parsed as " ++ (show pat)
+         return ()
+    act _ _ = return ()
+
+mv <- startMYK
+let unpick = flip pick
+
+swapMVar mv $ \x -> stack [every 3 (slow 1.5) $ jux (iter 8) $ every 2 (slow 1.5) $ slow 2 $ sound (unpick <$> (slow 2 $ x) <*> "bd8*8")
+                          ]
+
+
+d1 $ jux (iter 4) $ every 4 (within (0,0.25) (density 2 . rev)) $ sometimes (|+| speed "1") $ sound (pick <$> "bd*32 [sd8*3 bass3]" <*> "[1 2 3]/4")
+   |+| speed "0.5"
+
+
+
+d1 $ stut 3 0.9 3 $ every 2 (slow 2) $ sound "bd8*8 drum*4"
+   |+| end "0.1"
+   |+| speed "2"
+
+d2 $ slow 2 $ chop 16 $ sound "cp"
+
+d3 $ sometimes (|+| speed "4") $ jux (iter 4) $ sound (pick <$> "jvbass*4" <*> (every 2 (slow 2) $ run 12))
+   |+| speed "1 2 3"
+
+
+d4 $ slowspread ($) [id, rev, id, density 2] $ (chop 8 $ sound "[jvbass*2]")
+   |+| (slow 4 $ pan sine1)
+   |+| speed "4"
+
+hush
+
+d1 $ slowspread (chop) [1,2,3,4] $ slow 2 $ sound "bd [jungbass jungbass:2 ~]"
+   |+| speed "[1 2 3]/2"
+
+d2 $ every 3 (within (0,0.25) (density 4) )$  slow 2 $ chop 8 $ sound "arc"
+   |+| speed "2"
+
+d2 silence
+
+d3 $ sometimes rev $ slow 4 $ chop 8 $ sound "diphone2*4?"
+   |+| gain "1.3"
+   |+| speed "1.1"
+
+d5 $ slow 2 $ every 2 (chop 16) $ jux (0.25 <~) $ sound "[jungbass:4, ~, arpy*2 ~ arpy:1]"
+   |+| speed (every 3 ((/2) <$>)  "0.9")
+
+
+d1 $ slowspread (chop 4, iter 4) $ slow 2 $ every 3 (|+| speed "2")$ sound (pick <$> "~ rave2*2" <*> "[1 2]/6")
+
+d3 $ sometimes (density 2) $ jux (iter 8) $ sound "bd8*4? sd8*16?"
+   |+| speed "8"
+
+d1 $ jux (iter 4) $ superimpose (|+| speed "1.01") $ slow 4 $ sound "leaf*3 ~ [leaf:2 bd8*8 bd8*16]"
+   |+| gain "1.3"
+
+d2 $ slow 2 $ jux rev $ (chop 16) $ sound "breaks165"
+   |+| speed (scale 1 2 $ sine1)
+
+d3 $ (iter 4 $ chop 8 $ sound "[kurt:3 jungbass:7] kurt:4")
+   |+| speed (slow 4 $ scale 3 1 $ saw1)
+
+
+d4 $ slow 2 $ every 2 (slow 4) $ sometimes (density 2) $ slow 2 $ sound "bd8 cp8 ~ lt8*3 bd8 ~ ht8*2 mt8"
+   |+| gain "1.4"
+   |+| speed "2 3"
+
+d5 $ jux (iter 4) $ every 3 (slow 2) $ within (0,0.5) (density 3) $ within (0.25,0.5) (density 2) $ slow 4 $ chop 16 $ sound "drum*2 rs8 cp8? cb8*8"
+   |+| speed "1.5"
+
+d6 $ brak $ sound "[drum*2? drum*4]/2 feel:2"
+
+d7 $ jux (density 1.5) $ sound (samples "gabbaloud:0*3 industrial*2" (run 12))
+   |+| speed "4"
+
+d5 $ chop 3 $ sound "wobble*3 bass2:3"
+   |+| gain "2"
+
+d1 
+
+cps 1
+hush

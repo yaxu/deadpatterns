@@ -1,0 +1,12 @@
+d1 $ slow 2 $ sound "bd ~ sn bd ~ bd/2 [sn bd/2] ~"
+
+d1 $ slow 2 $ sound "bd sn?2"
+
+d1 $ sound "bd sn bd"
+
+hush
+
+d1 $ sound "bd sn:2 sn:2"
+|+| vowel (slow (4%3) "a a o e")
+
+d1 $ sound "

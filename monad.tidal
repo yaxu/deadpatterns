@@ -1,0 +1,13 @@
+import qualified Data.Map as Map
+
+d1 $ do s <- sound "bd sn:2*3"
+        
+d1 $ chop 3 $ sound "bd sn:2*3"
+:t merge
+hush
+d1 $ sound "bd sn:2*3"
+hush
+
+:t (>>=)
+:t join
+:t (<~)

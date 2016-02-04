@@ -1,0 +1,70 @@
+
+
+d1 $ jux (iter 4) $ weave' 16 (sound (samples "arpy*16" (rev $ run 16)))
+  [(vowel "a e o [i o]" |+|),
+   (speed "1 2 3" |+|),
+   (speed "1 [2 4] 3" |+|),
+   rev . (speed "-1 1 2" |+|)
+   ] 
+
+
+d2 $ jux (iter 4) $ every 4 (rev) $ chop 8 $ sound "bd*2 ~ sn [latibro ~]/4"
+  |+| speed "2"
+
+d3 $ jux (iter 4) $ sound "~ [onoff:2 onoff:1]"
+  |+| accelerate "[2 -1]/2"
+
+d4 $ jux (rev) $ smash 4 [1,2,3,4] $ sound "~ wobble"
+  |+| speed "2"
+
+
+
+
+d1 $ weave' 16 (|+| speed (scale 0.5 1 sine1)) (jux ((|+| speed "2") . iter 4) $ sound "{bd8 rave2*2, sn:2 kurt*2 rave2:3}")
+[id]
+
+d2 $ jux (iter 4) $ slow 4 $ chop 64 $ sound "atlast"
+
+d3 $ iter 4 $ every 4 (rev) $ jux (iter 4) $ every 3 (0.25 <~) $ slow 2 $ chop 128 $ sound "breaks125"
+  |+| gain "1"
+
+
+d1 $ jux (density 1.5) $ weave 16 (shape (scale 0 0.8 sine1)) (map (every 4 rev) $ [sound "bd8(3,8)", sound "drum(5,8)"])
+  |+| speed "1"
+
+d1 $ iter 4 $ jux (|+| speed "-2") $ sound "bd8*4 leaf sd8 kurt:4*2"
+  |+| gain "0.9"
+
+d2 $ jux (1 <~) $ smash 4 [1,2,3,4] $ sound  "[rave2 voodoo rave2:2 ~, bd*8 bd*4]"
+  |+| gain "1"
+
+d3 $ iter 4 $ (slow 4 $ chop 16 $ sound "fm:14")
+  |+| pan sine1
+  |+| gain "1.2"
+
+d4 $ jux (iter 4 ) $ sound "bd*4 jvbass*3"
+  |+| speed "8"
+
+d1 $ jux (iter 4) $ sound "wobble jungle*4"
+  |+| gain "1.2"
+
+cps 1.1
+
+d1 $ slow 64 $ striate 128 $ sound "bev*4"
+  |+| gain "1.1"
+
+solo $ d2 $ sound "bd sn sn sn"
+d2 silence
+d2 silence
+
+d1 $ every 2 (slow 2) $ jux (iter 4) $ weave' 16 (sound "bd sn:2 arpy*2 jvbass")
+  [(|+| speed "2 1 2*2 4"),
+   (|+| speed "1 1*2 3*3 4"),
+   (|+| speed "1 1*2 3*2 4"),
+   rev
+  ]
+
+d2 $ every 2 (slow 2) $ jux (iter 4) $ smash 4 [1,2,3,4] $ sound "onoff"
+  |+| gain "1.1"
+
+d3 $ sound "gabbaloud gabba"

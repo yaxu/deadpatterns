@@ -1,0 +1,89 @@
+cps 0.8
+
+
+
+d1 $ brak $ (slowspread (chop) [32,64] $ sound "bd drum cp8 ~")
+  # speed "2"
+
+d2 $ slowspread (\x -> stut' x 0.125 (|*| up "7")) [4,3] $ slow 2 $ jux rev $ slow 4 $ sound (samples' "xx" (sometimes ((subtract 5) <$>) $ offadd (-0.125) 7
+                                              $ palindrome $ tom "d4(3,8) e4(5,8) f4(3,8) g3*2")
+                    )
+
+d8 $ degrade $ whenmod 8 4 (# up "5") $ jux (rev) $ slowspread ($) [id, iter 4, (# speed "2"), (density 2)] $ (chop 5 $ sound "xx:60 xx:57 xx:62(3,8) xx:70(5,8)")
+  # vowel "[a e i o u]*2"
+  # speed "0.5" # gain "0.9"
+
+
+
+d3 $ every 4 (rev . chop 8) $ sound "ravebass:10(3,8)"
+  # gain "0.9"
+
+d4 $ foldEvery [5,7] (0.25 <~) $ slow 1 $ chop 16 $ sound "breaks165"
+
+d5 $ jux (0.25 <~) $ slow 8 $ slowspread (chop) [8,16,32] $
+  sound "fm:10"
+  # vowel "o"
+
+d6 $ jux rev $ slow 8 $ striate 32 $ sound "liq*2" # unit "c" # speed "0.25"
+  # gain "0.8"
+
+d7 $ every 4 (slow 1.5) $ jux (iter 8) $ slow 2 $ chop 8 $ sound "rave:6"
+
+d1 $ jux rev $ weave 16 (sound (palindrome $ samples "arpy*8" (run 8)))
+  [vowel "a e o",
+   vowel "o u i*2 ~",
+   speed "1 2 3",
+   speed "2 1 3*2 1"
+  ] # gain "0.8"
+
+d2 $ jux (iter 4) $ sound (samples "amencutup*8" (slow 16 $ scan 16))
+  # speed "[1 2 3]/2"
+  
+d3 $ sound "arc"
+
+
+
+
+
+
+
+-- Hello I am live coding, feel free to listen
+-- on the headphones
+
+
+d1 $ (slowspread (chop) [8,16] $ sound "xx:60")
+  # pan (slow 4 sine1)
+
+d2 $ slow 4 $ slowspread (chop) [4,12,3] $
+  sound (samples' "xx" (slowspread (offadd (-0.125)) [12,7] $ tom "d3(3,8) e4(3,8) f4(3,8) g3(5,8)")) # shape "0.4"
+
+d3 $ every 3 (# up "-5") $ sound "ravebass:10(3,8)"
+
+d4 $ foldEvery [5,7] (0.25 <~) $ chop 8 $ sound "[os os:1 os:2]/3" # speed "[2,1.5]"
+
+d5 $ jux (iter 4) $ slowspread (stut 4 0.9) [0.25, 0.5,0.125,0.5] $ every 3 (0.25 <~) $ sound (samples "voodoo*8" (run 8))
+
+d6 $ every 4 (jux (rev)) $ slow 4 $ chop 32 $ sound "liq"
+
+d7 $ brak $ every 2 (within (0,0.25) (density 4)) $ sound (samples "[~ [leaf, wobble ~ wobble], {bd sn:2 cp8*2}%4]" (irand 16))
+   # speed "2"
+   
+d8 $ degrade $ slow 2 $ jux rev $ stack [(sound "{bd*2 drum:1 arpy ~, cp arpy:3 g}"),
+            weave 16 (sound (samples' "arpy" (palindrome $ run 8)))
+            [vowel "a e*2 [i o]",
+             speed "1 2 3*2 3",
+             vowel "a i*2",
+             speed "1 2*2 3"
+             ]
+            |*| speed "0.5"
+            ]
+
+-- thanks for listening I have to get ready for a pnel sesion now
+
+# nudge (slow 4 sine1)
+
+
+
+
+
+

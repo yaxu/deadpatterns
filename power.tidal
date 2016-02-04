@@ -1,0 +1,194 @@
+-- thanks for listening
+
+better go!
+
+
+
+d1 $ every 4 (# vowel "[a e i o u]/5") $ sound "bd8(3,8)"
+  # speed "2"
+  
+d2 $ sometimes ((# vowel "p") . (|*| up "-5") ) $ jux rev $ slow 4 $ sound (samples' "xx" (offadd (-0.125) (7) $ tom $ fit 3 (words "a3 g3 d3 f3 g4") "0 1 [2 ~ 4] 2"))
+  # crush "8" # vowel "[a e i o u]/3"
+  # speed "0.5" # gain "1.3"
+
+d3 $ slow 2 $ jux (iter 4) $ chop 16 $ sound "arc"
+  # unit "c"
+  # gain "0.94"
+  # accelerate "-2"
+
+d5 $ juxBy 0.25 (iter 4) $ (slowspread (chop) [32,16,16,8]
+                       $ sound (samples "[gretsch*2, ravebass:12 ravebass:10]" (slow 4 $ run 8)))
+  # nudge (slow 4 sine1)
+  # up "[0 7]/4"
+
+d6 $ every 3 (# speed "1") $sometimes (gap 8) $ sound "~ kurt:5"
+  # gain "1.5" # speed "2"
+
+
+d1 $ jux (rev) $ stack [(chop 64 $ sound "gretsch*4 [gretsch:2*3 cp8]"),
+            ghost $ sound "sid:4 [casio casio:1] cp8 ~"
+           ]
+  # nudge "[0 0.04]*4"
+
+d1 silence
+
+d2 $ sound "h h"
+  # end "0.2"
+
+d3 $ sometimes (rev . chop 8) $ sometimes (|+| speed "2") $
+  jux (0.25 <~) $ sound (samples "[ifdrums*8, future*8]" (run 8))
+  # nudge "[0 0.04]*4"
+
+d4 $ every 3 (# speed "2") $ slowspread ($) [id, iter 4, density 2]$ slow 2 $ sound "drum [cp [drum future]*3] ravebass:10 cp"
+  # gain "1" # shape "0.2"
+
+
+
+d5 $ sometimesBy 0.8 (|*| speed "0.5") $
+  stack [((|*| speed "[1 0.5 1.5 2,1]/3") $
+          slow 8 $ sound (samples' "xx"
+                          (sometimes (fmap (+12)) $
+                           offadd (-0.125) 7 (tom "d4(3,8) c3(5,8) f4(3,8) g3(5,8)")))
+          # speed "1")
+         # shape "0.3",
+         weave 16 (sound (samples "xx*4" (rev $ tom "d4 e4 f4 g4")))
+         [vowel "a e i i",
+          speed "1 [2 2] 1 2*2"
+         ] # gain "1.1" # delay ("0.9") # delaytime "0.51" # delayfeedback (slow 8 sine1)
+        ] |*| speed "[2,1.5]"
+
+
+d7 $ sometimes (|*| speed "2") $
+  superimpose (slow 2) $ slow 2 $
+  slowspread (stut 8 0.9) [0.06,0.1,2,3] $
+  jux (iter 4) $
+  (sound (slow 2 $ samples "voodoo*4 lighter*3 bd*4 cp" (slow 8 $ scan 8)))
+  # speed "[0.5 2 1,1.01]/3"
+
+d3 $ slowspread (chop) [128,64,32,1] $
+  jux (iter 8) $ sound (samples "amencutup*8" (run 8))
+  # nudge "[0 0.04]*8"
+  # shape "0.7"
+
+-- got a feeling this is probably clipping for you
+
+
+d1 $ jux rev $ ((slowspread (chop) [8,64,128] $ sound (samples "[diphone2 ~ kurt:2 ~,bd]" (irand 8)))
+                # nudge (slow 4 sine1))
+  |+| pan (slow 4 sine1)
+  # gain "1.2"
+
+
+
+animals_break
+d1 $ stack [juxBy 0.5 (0.5 <~) $
+            slowcat [juxBy 0.25 (every 2 (0.25 <~)) $
+                     every 2 (0.25 <~) $
+                     every 3 (0.25 <~) $ striate 16 $
+                     sound "breaks125",
+                     juxBy 0.25 (every 2 (0.25 <~)) $
+                     every 2 (0.25 <~) $
+                     every 3 (0.25 <~) $
+                     striate 16 $ sound "breaks165"
+                     |+| gain "1.2"
+                    ],
+            stut 2 0.9 4 $ whenmod 8 8 (const silence) $ slow 2 $ weave' 8 (slow 2 $ slowspread (striate) [16, 12,8,4] $ sound "fm:6")
+            [rev . (|+| speed "4"),
+             juxBy 0.5 (iter 4) . (|+| speed "1.25 1 1"),
+             --              (|+| coarse "4 8 2 4"),
+             (|+| crush "4 8 16 4 4"),
+             -- (vowel "p [o e]/2 p i" |+|). (|+| gain "0.9"),
+             --              (vowel "p i e i" |+|). (|+| gain "0.6"),
+             --              (vowel "p i i" |+|). (|+| gain "0.8"),
+             slow 2
+            ] |+| gain "0.9"
+           ]
+
+
+d1 $ sound "[drum(5,8), g:3(3,8)]"
+  # cutoff ((*) <$> scale 0 1 sine1 <*> (slow 8 sine1))
+  # resonance "0.7"
+  # vowel "a e o i u"
+  # nudge "[0 0.04]*4"
+
+d1 $ (juxBy 0.25 (iter 4) $ sound "[drum([5 3]/2,8), cp:3([3 5]/2,8) g]")
+  # cutoff ((*) <$> scale 0 1 sine1 <*> (slow 8 sine1))
+  # resonance "0.6"
+  # vowel "a e o i u"
+  # nudge "[0 0.04]*4"
+  # hcutoff "75"
+  # hresonance "0.9"
+
+hush
+
+d2 $ slow 4 $ jux (|+| speed "6.08") $ spread' (stut 4 0.95) "[1/8 1/8 1/8 1/8, 1/3 5 3 2]/4" $ sound "~ [tok tok:1 tok:2 tok:3]" |+| speed "4"
+
+d4 $ sound "[bd8:1*8, bd8:4]"
+
+d1 $ (chop 8 $ sound "breaks165")
+  # vowel "a e o"
+  |+| speed "0.9"
+  |+| resonance "0.1"
+  |+| cutoff "0.1"
+
+d3 $ stut 2 0.6 (1/3) $ every 4 (density 1.5) $ sound "bubble:1 bubble:4 bubble:5 bubble:6"
+  |+| speed "0.9"
+  # gain "1.3"
+
+d6 $ chop 4 $ sound "{cp8 ~ cp8 [~ cp8], sn sd8*2 ht8}"
+  |+| cutoff "0.04"
+  |+| resonance (scale 0.8 0.90 $ slow 4 saw1)
+  |+| speed "4"
+  |+| gain "1.1"
+
+d6 $ weave' 16 ((slow 16 $ striate' 128 (1/64) $ sound "bev*2") |+| pan sine1)
+  [(vowel "a e i o u" |+|),
+   (vowel "i e p u" |+|),
+   (speed ("1 1.5 0.5") |+|)
+  ] |+| gain "0.9"
+
+
+d1 $ weave' 16 ((slow 16 $ striate' 128 (1/64) $ sound "bev*2") |+| pan sine1)
+  [(vowel "a e i o u" |+|),
+   (vowel "i e p u" |+|),
+   (speed ("1 1.5 0.5") |+|)
+  ] |+| gain "0.9"
+
+
+hush
+
+-- beats_scrape
+d $ D.drum "bd cp([3 5 3 7]/4,8) cp cp*2"
+  # scp sine1
+  # stt ((*) <$> "0.01 0.02" <*> sine1)
+  # std "1"
+
+-- bass_acid
+b $ slow 2 $ note (sometimes ((-12) <$>) $ offadd 0.125 7 "50*2 [52 59] 30 [~ 52]")
+  # pit3 saw1
+  # ctf rand
+  # lfo "0.2"
+  # lfoi "0.1"
+  # dur "0.05"
+  # slide "1"
+  # pit1 "0"
+  # pit2 "1"
+
+-- repetition
+d1 $ slow 4 $ chop 16 $ sound "repetition"
+  # unit "c" # speed "0.25"
+  # gain "1.1"
+
+# gate "0"
+  # dec "1"
+  -- # lfoi "0.1"
+  # slide (slow 8 sine1)
+  # dur "0.02"
+
+
+d1 $ sound "cp"
+
+d1 $ slow 4 $ chop 16 $ sound "repetition"
+  # unit "c" # speed "0.25"
+  # gain "1.1"
+  

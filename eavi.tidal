@@ -1,0 +1,39 @@
+d1 $ (slow 32 $ striate 256 $ sound "padlong")
+  |+| vowel "a e o"
+
+d2 $ slow 4 $ sound "bass3 [bass3/3 sn bass3/3]"
+  |+| pan "0"
+
+d3 $ slow 5 $ sound "bass3 [bass3/3 sn bass3/3]"
+  |+| pan "1"
+
+d4 $ slow 2 $ sound "[bd*3 bd*4 bd*5 bd*6]/2"
+
+d5 $ slow 8 $ (sound "chin*32 chin*16 chin*32 chin*8"
+      |+| shape "0.9")
+  |+| speed "0.5"
+  |+| pan sinewave1
+
+d5 $ slow 4 $ sound "{tabla/3 tabla/4 tabla/5*2 tabla/4, bd diphone2 sn*4}"
+
+d5 $ slow 2 $ striate 16 $ sound "diphone2"
+  |+| shape "0.6"
+
+d5 $ slow 4 $ striate 16 $ sound "diphone2"
+  |+| shape "0.8"
+
+d4 $ sound "{drum*4 cp drum/1*2, sn/2 ~ sn/2 sn*3}"
+  |+| pan "0"
+
+d5 $ sound "{drum*4 cp drum*8 cp, sn/2 sn sn}"
+  |+| pan "1"
+
+
+bps $ 2
+
+d1 $ every 2 (slow 2) $ jux rev $ slow 8 $ striate 32 $ sound "fire"
+  |+| speed "[0.5]"
+  
+d2 $ slow 2 $ (striate 32 (sound "[bass3 bass3/4]/2"))
+  |+| shape "0.9"
+  |+| speed (rev $ ((+16) <$>sinewave1))

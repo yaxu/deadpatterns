@@ -1,0 +1,63 @@
+d1 $ slow 4 $ jux rev $ density 4 $ slowspread (density) (map (/2) [1, 2, 3, 4]) $ sound "chin*8"
+  |+| gain "1.2"
+  |+| speed "0.5"
+
+d2 $ slow 4 $ sound (samples' "xx" (superimpose ((0.25 <~) . ((+7) <$>))$ tom "d3(3,8) e4(5,8) f3(3,8) g3(5,8)")) |+| speed "[0.5]"
+
+d1 $ superimpose ((|*| speed "0.5") . (0.25 <~)) $ slowspread (stut 4 0.9) [3,5,2] $ foldEvery [3,5,7,9] (|*| speed "1.5") $ foldEvery [5,7,9] (density 2) $ chop 8 $ sound "bd mt*2 [wobble lt*2] sd8:1"
+  |+| speed "2"
+
+
+d2 $ sound "ravebass:10(3,8,[0 4]/2)"
+  |+| gain "1"
+  |+| speed "[1,2]"
+
+d3 $ foldEvery [3,4] (0.25 <~) $ slowspread (striate) [8,16,32,64] $ sound (samples "os*2" (slow 3 $ run 3))
+  |+| gain "1.2"
+  |+| speed "0.9"
+
+d4 $ jux (iter 4) $ (sound (samples "[future([7 9]/2,16)]/2" (run 4))
+  |+| gain "1.6"
+  |+| speed "0.5")
+  |+| nudge "[0 0.04]*4"
+
+d5 $ (jux rev $ striate 8 $ sound (samples "g bd*4" (irand 16)) |+| accelerate "-0.5"
+  |+| gain "1.2")
+  |+| speed (slow 4 $ scale 1 2 sine1)
+
+d1 $ sound (samples "vocobass vocobass? vocobass*2" (irand 6))
+  |+| gain "1.8"
+  |+| speed "[1,2 4]"
+
+d2 $ jux (iter 4) $ slow 2 $ (gap 128 (sound "dark:11"))
+  |+| gain "1.6"
+  |+| vowel "a e i o u"
+  |+| delay "0.9" |+| delaytime "0.01"
+  |+| speed "[0.5]"
+
+d9 $ spin 4 $ chop 2 $ sound (samples "amencutup*8" (slow 8 $ scan 8))
+  |+| gain "1.8"
+  |+| speed "[-4 -2 -8]"
+
+d1 $ sound (samples "ind(3,8)" (irand 18))
+
+d2 $ chop 2 $ slow 2 $ jux rev (weave' 16 (sound (samples "[arpy]*8" (run 4)))
+  [(vowel "a e*3 i o" |+|),
+   (vowel "i ~ ~ i" |+|),
+   (speed "1 [2,1] 3" |+|)
+   ])
+  |+| gain "1.6"
+
+d8 $ rev . chop 8 $ sound "bd ~ cp"
+  |+| gain "1.6"
+
+d9 $ stut 8 (0.9) 3 $ sound "ravebass:11([3 5]/2, 8)"
+  |+| gain "1.6"
+  |+| speed "[2,4,8]"
+  |+| delay "1"
+  |+| delaytime "1"
+  |+| delayfeedback "0.9"
+
+cps ((130/60)/4)
+
+cps (-1)

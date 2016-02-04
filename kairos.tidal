@@ -1,0 +1,16 @@
+
+
+d1 $ sound "sd8(3,8)"
+
+d2 $ sound "cp8(5,8)"
+
+d1 $ weave 16 (speed (scale 1 2 sine1))
+  [sound "bd sn",
+   sound "sd8 cp"
+  ]
+
+d2 $ weave 16 (sound "arpy arpy:1 arpy:3 arpy:2")
+  [vowel "a e i", -- heddlerods
+   vowel "a e i o",
+   vowel "a [e u] i"
+  ]

@@ -1,0 +1,56 @@
+bps $ (155/60)/2
+
+d1 $ jux (iter 3) $ striate 4 $ sound "drum drum:2"
+
+d2 $ jux (rev . (|+| speed "-2")) $ slow 2 $ striate 4 $ sound "jungbass:3"
+
+d3 $ sound "~ kurt:2*2?"
+  |+| speed "0.5"
+  |+| end "0.2"
+  
+d4 $ jux (density 1.5) $ sound (pick <$> "~ ~ arpy*2?" <*> (slow 5 $ run 12))
+  |+| accelerate "-0.5"
+  |+| speed "0.5"
+
+d5 $ every 3 (density 1.5) $ sound (pick <$> "amencutup*16" <*> (slow 4 $ run 12))
+
+d6 $ jux (rev) $ every 4 (density 2) $ every 3 (|+| speed "2") $ sound "bd*2 bd*3"
+  |+| speed "4"
+  
+d7 $ slow 8 $ striate 32 $ sound "bev"
+  |+| gain "1.2"
+d7 silence
+
+d8 $ density 2 $ brak $ sound "drum drum:1"
+  |+| shape "0.5"
+
+d9 $ jux (density 1.5) $ sound "[gabba:0 gabba:3, glitch*8]"
+  |+| speed "2"
+
+d3 $ sound "bd*5?"
+  |+| gain "1.5"
+
+d1 $ slow 4 $ striate 32 $ sound "mef"
+  |+| gain "1.3"
+
+d2 $ sound (pick <$> "rave2*6" <*> ((floor . (*16)) <$> rand))
+  |+| gain "1.2"
+  |+| speed "[1 1.5 1]/2"
+
+d3 $ jux (iter 4 . rev) $slow 2 $ striate 32 $ sound "breaks125"
+  |+| gain "1.7"
+
+d9 $ sound "hh*16"
+
+d1 $ every 4 (rev . striate 4) $ every 3 (iter 8) $ sound "bd*4 off ~ [wobble off]"
+  |+| speed "2"
+
+d2 $ jux (iter 4) $ sound "~ [latibro ~ latibro]"
+  |+| speed (every 3 ((*2) <$>) $ "[1 1.01]")
+  |+| accelerate "1"
+  |+| vowel "[a e i o u]/5"
+  |+| gain "1.2"
+  
+d1 $ sound "bd*2 bd*3?"
+
+d2 $ every 2 (density 1.5) $ sound (pick <$> "newnotes*3" <*> (every 3 rev $ run 12))

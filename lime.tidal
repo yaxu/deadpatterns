@@ -1,0 +1,10 @@
+d1 $ slowspread ($) [density 4, rev, iter 4] $ every 3 (0.5 <~) $jux (iter 4) $ every 3 rev $ sound "bd*3 sn*2"
+
+
+d1 $ sound "can can:1 can:1 can:1"
+  |+| pan "0 1"
+
+bps $ 100/60
+
+hush
+

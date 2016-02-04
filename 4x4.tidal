@@ -1,0 +1,11 @@
+
+d1 $ sound "[bd wobble, [bd [bd [bd]*4]/2]*2/3]"
+  |+| (slow 8 $ shape ((*0.5) <$> sinewave1))
+  |+| pan "0"
+
+d2 $ 0.5 <~ sound "[bd wobble, [bd [bd [bd]*3]/2]*2/3]"
+  |+| (slow 8 $ shape ((*0.5) <$> sinewave1))
+  |+| pan "1"
+
+d3 $ sound "bd [, [bd]*3 can/4]"
+  |+| (slow 1 $ shape ((*0.5) <$> sinewave1))

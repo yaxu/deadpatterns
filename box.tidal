@@ -1,0 +1,19 @@
+d1 $ stack [-- jux rev $ 
+            stut' 3 0.25 (|*| gain "0.9") $ slow 2 $ sound (samples' "xx" (tom $ fit 1 (words "c4 d4 g5 a4 b4 d4 b4 f5") "[~ 0 1 2] [0 1 2 0 1 2/2]"))
+            -- # crush "3" # speed "[1,1.01,0.5]" # vowel "i" # resonance "0.9" # cutoff "0.2"
+           -- ,
+            -- iter 4 $ slow 2 $ chop 8 $ sound "[os:1 os:2]/2" # unit "c" # speed "0.5" # shape "0.5"
+           ]
+
+
+cps 1.2
+
+:t fit
+
+hush
+cps 1
+
+x-x-x-x-x-x-x-x-
+~ x x x x  x x x
+
+

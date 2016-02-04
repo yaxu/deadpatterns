@@ -1,0 +1,7 @@
+s $ stack [sound "[ravebass:5(3,8) ~ ravebass:7 ravebass:3(5,8)]/2",
+           brak $ slow 1 $ chop 8 $ sound "arc",
+           density 2 $ jux rev $ slow 4 $ chop 32 $ sound "liq" |+| gain "0.8"
+          ]
+
+s silence
+

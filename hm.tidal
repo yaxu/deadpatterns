@@ -1,0 +1,22 @@
+d1 $ every 4 (0.5 <~) $ slow 4 $ every 2 (slow 6) $ slow 2 $ weave 4 (shape $ slow 4 $ (* 0.9) <$> sinewave1)
+  [striate 24 $ slow 2 $ sound (pick <$> "diphone kurt"  <*> (slow 12 "1 2 3 4 5"))
+  |+| pan "0"
+  |+| vowel (slow 2 "o i"),
+   striate 16 $ slow 2 $ (sound (pick <$> "[bd kurt] [sn bd]" <*> (slow 12 "1 2 3 4 5")))
+   |+| pan "1"
+   |+| speed "2"
+   |+| shape "0.5"
+  |+| vowel "e"
+  ]
+
+d2 $ every 4 (0.5 <~) $every 2 (slow 1.5) $ slow 4 $ sound "bd [hc ~ [hc] [bd, hc]]"
+  |+| end "0.05"
+
+d3 $ slow 2 $ every 4 (striate 24) $ sound "wobble wobble"
+  |+| speed "1 2"
+
+
+d4 $ (slow 36 $ striate 256 $ sound "industrial")
+  |+| (slow 16 $ speed $ ((+0.6) <$> sinewave1))
+  |+| pan (slow 4 sinewave1)
+

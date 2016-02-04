@@ -1,0 +1,29 @@
+d1 $ slow 2 $ every 3 (density 2) $ every 2 (density 5) $ every 3 (striate 12) $ slow 17 $ sound (pick <$> "[amencutup]*3 [bd bd] [amencutup]*3 [bd bd]" <*> run 15)
+  |+| pan "0.4"
+  |+| speed "1"
+  |+| shape "0.3"
+  |+| slow 5 (speed "2.2 1.2 0.9")
+  |+| end "0.5"
+
+d2 $ slow 4 $ (every 2 (density 3) $ every 2 (density 2) $ every 2 (striate 14) $ slow 12 $ sound (pick <$> "[amencutup]*8 [amencutup [sn]*2 [bd bd] bd]*2" <*> (slow 7 $ run 13))
+  |+| pan "0.6")
+  |+| slow 5 (speed "2.2 1.2 0.9")
+  |+| end "0.5"
+d2 silence
+
+d3 $ slow 128 $ striate 32 (sound "fire")
+  |+| speed "0.8"
+  |+| pan "1"
+
+d4 $ slow 64 $ striate 16 (sound "fire")
+  |+| speed "0.8"
+  |+| pan "0"
+
+d6 silence
+
+d5 $ striate 12 $ slow 4 $ sound "~ jvbass ~ jvbass"
+  |+| speed "2"
+
+d6 $ striate 16 $ slow 6 $ sound "~ jvbass ~ jvbass"
+  |+| speed "2"
+

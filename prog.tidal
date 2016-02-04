@@ -1,0 +1,62 @@
+
+
+(d1, t1) <- dirtSetters getNow
+
+t1 (anticipate) $ randcat [chop 32 $ sound "breaks125", sound "bd(3,8)"]
+
+d1 $ sound "cp can"
+
+t1 (histpan 8) $ every 2 (rev . chop 8) $ sound (samples "[~ sd8]*4" (irand 16))
+  |+| speed "1" |+| gain "1.1"
+
+let anticipateIn :: Time -> Time -> [OscPattern] -> OscPattern
+    anticipateIn _ _ [] = silence
+    anticipateIn _ _ (p:[]) = p
+    anticipateIn t now (p:p':_) = overlay (playWhen (< (now + t)) $ spread' (stut 8 0.2) (now ~> (slow t $ toRational <$> envL)) p') (playWhen (>= (now + t)) p)
+    anticipate = anticipateIn 4
+import Sound.Tidal.Utils
+
+let histpan :: Int -> Time -> [OscPattern] -> OscPattern
+    histpan _ _ [] = silence
+    histpan 0 _ _ = silence
+    histpan n _ ps = stack $ map (\(i,p) -> p |+| pan (atom $ (fromIntegral i) / (fromIntegral n'))) (enumerate ps')
+      where ps' = take n ps
+            n' = length ps' -- in case there's fewer patterns than requested
+
+
+let drop p p' = do now <- getNow
+                   let from = sam $ now + (16 - mod' now 16)
+                   return $ overlay (playWhen (< (from + 16)) (unwrap $ (\d -> stut 8 d 1.01 p) <$> (from ~> slow 16 envL))) (playWhen (>= (from + 16)) p')
+
+
+d1 $ spread' (stut 8 0.2) (slow 8 $ toRational <$> envL) $ sound "bd ~ bd cp"
+
+envLR :: Pattern Double
+envLR = sig $ \t -> max 0 $ min (fromRational (1-t)) 1
+
+import Data.Fixed
+
+let x = 1 %4
+    
+mod' x 
+
+d1 $ sound "bd(5,8)"
+
+do now <- getNow
+   d1 $ fadeOut' now 4 $ sound "bd(5,8)"
+
+
+do swapMVar ds silence
+   return ()
+   
+do swapMVar ds $ chop 32 $ sound "breaks125" |+| unit "c"
+   return ()
+
+prog (drop) ds $ jux rev $ slow 2 $ striate 128 $ sound ("bev")
+
+
+
+
+t1 (anticipateIn 4) $ slow 4 $ (striate 32 $ sound "breaks152")
+hush
+cps (1)

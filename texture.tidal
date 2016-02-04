@@ -1,0 +1,47 @@
+b $ slow 2 $ note (offadd 0.5 (-7) $ tom "[{d e}%1](3,8)")
+  # pit1 "[0 0.5 1]/3"
+  # ctf "0"
+
+
+d1 $ jux (rev . chop 8) $ sound "bd8(3,8) [wobble mt8 ind]"
+  # gain "1.8"
+  # shape "0.7"
+
+d2 $ off 0.5 (# up "-5") $ slow 4 $ sound (samples "nau(3,8)" "{0 2 [3 5] 1}%1")
+  # gain "1.8"
+
+d3 $ jux (iter 4 . rev) $ chop 8 $ sound "arc"
+  # gain "1.9"
+
+d4 $ jux rev $ inside 2 (iter 4) $ slow 2 $ chop 16 $ sound "narc"
+  # gain "1.5"
+  # speed "0.9"
+  # vowel "a"
+
+d5 $ jux rev $ slow 4 $ sometimes (|*| speed "0.5") $ sound (samples' "xx" (offadd 0.125 7 $ rev $ tom "d4(3,8) e3(5,8) f4(3,8) g4*3"))
+  # gain "1.9"
+
+b $ slow 2 $ sometimes (# ctf "0.125 0.75") $slowspread (density) [2,3,4] $ note "[50*2 [62 79]]"
+  # pit1 sine1
+  # ctf "0"
+
+d7 $ jux (iter 8) $ (slow 2 $ chop 16 $ sound "[os os:1 os:2]/3")
+  # gain "1.9"  # unit "c" # speed "0.5"
+
+d8 $ sound "~ off"
+
+d9 $ slow 2 $ (jux (rev) $ slow 4 $ striate 32 $ sound "liq*2"
+  # gain "1.7")
+  # vowel "e i o"
+
+d1 $ sound "g [~ g]"
+  # gain "1.8"
+
+d7 $ (jux (rev . iter 4) $ chop 8 $ sound "~ [feel:1 feel:2]"
+  # gain "1.8")
+  # nudge sine1
+
+d1 $ jux rev $ chop 8 $ sound "[drum, ind]([3 5]/2,8)"
+  # gain "1.8"
+
+d2 silence

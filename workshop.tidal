@@ -1,0 +1,50 @@
+d1 $ sound "[bd sn bd sn, can can/4 can/3]"
+
+# ctrl-c ctrl-c
+d1 $ sound "[bd ~ kurt ~, sn [bd sn] sn/2]"
+
+d1 $ sound "bd*32 bd*64 bd*8"
+
+d1 $ every 3 rev (sound "bd [[cp sn/2] [sn sn cp]]")
+
+d1 $ every 3 (density 2) 
+  (sound "bd [sn/2 cp] bd sn/2")
+
+d1 $ density 2 (sound "bd sn/2")
+
+
+http://yaxu.org/tidal/
+https://twitter.com/tidalcycles
+
+
+d1 $ every 2 rev (slow 4 (striate 128 (sound "bev")))
+  |+| speed "2 0.5"
+
+d2 $ every 2 (slow 2) $ every 4 rev ((striate 64 (sound "breaks165")))
+
+d3 $ brak $ sound "[[bd bd] sn/2, hh*8]"
+
+d4 $ (smash 4 [1,2,3,4]) $ sound "[bass3 bass3/3] jvbass*3"
+  |+| speed "[1,2]"
+
+d5 $ every 3 (density (2/3)) $ sound "sid [sn/2 drum/1 sn/2]"
+
+# ctrl-c ctrl-e
+
+d1 $ sound "[bd kurt [cp bd] bass3/3 kurt/2, wobble bd*3 sn/2]"
+  |+| (slow 2 (speed "4 2"))
+  |+| vowel "a e"
+
+
+d2 $ sound "can*8"
+
+d3 $ sound "sn/3*5"
+
+hush
+
+http://yaxu.org/tidal/
+
+
+d1 silence
+
+hush

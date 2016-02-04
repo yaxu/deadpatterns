@@ -1,0 +1,19 @@
+seqt ts p = slowcat $ map (\f -> f p) ts
+
+d1 $ spin 4 $ seqt [rev, density 2, (0.25 <~), (|+| speed "2"), (|+| )] $ sound "bd ~ drum:1 sn bd bd mt ~"
+  |+| speed "4"
+
+d2 $ spin 2 $ seqt [rev, density 2, (0.25 <~), (|+| speed "-1")] $ sound "bd ~ drum:1 sn bd bd mt ~"
+  |+| speed "2"
+
+import qualified Data.Map as Map
+
+let (|!|) x y = (flip Map.union) <$> x <*> y
+
+merge x y = (flip Map.union) <$> x <*> y
+
+let solo = (>>) hush
+:t >>
+hush
+
+d1 $ seqt [(0.5 <~), slow 2] $ density 2 $ spin 4 $ sound "bass3:2 bass3:3 bass3:1"

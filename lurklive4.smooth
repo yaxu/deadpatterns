@@ -1,0 +1,22 @@
+  
+d3 $ every 2 (0.25 <~) $ (slow 2 $ sound "[jvbass [wobble jvbass wobble]] odx off odx")
+  |+| shape "0.7"
+  |+| vowel (slow 3 "a e o u")
+  |+~ speed (every 2 ((subtract 0.5) <$>) $ (slow 4 $ ((+1) . (*0.5)) <$> sinewave1))
+  
+
+d1 $ every 4 ((const silence)) $ slow 2 $ every 4 (0.25 <~) $ sound "bd sn/2 bd ~"
+
+d2 $ every 2 ((const silence)) $ slow 2 $ every 4 (0.25 <~) $ sound "techno/2 glitch/2"
+  |+| shape "0.4"
+
+d4 $ slow 2 $ smash 1 [1,0.5,2] $ sound "[drumtraks/0 drumtracks/3, [hh]*2, ~ [odx]]"
+  |+~ shape (((+ 0.4) . (* 0.2)) <$> (slow 8 $ sinewave1))
+
+d5 $ slow 2 $ every 3 (0.5 <~) $ brak $ sound "[bd bd bd] [sn/2 sn/5]"
+  |+| shape "0.4"
+  |+| end "0.2"
+
+d6 $ every 4 (striate 2) $ density 2 $ sound "bd gabba sn/2"
+  |+| shape "0.6"
+  |+| vowel "a"

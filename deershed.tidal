@@ -1,0 +1,141 @@
+d1 $ (striate 4 $ slow 2 $ sound "newnotes")
+  |+| (slow 2 $ speed "1 0.8 0.5 2")
+
+d2 $ (striate 4 $ slow 1.5 $ sound "newnotes")
+  |+| (speed $ every 3 ((* 2) <$>) (slow 3 $ "1 0.8 0.5 2"))
+  |+| shape "0.8"
+
+
+
+
+
+
+
+
+
+d1 $ slow 4 $ striate 16 $ sound "koy"
+  |+| shape "0.5"
+  |+| pan "0"
+  |+| speed "2.1 2.1"
+
+
+d2 $ every 4 (rev) $ slow 4 $ striate 16 $ sound "koy/1"
+  |+| shape "0.5"
+  |+| pan "1 1.1"
+  |+| speed "2"
+
+d3 $ sound "bd [bd]*4"
+
+d2 $ slow 2 $ sound "bd sn/2 [~ bd] [sn]*4"
+
+d3 $ every 2 (0.5 <~) $ sound "[[bd sn]*3%2 [bass ~ ~ bass/2]]"
+  |+| shape "0.7"
+  |+| speed (Pattern.when (\n -> (n `mod` 8) < 2) ((+ 0.1) <$>) "1")
+  |+| pan "0.3"
+
+
+
+:t Pattern.when
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+d2 $ (slow 4 $ striate 16 $ sound "fire")
+  |+| (slow 4 $ pan (sinewave1))
+  |+| pan "1"
+
+d1 $ rev (slow 4 $ striate 16 $ sound "fire")
+  |+| pan "0"
+
+d3 $ slow 2 $ sound "[[bass3 ~ bass3] bass3 bass3/5] bass3/1"
+
+
+d4 $ every 4 (slow 2) $ sound "[[latibro ~ bass3] latibro/1 bass3/5] bass3/1"
+
+d5 $ every 4 (0.25 <~) $ sound "[bd]*4 sn"
+  |+| shape "0.9"
+
+
+let interlace' a b = weave 16 (shape ((*0.9) <$> sinewave1)) [a, b]
+
+let b = (sound "[bd ~ sn/2]") in
+  d1 $ interlace' (every 2 (slow 2 . striate 3) $ slow 2 $ sound "[bd sn [~ bd] sn, [hc]*8]") b
+
+d2 $ every 8 (rev . striate 16) $ every 4 (density 2) $ slow 4 $ striate 16 $ sound (pick <$> "rave" <*> (slow 5 "1 2 3 4 5"))
+  |+| speed "0.9"
+
+d1 $ slowcat [sound "bd [bd bd] lt", sound "bd bd bd sn/2"]
+
+d4 $ every 16 (density 2) $ every 3 (0.25 <~) $ every 2 rev $ sound "[bass3/2 ~ [jvbass/2 bd] sn], bd [bd]*4 bd]"
+  |+| shape "0.8"
+
+d5 $ every 4 (rev . brak) $ slow 8 $ every 2 rev $ striate 64 $ sound "latibro"
+
+d1 $ slow 4 $ striate 16 $ sound (pick <$> "diphone2 diphone2" <*> (slow 5 $ run 8))
+  |+| pan "1"
+
+d2 $ slow 4 $ striate 12 $ sound (pick <$> "jvbass/2 kurt bass3/2 woof" <*> (slow 5 $ run 8))
+  |+| shape "0.9"
+
+
+d3 $ sound "[bd bd] [sn ~ sn]"
+  |+| end "0.8"
+
+d1 $ slow 2 $ sound "bd [~ jvbass/2] ~ jvbass/3"
+  |+| shape "0.96"
+  |+| speed "0.5"
+
+d2 $ sound "[bd kurt bd] [jvbass]*4"
+  |+| (density 2 $ speed (every 2 ((*2) <$>) "0.5"))
+  |+| pan "[0 1]*4"
+  |+| shape "0.7"
+
+
+d3 $ slow 2 $  (striate 4 $ slow 2 $ sound "[printshort/7 printshort/9, sn/2 printshort/4]")
+  |+| pan "[0 1]*4"
+  |+| vowel "o i i"
+
+d5 $ striate 16 $ slow 2 $ every 2 (rev) $ (sound (pick <$> "[lighter]*16" <*> (density 7 $ "1 2 3 4 5")))
+  |+| speed "0.5"
+
+d1 $ striate 16 $ sound "~/2"
+
+
+d1 $ every 3 (0.25 <~) $ every 2 (density 2) $ sound "[bd techno bd] sn"
+  |+| pan "0"
+
+d3 $ every 3 (0.5 <~) $ every 2 (density 3) $ sound "[bd techno/2 bd] sn"
+  |+| pan "1"
+
+d2 $ every 2 (0.25 <~) $ slow 3 $ sound "bd [latibro latibro/2 rave/2 ~ ]"
+  |+| speed (slow 3 "1 1.2 1.1")
+  |+| vowel "i o a"
+
+d2 $ every 2 (0.5 <~) $ slow 4 $ striate 16 $ sound "bev"
+  |+| shape "0.5"
+
+
+
+d1 $ every 3 (density 2) $ sound "bd sn/2 sn bd"
+  |+| vowel "a e i"
+  |+| speed "2 1"
+
+d1 $ slow 4 $ striate 16 $ slow 2 $ sound "newnotes"
+  |+| speed "2"
+  |+| pan "1"
+
+d2 $ slow 3 $ striate 16 $ slow 2 $ sound "newnotes"
+  |+| speed "2"
+  |+| pan "0"

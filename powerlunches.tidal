@@ -1,0 +1,202 @@
+d1 $ jux rev $ sound (samples' "vocobass" (slowspread (\x -> offadd x 7) [1,0.5,0.25,0.125]  $ palindrome $ tom "d3 e3 a3"))
+
+
+d2 $ sometimes (iter 4) $ jux (iter 4) $ sound "drum([3 5]/2,8)"
+  # shape "0.4"
+  
+d3 $ jux (iter 4) $ sound "bd sn:2*3"
+
+d4 $ sometimes (rev) $ jux (iter 4) $ chop 8 $ sound "~ off"
+
+
+b $ slow 2 $ note (sometimes ((subtract 12) <$>) $ offadd 0.125 7 "50*2 [52 59] 30 [~ 52]")
+  # pit3 saw1
+  # ctf rand
+  # lfo "0.2"
+  # lfoi "0.1"
+  # dur "0.05"
+  # slide "1"
+  # pit1 "0"
+  # pit2 "1"
+
+
+d6 $  ((1/4) <~) $ slow 2 $ chop 4 $ sound "sb:1"
+  |+| speed "2"
+  |+| gain "1.5"
+
+d7 $ (rev $ every 2 (inside 2 rev) $ chop 8 $ sound "breaks165")
+  |+| speed "0.9"
+  |+| resonance "0.1"
+  |+| cutoff "0.1"
+  # gain "1.3"
+
+d8  $ slow 4 $ chop 64 $ sound "bev"
+
+hush
+
+d7 $ (rev $ every 2 (inside 2 rev) $ chop 8 $ sound "breaks165")
+  |+| speed "0.9"
+  |+| resonance "0.1"
+  |+| cutoff "0.1"
+  # gain "1.1"
+
+d4 $ jux rev $ sound "g*4"
+  # gain "1.2"
+
+d2 $ chop 4 $ sound "{cp8 ~ cp8 [~ cp8], sn sd8*2 ht8}"
+  |+| cutoff "0.04"
+  |+| resonance (scale 0.8 0.90 $ slow 4 saw1)
+  |+| speed "4"
+  |+| gain "1.25"
+
+
+
+  d1 $
+  stack [sound (fit 5 (words "g g:1 g:2 g:3") "0 1 [[3 4] ~ 2] [~ 3]") # speed "[1]",
+         sound "drum cp",
+         sound
+         (fit 5 (words "drum xx:53 arpy:2 arpy:3")
+          (rev "0 1 [[3 4] ~ 2] [~ 3]"))
+         # speed "1" # end "0.5" # speed "1"
+        ]
+
+d2 $ sometimes (rev . chop 8) $ sometimes (|+| speed "2") $
+  jux (0.25 <~) $ sound (samples "[ifdrums*8, future*8]" (run 8))
+  # nudge "[0 0.04]*4" # shape "0.2"
+
+d8 $ slow 4 $ chop 16 $ sound (samples "repetition" (irand 8))
+  # unit "c" # speed "0.25"
+  # gain "1.45"
+
+
+
+d3 $ slow 2 $ jux rev $ weave 16 (palindrome$ sound (samples "arpy*8" (run 8)))
+  [vowel "a e i",
+   vowel "o ~ i",
+   vowel "o i e e",
+   speed "1 2 3 2"
+   ]
+  # gain "1.4"
+
+d6 $ jux (iter 4) $ slow 2 $ chop 16 $ sound (samples "os" (slow 3 $ run 3))
+  # gain "1.4"
+
+d5 $ jux (iter 4) $ slowspread (stut 4 0.9) [0.125, (1/16), 3, (1/32)] $ slow 2 $ sound (samples "amencutup(3,8) amencutup(5,8)" (slow 8 $ scan 8))
+  # gain "1.5"
+  # speed "[1 1 1 2]/4"
+
+
+
+d1 $ jux (iter 8) $ sound (samples "onoff" (irand 4))
+
+d2 $ sound (samples "alphabet" (irand 8))
+  # vowel "a e"
+
+d3 $ sound (samples "numbers" (irand 4))
+  # crush "6"
+  # speed "1 2 3"
+
+d4 $ every 3 (density 2) $ sound "off g"
+  # shape "0.2"
+
+d $ slow 2 $ brak $ drum "bd*2 [oh sn ch*2]"
+
+d1 $ slow 2 $ jux (iter 4)$ sound (samples' "xx" (offadd 0.25 7 $ tom "[d4 c] e3 f5 g3"))
+  # gain "1.4"
+  # vowel "a e o"
+  # cutoff "0.1"
+
+d2 $ sound "~ h"
+  # gain "1.3"
+  # speed "[1 2 1]/3"
+
+d4 $ brak $ sound "bd8:8*2 feel:1"
+  # gain "1.4"
+
+
+d5 $ slow 8 $ chop 8 $ sound "atlast:2"
+  # gain "1.3"
+  # unit "c"
+  # speed "0.125"
+
+cps 1.3
+
+d4 $ foldEvery [3,7] (0.25 <~) $ jux (iter 4) $ slow 2 $ chop 8 $ sound "arc"
+  # gain "1.3"
+
+d6 $ jux (rev)$ sound "ravebass:10([3 5]/2,8)"
+  # gain "1.3"
+
+d1 $ stack [(slowspread (chop) [32,64,128] $ sound "drum cp drum:1 off"),
+            slow 2 $ chop 16 $ sound "arc"
+            ]
+  # nudge "[0 0.04]*4"
+  # gain "1.3"
+
+d4 $ sometimesBy 0.8 (|*| speed "0.5") $
+  stack [((|*| speed "[1 0.5 1.5 2,1]/3") $
+          slow 8 $ sound (samples' "xx"
+                          (sometimes (fmap (+12)) $
+                           offadd (-0.125) 7 (tom "d4(3,8) c3(5,8) f4(3,8) g3(5,8)")))
+          # speed "1")
+         # shape "0.3",
+         weave 16 (sound (samples "xx*4" (rev $ tom "d4 e4 f4 g4")))
+         [vowel "a e i i",
+          speed "1 [2 2] 1 2*2"
+         ] # gain "1.1" # delay ("0.9") # delaytime "0.51" # delayfeedback (slow 8 sine1)
+        ]
+  # vowel "i"
+
+
+d8 $ chop 8 $ sound "breaks165"
+  |+| speed "0.9"
+  |+| resonance "0.1"
+  |+| cutoff "0.1"
+  # shape "0.7"
+
+  
+
+
+d8 $ sometimes (rev . chop 8) $ sometimes (|+| speed "2") $
+  jux (0.25 <~) $ sound (samples "[ifdrums*8, future*8]" (run 8))
+  # nudge "[0 0.04]*4" # shape "0.2"
+
+
+
+
+d2 $ sometimes (rev . chop 8) $ sometimes (|+| speed "2") $
+  jux (0.25 <~) $ sound (samples "[ifdrums*8, future*8]" (run 8))
+  # nudge "[0 0.04]*4" # shape "0.2"
+
+d1 $ weave' 4 (sound (samples "[sd8, ht8]*8" (slow 8 $ scan 8)))
+  [(|+| speed "1 2 3"),
+   chop 8 . (pan "0 0.25 0.5 0.75" |+|)]
+  # gain "1.1"
+
+d3 $ jux (rev) $ iter 4 $ slow 4 $ chop 16 $ sound (samples "repetition" (irand 7))
+  # unit "c" # speed "0.25"
+  # gain "1.2"
+
+d4 $ juxBy 0.4 rev $ sound "g([3 5]/2,8)"
+  # delaytime (scale 0 0.03 $ slow 4 $ sine1)
+  # delayfeedback "0.9" # delay "0.9"
+  # gain "0.8"
+
+d5 $ jux rev $
+  sound (slow 8 $ samples'
+         "xx"
+         (sometimes (fmap (subtract 12)) $
+          superimpose ((0.125<~) . (fmap (+7))) $
+         rev $ tom "[d4(3,8) c3(5,8) f4(3,8) g3(5,8)]")
+        )
+  # vowel "a e o"
+  # gain "1.1"
+  # cutoff "0.7"
+  # resonance "0.5"
+
+
+d1 $ stack [jux rev $ slow 4 $ sound (samples' "xx xx" (sometimes ((+12) <$>) $ offadd (-0.125) 7 $ tom "d3 e4 [f3] [~ d3]")),
+            sound "ravebass:10(3,8)",
+            chop 8 $ sound "arc"
+           ]
+  # nudge "[0 0.04]*4"

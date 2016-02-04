@@ -1,0 +1,35 @@
+d4 $ sometimes (|*| speed "1.5") $
+  superimpose (slow 2) $ slow 2 $
+  slowspread (stut 8 0.9) [0.06,0.1,2,3] $
+  jux (rev) $
+  (sound (slow 2 $ samples "voodoo*4 lighter*3 bd*4 cp" (slow 8 $ scan 8)))
+  # speed "[0.5 2 1,1.01]/3"
+
+d2 $ sometimes (rev . chop 8) $ sometimes (|+| speed "2") $
+  jux (0.25 <~) $ sound (samples "[ifdrums*8, future*8]" (run 8))
+  # nudge "[0 0.04]*4" # shape "0.4"
+
+d3 $ slowspread (chop) [128,64,32,1] $
+  jux (iter 8) $ sound (samples "amencutup*8" (run 8))
+  # gain "1.2"
+  # nudge "[0 0.04]*8"
+
+d5 $ jux rev $
+  sound (slow 8 $ samples'
+                  "xx"
+                  (sometimes ((subtract 12) <$>) $
+                  superimpose ((0.125 <~) . ((+7) <$>)) $
+                  tom "[d4(3,8) c3(5,8) f4(3,8) g3(5,8)]")
+        )
+  # gain "1.6"
+
+t1 (wait 2) $
+  stack [sound (fit 5 (words "g g:1 g:2 g:3") "0 1 [[3 4] ~ 2] [~ 3]") # speed "[1]",
+         sound "drum cp",
+         sound
+         (fit 5 (words "drum xx:53 arpy:2 arpy:3")
+         (rev "0 1 [[3 4] ~ 2] [~ 3]"))
+         # speed "1" # end "0.5" # speed "1" # gain "1.3"
+        ]
+
+d5 $ sound "[ravebass:10,bd sn:2](3,8)" # gain "1.3"

@@ -1,0 +1,62 @@
+
+import System.IO
+import Sound.OSC.FD
+
+let oscport = 9090
+    lx80Shape = OscShape {path = "/lx80",
+                          Sound.Tidal.Context.params = [ S "text" (Just ""),
+                                                         F "speed" (Just 1),
+                                                         F "pitch" (Just 1),
+                                                         S "post" (Just "cr")
+                                                       ],
+                          timestamp = NoStamp,
+                          Sound.Tidal.Context.latency = 0.15,
+                          namedParams = False,
+                          preamble = [],
+                          cpsStamp = False
+                         }
+    lx80Stream = stream "127.0.0.1" oscport lx80Shape
+    text         = makeS lx80Shape "text"
+    speed        = makeF lx80Shape "speed"
+    pitch        = makeF lx80Shape "pitch"
+    post         = makeS lx80Shape "post"
+    startlx = do s <- udpServer "127.0.0.1" oscport
+                 fh <- openFile "/dev/usb/lp1" WriteMode
+                 forkIO $ oscLoop s fh
+    oscLoop s fh = do m <- recvMessage s
+                      act m fh
+                      oscLoop s fh
+    act (Just (Message "/lx80" [ASCII_String mText, Float mSpeed, Float mPitch, ASCII_String mPost])) fh =
+      do setSpeed mSpeed
+         setPitch mPitch
+         sendText (ascii_to_string mText)
+         sendPost (ascii_to_string mPost)
+         hFlush fh
+         return ()
+      where setSpeed :: Float -> IO ()
+            setSpeed s | s < 0.25 = do halfSpeed 1
+                                       return ()
+                       | otherwise = do halfSpeed 0
+                                        return ()
+            halfSpeed :: Int -> IO ()
+            halfSpeed half = do hPutStr fh $ escS ("s" ++ show half)
+            setPitch :: Float -> IO ()
+            setPitch p
+              | p < 0.25 = hPutStr fh $ esc [fromEnum '!',5] -- compressed elite
+              | p < 0.5 = hPutStr fh $ esc [fromEnum '!',4] -- compressed
+              | p < 0.75 = hPutStr fh $ esc [fromEnum '!',1] -- elite
+              | otherwise = hPutStr fh $ esc [fromEnum '!',0] -- pica
+            sendText "beep" = hPutStr fh $ esc [7]
+            sendText str = do hPutStr fh str
+            sendPost "cr" = hPutStr fh $ "\n"
+            sendPost "lf" = hPutStr fh $ "\r"
+            sendPost "space" = hPutStr fh $ [' ', toEnum 27, 'J', toEnum 0]
+            sendPost _ = return ()
+            esc = (map toEnum) . (27:)
+            escS = ((toEnum 27):)
+    act _ _ = return ()
+
+startlx
+
+lx <- lx80Stream
+

@@ -1,0 +1,150 @@
+d1 $ sound "[bd8:4 bd8] bd8:4"
+
+d2 $ rev $ slowspread (chop) [1,2,16,8] $ (slow 4 $ spin 5 $ sound "bd8:3*8")
+
+d3 $ every 2 rev $ slowspread (chop) [1,2,16,8] $ superimpose (1 <~) $ jux rev $ sound "~ [jv ~ jv:3]"
+   |+| speed "[1 2 3]/3"
+
+d4 $ jux (iter 4) $ smash 16 [1,2,3,4,5] $ sound "bd8:3*8 sd8*2 bd8:4*4 bd8"
+   |+| speed (slow 4 $ scale 1 2 sine1)
+
+d5 $ every 2 (within (0,0.25) (density 4)) $ every 5 (density 2) $ every 4 (density 1.5) $ jux (iter 4) $ sound "[bd ~ sd8:3] drum [~ future cb8] [jazz sid:2]"
+   |+| speed "2 1.2"
+
+d6 $ (jux (0.25 <~) $ every 2 (within (0,0.25) (density 2)) $ smash 16 [1,2,3,4] $ sound "arc arc")
+   |+| shape "0.5"
+   |+| speed "0.9"
+
+cps $ 0.6
+
+d7 $ slow 2 $ spin 3 $ every 3 rev $ slowspread (chop) [1, 16, 3, 8] $ sound "gabba gabba*2"
+
+
+d9 $ slow 4 $ chop 8 $ sound "[mef:1*2]"
+   |+| gain "1.2"
+   |+| speed "1.49"
+
+hush
+cps 0.6
+
+let smash n xs p = slowcat $ map (\n -> slow n p') xs where p' = chop n p
+
+
+
+d1 $ degradeBy 0.25 $ sound "bd*8"
+
+d2 $ degrade $ every 4 (slow 2) $ every 2 (within (0,0.25) (density 1.5)) $ jux rev $ (chop 16 $ sound "wobble")
+   |+| pan (every 3 rev $ saw1)
+   |+| speed (slow 2 $ scale 0.4 0.9 saw1)
+
+
+d3 $ degrade $ jux (iter 4) $ every 2 (rev . chop 16) $ sound "drum drum:2 drum [~ drum:2]"
+   |+| speed "[1,2,3,0.5]"
+
+d4 $ degrade $ every 2 (within (0,0.25) (density 1.5)) $ jux (iter 4) $ stack [every 2 (rev) $ chop 16 $ sound "[arc, breaks165]",
+                           sound (samples "~ rave2*3" (slow 5 $ run 12))]
+   |+| speed ((*2) <$> "[1 1 1 1.5]/4")
+
+d5 $ jux ((|+| speed "0.9") . iter 8) $ slow 32 $ striate' 256 (1/64) $ sound "bev"
+
+d6 $ density 4 $ every 2 (0.25 <~) $ jux (iter 4) $ slow 4 $ chop 32 $ sound "arc"
+   |+| gain "1.2"
+   |+| speed "0.5"
+
+d7 $ jux (iter 4) $ every 3 (density 2) $ sound "{bd8:4 sd lt8 ht8, leaf:5 leaf leaf:4}"
+   |+| gain "1.2"
+   |+| speed "2"
+
+d8 $ jux ((|+| speed "[1.001 1 1 3]/4") . rev) $ slowspread (chop) [1,16,2,4] $ sound "bd8:8 ht8*2 lt8:8"
+   |+| shape (scale 0.3 0.8 sine1)
+
+d9 $ rev $ slow 2 $ striate 32 $ sound "[mef:1*2]"
+   |+| gain "1.3"
+   |+| pan "0"
+   |+| speed "2"
+
+d10 $ slow 2 $ striate 32 $ sound "[mef:0*2]"
+   |+| gain "1.3"
+   |+| pan "1"
+   |+| speed "2"
+
+
+d1 $ soun
+
+d1 $ slow 2 $ sound "numbers:1 numbers:2"
+   |+| pan "0 1"
+
+d1 $ density 2 $ every 4 (density 2) $ jux (|+| speed "1.4") $ slowspread (chop) [2, 8, 16, 32] $ slow 2 $ sound "drum*5 [drum [drum drum] drum]"
+   |+| speed "1.5"
+
+
+d2 $ sound "drum feel:2"
+
+d3 $ slow 2 $ jux ((((1/32) + 1) <~)) $ degradeBy 0.25 $ sound "bass3:3*4"
+
+
+d1 $ jux (|+| speed "[-1,-4]") $ every 4 (density 2) $ slowspread (chop) [1,8,16,32] (sound "drum*5 drum*3")
+   |+| speed "[1,8]"
+
+d2 $ jux (density 1.5) $ (chop 3 $ sound "~ feel:2")
+   |+| pan sine1
+
+d3 $ jux rev $ degradeBy 0.25 $ sound "[bd8:1*8, leaf:3*16]"
+   |+| speed "1.4"
+
+d4 $ sound (pick <$> "bd8 ~ bd8 ~ ~ bd8 bd8 ~" <*> "4")
+   |+| gain "1.8"
+
+:t spread'
+
+
+d1 $ jux ((1/16) <~) $ ((slow 2 $ striate' 8 (1/2) $ sound "ade:3")
+   |+| speed "-0.75 0.5")
+   |+| gain (scale 0.75 1.5 $ slow 8 tri1)
+
+d2 $ jux rev $ slowspread (chop) [1,8,16,32] $ sound "drum*5 drum*3"
+   |+| speed "2"
+
+d3 $ sound "~ jv"
+
+d4 $ jux (iter 4) $ slow 2 $ every 4 (|+| speed "2") $ within (0,0.25) (density 2) $ slow 2 $ (chop 16 $ sound "arc breaks125")
+   |+| gain "1.4"
+   |+| speed (slow 4 $ scale 0.75 1.25 sine1)
+
+d5 $ slowspread ($) [id, chop 8, (0.5 <~), density 2] $sound "~ bass2"
+
+d1 $ spread' degradeBy (slow 4 $ scale 0 0.25 sine1) $ within (0,0.25) (density 2) $ slow 2 $ jux (inside 4 (rev)) $ chop 16 $ sound "breaks125"
+
+d2 $ jux (iter 4) $ every 4 (density 1.5) $ sound "drum*4"
+
+d3 $ jux (rev) $ sound "ht8*4 ht8*3"
+   |+| shape (slow 8 $ scale 0.4 0.8 sine1)
+   |+| speed (slow 8 $ scale 0.7 2 sine1)
+
+
+d4 $ jux (iter 4) $ sound "{bd8*16 bd*3 sd8 bd*12, drum [drum*8 lt8*2] mt8}"
+   |+| speed "2"
+
+d5 $ slow 2 $ inside 2 (jux (rev)) $ chop 16 $ sound "shackup"
+   |+| speed "1"
+
+d6 $ sound "~ rave2:3*2"
+   |+| speed "[1,2,1.01]"
+
+
+d1 $ rarely (|+| speed "4") $ juxBy 0.5 (iter 4) $ smash' 4 [1,2,3,4] $ sound "bd [jv:3 sn:2] [mt8:4 sd8] [ht8 jv:8]"
+   |+| speed "1.5"
+
+d2 $ sound "~ sd8:4*4?"
+   |+| speed "2"
+
+d3 $ jux (iter 4) $ slow 8 $ within (0,0.25) (density 2) $ chop 32 $ sound "shackup"
+
+d4 $ smash' 4 [1,0.5,3,4] $ jux (iter 4) $ every 4 (0.25 <~)$ sound "bd8*8 bd8*16 bd*3 bd*4"
+
+d5 $ slow 8 $ jux (iter 4) $ stut 3 0.9 (0.75) $ (slowspread (chop) [32,16,8,4]) $ every 2 (density 1.5) $ sound "lighter*4"
+
+d6 $ spin 3 $ slow 2 $ sound "gabba ~ feel:2 sd8"
+
+
+

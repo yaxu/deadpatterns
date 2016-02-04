@@ -1,0 +1,91 @@
+
+(drum, [clapSpeed, clavesSpeed, agogoSpeed, crashSpeed, stutterTime, stutterDepth, tomDecay, clhatDecay, ophatDecay, hatGrain], stop) <- Volca.Beat.startbeat
+let sine128 = (floor . (* 128)) <$> sine1 :: Pattern Int
+
+
+
+drum "kick snare"
+
+d1 $ every 2 (density 2) $ jux (rev) $ every 3 (0.25 <~) $ sound "bd lighter*2"
+  |+| speed "2"
+
+
+d2 $ every 3 (rev) $ jux (iter 8) $ sound "bd*2 drum:2 bd ~"
+
+d3 $ sound "drum sn:2"
+
+d1 $ stack [slow 2 $ every 2 (0.25 <~) $ superimpose (rev) $ every 4 (striate 4) $ sound (pick <$> "bd*2 bd*4" <*> (slow 4 $ ((floor . (*16)) <$> sine1)))
+            smash 2 [1,2] $ jux (brak) $ whenmod 4 2 (density 2) $ slow 2 $ sound (pick <$> "amencutup*8" <*> (slow 4 $ run 32))
+            |+| speed ((+1) <$>sine1)
+           ]
+
+d6 $ interlace (smash 8 [1,2,1,4] $ every 2 (density 2) $ jux (brak) $ whenmod 4 2 (density 2) $ slow 2 $ sound (pick <$> "future*8" <*> (slow 4 $ run 32))
+  |+| speed ((+1) <$>sine1))
+  (sound "~ bleep:9"
+  |+| speed (slow 8 sine1))
+
+d7 $ every 2 (density 2) $ sound "gabbalouder off"
+  |+| shape "0.5"
+
+note $ every 2 rev $ every 3 (echo 0.25) "kick [ophat clhat*2]"
+
+-- thanks for listening
+
+-- note sure how much latency we've built up but I think this is nearlydone
+d6 silence
+
+
+d1 $ every 3 rev $ slow 64 $ striate 64 $ sound "bev*4"
+  |+| speed "1"
+  |+| shape "0.9"
+hush
+
+bps $ 100/60
+
+
+hush
+
+d2 $ juxcut (density 2) $ sound "~ bd*3"
+
+d4 $ slow 4 $ striate 16 $ sound "breaks152"
+
+stutterTime $ "0"
+stutterDepth $ "0"
+
+d4 $ slow 2 $ every 3 (slow 2) $ every 4 (density 2) $ superimpose (iter 4) $ jux (every 2 rev) $ sound "bd ~ sn*16 ~ bd*8 ~ sn*6 ~"
+  |+| speed "2"
+  |+| vowel "a"
+
+note $ slow 2 $ superimpose (iter 4) $ "[kick ~ kick*2 snare, claves*2 [hitom lotom]]"
+
+d2 $ density 2 $ striate 8 $ sound "[bd drum:1]/2"
+  |+| vowel (slow 5 $ "a e i o u")
+
+
+d5 $ smash 4 [1, 2, 0.5, 16] $ every 2 (density 2) $ slow 4 $ jux (iter 3) $ sound "bd [cp voodoo] ~ sn:2 [cp [[bd [bd voodoo] bd] sn:2] [newnotes sn]] ~ sn ~"
+
+d6 $ every 2 (slow 2) $ jux rev $ sound "~ [bass3:2 ~ bass3:4]"
+  |+| end "0.1"
+  |+| speed "[2 4]/8"
+
+d7 $ every 2 rev $ slow 4 $ jux (rev) $ sound (samples "tabla*4 tabla*3" "2")
+
+
+note $ every 4 (0.25 <~) $ "kick snare kick claves"
+
+d2 $ every 2 rev $ jux (iter 6) $ sound "can2:2 can:3"
+
+d1 $ jux (iter 4) $ sound "can can:2"
+
+d3 $ every 2 (rev) $ jux (iter 8) $ sound "cp cp:2*3"
+  |+| speed "12 8"
+  |+| shape "0.7 0.6"
+
+d4 $ every 2 (rev) $ jux (iter 6) $ sound "can cp:3*2"
+  |+| speed "16 8"
+
+d5 $ jux (0.5 <~) $ every 4 (density 4) $ slow 2 $ sound "gabba off"
+
+
+
+bps $ (165/2)/60

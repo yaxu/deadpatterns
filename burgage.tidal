@@ -1,0 +1,10 @@
+d1 $ jux (iter 8) $ rev $ striate 8 $ sound "loop*2"
+  |+| speed "[4 2]/4"
+--  |+| accelerate rand
+
+d2 $ sound "bd(2,8) sd8(3,8)"
+  |+| shape "0.9"
+
+cps 2
+
+hush

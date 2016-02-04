@@ -1,0 +1,86 @@
+
+s1 $ stack [-- (juxBy 0.25 (rev) $ stack [sound "[[bd8:3,drum*2] [leaf:4 future] bd8:4] leaf"] # crush "8") # end "0.1",
+            jux (1 <~) $ slow 2 $ chop 8 $ sound "arc" # shape "0.4" # crush "2",
+            foldEvery [5,7] (|*| speed "2") $ sometimes (# up "[7 8]/2") $ sound "drum [cp bd*3 cp]",
+            (jux (iter 4) $ slow 4 $ sound "cp [drum:1 drum] cp8 [sn:2 bd*2]"),
+            slow 8 $ jux (iter 4) $ slowspread (chop) [8,16,32,64] $ sound "fm:11" # speed "-1"
+            # speed "0.5"
+            # gain "0.9",
+            superimpose (|*| speed "2") $ slow 16 $ striate 16 $ sound "liq*4" # speed "[0.25,0.125]" # unit "c"  # gain "1.2",
+            rarely (|*| speed "-1") $ slow 2 $ sound (samples "ind!!!?!?!!?!" (slow 8 $ scan 8))
+            # end "0.05"
+            # speed "[2 3]", -- # nudge ("[0 0.04]*4"),
+           ]
+           |*| gain "0.5"
+d1 silence
+
+s1 $ stack [jux rev $ slow 2 $ chop 8 $ sound "[narc:1 narc:0]/2" # speed "0.5" # unit "c" |*| speed "[1,1.5]" # vowel "[u o]/2" # hcutoff "0",
+            jux (1 <~) $ slow 2 $ chop 8 $ sound "[arc os]/2"
+           ]
+
+
+cps 1.5
+
+s1 silence
+
+cps 1.2
+
+            sound "[drum*4,hc*8]"
+            # gain "1.3" # nudge "[0 0.02]*4",
+            jux (rev) $ foldEvery [7,9,12] (0.25 <~) $ sound "[drum bd drum] [wobble*2, sd8:4*2 ind]" # shape "0.9" # speed "2",
+            (jux rev $ slow 4 $ sound (samples' "xx" (slowspread (offadd (0.125)) [-5,7]
+            $ palindrome $ tom "d3(3,8) e3(5,8) [f3(2,8) [b*2 c*2]/2] g3(5,8)")) # speed "[1,1.5]")
+            # crush "[2 4 3]/3"
+            # shape "0.4" # delay "0" # delaytime "0.2" # delayfeedback "0.9",
+           # nudge (slow 4 $ scale 0 0.5 sine1)
+
+           cps 1.2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+s $ stack [brak $ within (0,0.25) (rev . chop 16) $ sound (slow 8 (samples "amencutup*32" (run 32))),
+           off (0.125) (# vowel "a") $ chop 4 $ sound "wobble" # speed "2" # crush "5",
+           slow 4 $ sound "ind [~ ind] [ind:6 ind:7*4]" # speed "2",
+          ]
+
+s $ stack [
+           sound $ fit 1 (words "future lt:1 jvbass drum mt sd8:2") "[0 1 [~ 3] 0 0 [~ 1] [~ 2] 3]/2",
+           slowspread ($) [chop 8, iter 4, rev . chop 8, (# speed "1.5")]
+           $ sound "ravebass:3(3,8)"
+           # gain "0.8",
+           foldEvery [5,7] (0.25 <~) $ slow 2 $ chop 8 $ sound "breaks125" # unit "c" # speed "0.5"
+          ]
+
+:t fit
+palindrome $ sound "bd8:3([3,5,7],16)",
+           jux (0.125 <~) $ iter 4 $ slow 8 $ chop 32 $ sound "fm:13" # unit "c" # speed "-0.25" # crush "4",
+
+
+
+s $ stut 3 0.9 0.05 $ slow 2 $ jux (rev) $ sound (samples' "xx" (off 0.125 ((0.25 <~) . (\x -> (+) <$> x <*> "[7 5 12 -5]/8"))
+    $ slow 4 $ tom "d3(3,8) f4(5,8) g3(3,8) [d e3(2,8)]")) # speed "[1 2]/8"
+
+
+s1 $ stack [jux rev $ sound "{drum ~ ~ bd drum bd ~ bd, mt ~ ~, lt ~ ~ lt*4 ~}",
+            slow 2 $ sound "h ~ [h:5 [h:3 ~ h:3]]" # gain "1" # speed "1.19"
+            # end "0.1",
+            iter 8 $ sound "[gab:3*4]"
+           ] # delay "0.9" # delaytime "1" # delayfeedback "0.9"
+
+thanks for listening
+
+s1 silence
+
+            sound "cp*4 cp*2 cp*1 cp",
+            chop 8 $ sound (samples "os" (slow 2 $ run 3)) # crush "1.5",
